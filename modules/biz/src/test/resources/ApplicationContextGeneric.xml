@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+">
+
+	<bean id="propertyOverrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+		<property name="locations">
+			<list>
+				<!-- 
+					The file below can be used override default properties provided in the Application Context
+					files, in particular the jdbc connection parameters which are different in staging/test/production environments
+
+					We recommend that the .properties files not be placed in the WEB-INF/classes folder of the war, but
+					that instead it be placed in:
+
+						$CATALINA_BASE/shared/classes (for tomcat-5.x) or 
+						$CATALINA_BASE/lib (for tomcat-6.x)
+
+					or the equivalent suitable location in your application server of choice, so that all
+					environment-specific changes are stored along with the environment, and the same war
+					can be used in all environments (dev,staging,production,test)
+
+					We also suggest that rather than placing the .properties at the root of the classpath, that it
+					be qualified with a suitable unique path (such as the value of the maven artifactId), so
+					that it will not collide with other applications hosted on the same application server
+				-->
+				<value>classpath:ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+
+
+	<!-- 
+		The following are generic hibernate persistence configuration files that can be used as-is, 
+		or overriden via the ApplicationContext.properties file 
+	-->
+	<import resource="DatabaseContext.xml"/>
+	<import resource="HibernateContext.xml"/>
+	<import resource="GenericDaoContext.xml"/>
+
+	<!-- This should be specific to the local application -->
+	<import resource="HibernateMappings.xml"/>
+
+	<!-- You are free to add other beans specific to this app, below -->
+	<import resource="CommerceContext.xml"/>
+	<import resource="SecurityContextGeneric.xml"/>
+	<import resource="PartyContextGeneric.xml"/>
+	<import resource="GeographyContextGeneric.xml"/>
+
+</beans>
+
+<!--
+The following namespaces can also be declared here or in individual Context files 
+in the beans declaration at the top of this document. Nevertheless, best to only declare those that
+are actually used.
+
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd	
+		http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd	
+		http://www.springframework.org/schema/tx      http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/mvc     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+		http://www.springframework.org/schema/jee     http://www.springframework.org/schema/jee/spring-jee-3.0.xsd	 
+	"
+-->

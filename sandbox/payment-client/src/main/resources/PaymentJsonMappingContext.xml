@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	"
+>
+	<!-- 
+		Denotes a released version of the jackson ObjectMapper for mapping the biz.janux.payment object
+		model, as defined by the spring beans below
+	-->
+	<bean id="versionPaymentModule" class="org.codehaus.jackson.Version">
+		<constructor-arg value="1"></constructor-arg>
+		<constructor-arg value="0"></constructor-arg>
+		<constructor-arg value="0"></constructor-arg>
+		<constructor-arg value=""></constructor-arg>
+	</bean>
+	
+	<!-- 
+		Custom serializer/deserializer for CreditCard classes; note that changes made to the Serializer
+		may affect the Deserializer, since it must be able to parse the string created through the Serializer
+	-->
+	<bean id="creditCardSerializer"      class="biz.janux.payment.jackson.CreditCardSerializer"/>
+	<bean id="creditCardDeserializer"    class="biz.janux.payment.jackson.CreditCardDeserializer"/>
+	<bean id="postalAddressSerializer"   class="biz.janux.geography.jackson.PostalAddressSerializer"/>
+	<bean id="postalAddressDeserializer" class="biz.janux.geography.jackson.PostalAddressDeserializer"/>
+
+	
+	<!-- Plug-in herewith custom serializers/deserializers for the classes of the biz.janux.payment model -->
+	<bean id="paymentModule" class="org.janux.bus.processor.jackson.JanuxModule">
+		<constructor-arg type="java.lang.String" value="PaymentModule" ></constructor-arg>
+		<constructor-arg type="org.codehaus.jackson.Version" ref="versionPaymentModule" ></constructor-arg>
+		<constructor-arg name="serializers">	
+			<list>
+				<ref local="creditCardSerializer"/>
+				<ref local="postalAddressSerializer"/>
+			</list>
+		</constructor-arg>
+		<constructor-arg name="deserializers">	
+			<list>
+				<ref local="creditCardDeserializer"/>
+				<ref local="postalAddressDeserializer"/>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="paymentModule" />
+		<property name="targetMethod" value="addAbstractTypeMapping" />
+		<property name="arguments">
+			<list>
+				<list>
+					<value type="java.lang.Class">biz.janux.geography.Country</value>
+					<value type="java.lang.Class">biz.janux.geography.CountryImpl</value>
+				</list>
+				<list>
+					<value type="java.lang.Class">biz.janux.geography.StateProvince</value>
+					<value type="java.lang.Class">biz.janux.geography.StateProvinceImpl</value>
+				</list>
+		   </list>
+		</property>
+	</bean>
+		
+	<!-- Main jackson class for performing the serialization/deserialization -->
+	<bean id="januxObjectMapper" class="org.janux.bus.processor.jackson.JanuxObjectMapper">
+		<constructor-arg ref="paymentModule"></constructor-arg>
+	</bean>
+	
+	<bean id="jacksonDeserializationConfig" class="org.codehaus.jackson.map.DeserializationConfig"
+		factory-bean="januxObjectMapper" factory-method="getDeserializationConfig" />
+	
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="jacksonDeserializationConfig" />
+		<property name="targetMethod" value="set" />
+		<property name="arguments">
+			<list>
+				<value type="org.codehaus.jackson.map.DeserializationConfig.Feature">FAIL_ON_UNKNOWN_PROPERTIES</value>
+				<value type="java.lang.Boolean">false</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="jacksonSerializationConfig" class="org.codehaus.jackson.map.SerializationConfig"
+		factory-bean="januxObjectMapper" factory-method="getSerializationConfig" />
+	
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="jacksonSerializationConfig" />
+		<property name="targetMethod" value="set" />
+		<property name="arguments">
+			<list>
+				<value type="org.codehaus.jackson.map.SerializationConfig.Feature">WRITE_NULL_PROPERTIES</value>
+				<value type="java.lang.Boolean">false</value>
+			</list>
+		</property>
+	</bean>
+	
+			
+</beans>

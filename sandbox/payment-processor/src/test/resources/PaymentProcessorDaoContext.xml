@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	"
+>
+	<bean id="AuthorizationHotelDao" class="biz.janux.payment.AuthorizationHotelDaoHibImpl"  parent="abstractGenericDao">
+		<property name="defaultFacetSetOnLoad">
+			<set>
+				<value type="biz.janux.payment.AuthorizationFacet">TRANSACTION_RESPONSE</value>
+				<value type="biz.janux.payment.AuthorizationFacet">CREDIT_CARD</value>
+				<value type="biz.janux.payment.AuthorizationFacet">MODIFICATIONS</value>
+				<value type="biz.janux.payment.AuthorizationFacet">BUSINESS_UNIT</value>
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="SettlementItemHotelDao" class="biz.janux.payment.SettlementItemHotelDaoHibImpl"  parent="abstractGenericDao">
+		<property name="defaultFacetSetOnLoad">
+			<set>
+				<value type="biz.janux.payment.SettlementItemFacet">AUTHORIZATION</value>
+				<value type="biz.janux.payment.SettlementItemFacet">CREDIT_CARD</value>
+				<value type="biz.janux.payment.SettlementItemFacet">BUSINESS_UNIT</value>
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="TransactionDao" class="biz.janux.payment.TransactionDaoHibImpl"  parent="abstractGenericDao"/>
+	
+	<bean id="SettlementDao" class="biz.janux.payment.SettlementDaoHibImpl"  parent="abstractGenericDao">
+		<property name="defaultFacetSetOnLoad">
+			<set>
+				<value type="biz.janux.payment.SettlementFacet">TRANSACTION_RESPONSE</value>
+				<value type="biz.janux.payment.SettlementFacet">SETTLEMENT_ITEMS</value>
+				<value type="biz.janux.payment.SettlementFacet">BUSINESS_UNIT</value>
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="BatchNumberDao" class="biz.janux.payment.BatchNumberDaoHibImpl"  parent="abstractGenericDao"/>
+	
+	<!-- txAllPropagationSupport for all party DAOs -->
+	<aop:config>
+		<aop:pointcut id="paymentDaoOperation" expression="execution(* biz.janux.payment.*DaoHibImpl.*(..))"/>
+		<aop:advisor advice-ref="txAllPropagationSupport" pointcut-ref="paymentDaoOperation"/>
+	</aop:config>
+	
+</beans>

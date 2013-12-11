@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: Country.hbm.xml,v 1.8 2007-01-12 20:10:51 philippe Exp $ -->
+<hibernate-mapping>
+
+<class name="biz.janux.payment.MerchantAccountImpl" table="pay_merchant_account">
+	<meta attribute="class-description">
+Represents a Merchant Bank Account in which a Party can receive payment for Credit Card transactions
+</meta>
+	<meta attribute="implements">MerchantAccount</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<!-- 
+		We presume that merchant account numbers are unique within a bank, and
+		that the Acquiring Bank Identification Number uniquely identifies a bank
+	-->
+	<natural-id mutable="true">
+		<property name="number" type="java.lang.String" not-null="true" length="12">
+			<meta attribute="field-description">A 12-character numeric number assigned by the merchant's bank or processor. A unique non-zero number used to identify the merchant within the member systems. This field should be configurable as a parameter.</meta>  
+			<meta attribute="use-in-tostring">true</meta>
+			<meta attribute="use-in-equals">true</meta>
+		</property>
+
+		<property name="acquiringBankBin" column="bankBin" type="java.lang.String" not-null="true" length="6">
+			<meta attribute="field-description">A 6-character numeric Bank Identification Number (BIN) issued by the merchant's member bank or processor. The Acquirer BIN identifies the member bank or processor that signed the merchant using the POS application.</meta>
+			<meta attribute="use-in-tostring">true</meta>
+			<meta attribute="use-in-equals">true</meta>
+		</property>
+	</natural-id>
+
+	<version name="dateUpdated" column="updated" type="timestamp" unsaved-value="undefined">
+		<meta attribute="field-description">Date on which this account was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+		
+  <!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  -->
+	<property name="uuid" type="java.lang.String" not-null="true" unique="true" length="36">
+		<meta attribute="field-description">A random alphanumeric string that uniquely identifies this MerchantAccount in the Janux Payment Service. This is the code that external clients must use to reference a MerchantAccount in the Janux Payment Service.</meta> 
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="enabled" column="enabled" type="boolean" not-null="true">
+		<meta attribute="field-description">Provides a way to disable a merchant account without deleting it from the system</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="name" type="java.lang.String" length="256">
+		<meta attribute="field-description">The title of the account, or any other descriptive string that would help cross-reference the account; we suggest that this field be used as a convenience while troubleshoot the data in the database, but that the party/account relationship be stored by referencing the uuid code of this account in the external calling system</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="agentBankNum" type="java.lang.String" length="6">
+		<meta attribute="field-description">A 6-character numeric number assigned by the merchant's bank or processor. This field is issued by the merchant's member bank or processor for purposes of identifying a specific agent entity of the member bank or processor. This number must be right-justified and zero-filled.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+
+	<property name="agentChainNum" type="java.lang.String" length="6">
+		<meta attribute="field-description">A 6-character numeric number assigned by the merchant's bank or processor. This field is issued by the merchant's member bank or processor for purposes of identifying a specific chain of an agent organization. This number must be right-justified and zero-filled.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+
+	<property name="storeNum" type="java.lang.String" length="4">
+		<meta attribute="field-description">This 4-character numeric field contains a number assigned by the merchant's bank or processor. This field is used to identify a specific merchant store location within the member systems. This number must be right-justified and zero-filled. This field should be configurable as a parameter.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+
+	<property name="terminalId" type="java.lang.String" length="8">
+		<meta attribute="field-description">This 8-character numeric field contains the number to accommodate a POS device tracking number. This field is also known as the “V” number.  NOTE The “V” alpha character must be changed to numeric 7 when sending this field.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+
+	<property name="terminalNum" type="java.lang.String" length="4">
+		<meta attribute="field-description">This 4-character numeric field contains a number assigned by the merchant's bank or processor. A number used to identify a specific store terminal within the member systems. This number must be right-justified and zero-filled. This field must be configurable as a parameter.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<component name="merchantAddress" class="biz.janux.geography.PostalAddressImpl">
+		<meta attribute="use-in-tostring">true</meta>
+		<property name="line1" type="string"/>
+		<property name="line2" type="string"/>
+		<property name="line3" type="string"/>
+		<property name="postalCode" type="string"/>
+		<property name="cityAsString"          column="city" type="string"/>
+		<property name="stateProvinceAsString" column="state" type="string"/>
+		<property name="countryAsString"       column="country" type="string"/>
+	</component>
+
+	<property name="merchantPhone" column="merchantPhone" type="java.lang.String" length="32">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="cardholderServicePhone" column="servicePhone" type="java.lang.String" length="32">
+		<meta attribute="use-in-tostring">true</meta>
+	  </property>
+
+	<!--
+	<component name="merchantPhone" class="biz.janux.party.PhoneNumberImpl">
+		<meta attribute="use-in-tostring">true</meta>
+		<property name="countryCode" column="phoneCountry" type="string"/>
+		<property name="areaCode"    column="phoneArea"    type="string"/>
+		<property name="number"      column="phoneNumber"  type="string"/>
+		<property name="extension"   column="phoneExt"     type="string"/>
+	</component>
+
+	<component name="cardholderServicePhone" class="biz.janux.party.PhoneNumberImpl">
+		<meta attribute="use-in-tostring">true</meta>
+		<meta attribute="field-description">From vital docs: A merchant telephone number that the cardholder may call for service.  The telephone number must appear in the format "NNN-nnnnnnn". A hyphen is required in the fourth character position. This field entry must be left-justified and space-filled.  Depending upon its location, this field size may be either 11 or 13 characters. This field can be used for e-mail or URL.</meta>
+		<property name="countryCode" column="serviceCountry" type="string"/>
+		<property name="areaCode"    column="serviceArea"    type="string"/>
+		<property name="number"      column="serviceNumber"  type="string"/>
+		<property name="extension"   column="serviceExt"     type="string"/>
+	</component>
+	-->
+
+	<property name="merchantTimeZoneAsString" column="timezone" type="string">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="currencyCode"  column="currency" type="java.lang.String" length="3">
+		<meta attribute="field-description">A 3-character numeric number assigned by the merchant's bank to identify the merchant's settlement currency. "840" denotes U.S. dollars. This field should be configurable as a parameter.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<!--
+	<property name="locationNum" type="java.lang.String" length="5">
+		<meta attribute="field-description">A 5-character value providing additional information on the location of the merchant. Unless otherwise specified by the merchant's bank or processor, this field should be defaulted to 00001.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	-->
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<!-- uni-directional association to Party -->
+	<!--
+	<many-to-one 
+		name="accountHolder" class="biz.janux.people.Party" 
+		column="partyId" foreign-key="fk_MerchantAccount__AccountHolder"
+		cascade="persist,save-update"
+	>
+		<meta attribute="field-description">The Party who owns this account.  This field is required during the general course of business, because the Merchant must provide a telephone number that the Card Holder can call for service, as well as a Business Address.  The telephone number must appear in the format "NNN-nnnnnnn". A hyphen is required in the fourth character position. This field entry must be left-justified and space-filled.  Depending upon its location, this field size may be either 11 or 13 characters. This field can be used for e-mail or URL.</meta>
+	</many-to-one>
+	-->
+
+</class>
+
+</hibernate-mapping>

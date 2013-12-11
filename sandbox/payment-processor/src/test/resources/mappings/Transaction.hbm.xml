@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<class name="biz.janux.payment.TransactionImpl"  table="pay_transaction" proxy="biz.janux.payment.Transaction">
+	<meta attribute="class-description">Represents a Credit Card Transaction</meta>
+	<meta attribute="implements">Transaction</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+	
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this credit card record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  	-->
+	<property name="uuid" type="java.lang.String"
+		not-null="true" unique="true" length="36"
+	>
+		<meta attribute="field-description">A random alphanumeric string that uniquely identifies this Credit Card in the Janux Payment Service. This is the code that external clients must use to reference the Credit Card when calling the Janux Payment Service.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="date" column="date" type="timestamp" not-null="true">
+		<meta attribute="field-description">Date of the transaction.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+		
+	<property name="enabled" column="enabled" type="boolean">
+		<meta attribute="field-description">If false when a user decides avoid a transaction.</meta>
+	</property>
+	
+	<many-to-one 
+		name="businessUnit" class="biz.janux.payment.BusinessUnitImpl"
+		column="businessUnitId" not-null="true" foreign-key="fk_Transaction__BusinessUnit" lazy="false">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+	
+	<many-to-one 
+		name="transactionResponse" class="biz.janux.payment.TransactionResponseImpl"
+		column="transactionResponseId" not-null="true" foreign-key="fk_Transaction__TransactionResponse"
+		cascade="all" lazy="false"
+	>
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+
+	<!--
+		****************************************************************************
+		Authorization, Settlement, AddressVerification are sub-classes mapped to separate tables,
+		sharing a common key to the Transaction table
+		****************************************************************************
+	-->
+	<joined-subclass name="biz.janux.payment.AuthorizationImpl" table="pay_authorization" proxy="biz.janux.payment.Authorization">
+		<meta attribute="class-description">Represents a Credit Card Authorization.</meta>
+		<meta attribute="implements">Authorization</meta>
+
+		<key column="id" foreign-key="fk_Authorization__Transaction" />
+
+		<property name="amount" column="amount" type="java.math.BigDecimal" not-null="true">
+			<meta attribute="field-description">
+				Sum of the amounts of each AuthorizationModification
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="externalSourceId" column="externalSourceId" type="java.lang.String"
+		not-null="true">
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<many-to-one 
+		name="creditCard" class="biz.janux.payment.CreditCardImpl"
+		column="creditCardId" not-null="true" foreign-key="fk_Authorization__CreditCard" lazy="false">
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</many-to-one>
+		
+		<!-- 
+		Authorization has a one-to-many relationship to AuthorizationModification,
+		-->
+		<list name="modifications" table="pay_authorization_modification" 
+			cascade="all-delete-orphan" inverse="false" lazy="false">
+			<meta attribute="field-description">Represents each authorization request.
+			If the Authorization was incremented or reverted,
+			it will have more than one instance of AuthorizationModification</meta>
+			<key column="authorizationId" foreign-key="fk_AuthorizationModification__Authorization"  not-null="true"/>
+			<index column="position"/>
+			<one-to-many class="biz.janux.payment.AuthorizationModificationImpl" />
+		</list>
+		
+		<property name="batched" column="batched" type="boolean" not-null="true">
+			<meta attribute="field-description">
+				If true indicates that the authorization was captured.
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<joined-subclass name="biz.janux.payment.AuthorizationHotelImpl" table="pay_authorization_hotel" proxy="biz.janux.payment.AuthorizationHotel">
+			<meta attribute="class-description">Represents a Credit Card Authorization Hotel.</meta>
+			<meta attribute="implements">AuthorizationHotel</meta>
+	
+			<key column="id" foreign-key="fk_AuthorizationHotel__Transaction" />
+			<property name="stayDuration" column="stayDuration" type="java.lang.Integer"
+				not-null="true">
+				<meta attribute="field-description"></meta>
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+		</joined-subclass>	
+	</joined-subclass>
+	
+	<joined-subclass name="biz.janux.payment.SettlementImpl" table="pay_settlement" proxy="biz.janux.payment.Settlement">
+		<meta attribute="class-description">Represents a Settlement Transaction.
+			It is a batch that groups a collection of applied payments SettlementItem 
+			for a MerchantAccount 
+		</meta>
+		<meta attribute="implements">Settlement</meta>
+
+		<key column="id" foreign-key="fk_Settlement__Transaction" />
+		
+		<list name="settlementItems" table="pay_settlement_item" 
+			inverse="false" lazy="true" cascade="save-update,delete">
+			<meta attribute="field-description">
+				A settlement item is each payment applied by a CreditCard
+ 				They are grouped into a settlement batch Settlement
+ 			</meta>
+			
+			<key column="settlementId" foreign-key="fk_SettlementItem__Settlement"  not-null="false"/>
+			<index column="position"/>
+			<one-to-many class="biz.janux.payment.SettlementItemImpl" />
+		</list>
+	</joined-subclass>
+</class>
+
+</hibernate-mapping>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<typedef name="IndustryType" class="api.org.janux.bus.service.GenericEnumUserType">
+ 	<param name="enumClass">biz.janux.payment.IndustryType</param>
+ </typedef>
+
+<class name="biz.janux.payment.BusinessUnitImpl"  table="pay_business_unit" proxy="biz.janux.payment.BusinessUnit">
+	<meta attribute="class-description">Represents a Business Unit</meta>
+	<meta attribute="implements">BusinessUnit</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+	
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  	-->
+	<property name="uuid" type="java.lang.String"
+		not-null="true" unique="true" length="36"
+	>
+		<meta attribute="field-description">A random alphanumeric string that uniquely identifies this Credit Card in the Janux Payment Service. This is the code that external clients must use to reference the Credit Card when calling the Janux Payment Service.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="code" column="code" type="java.lang.String">
+		<meta attribute="field-description"></meta>
+	</property>
+	
+	<property name="name" column="name" type="java.lang.String">
+		<meta attribute="field-description"></meta>
+	</property>
+	
+	<property name="enabled" column="enabled" type="boolean">
+		<meta attribute="field-description">If false when a user decides avoid a transaction.</meta>
+	</property>
+	
+	<property name="industryType" column="industryType" type="IndustryType" not-null="true">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<many-to-one 
+		name="merchantAccount" class="biz.janux.payment.MerchantAccountImpl"
+		column="merchantAccountId" not-null="false" foreign-key="fk_BusinessUnit__MerchantAccount"
+		lazy="false"
+	>
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+	
+</class>
+
+</hibernate-mapping>

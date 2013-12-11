@@ -1,0 +1,213 @@
+<h1>Of servlet mappings, springmvc RequestMappings and Views, and GET requests</h1>
+<p>Went through Colin Sampaleanu's tutorial at:</p>
+
+<p><a href="http://blog.springsource.org/2011/01/04/green-beans-getting-started-with-spring-mvc/">
+	http://blog.springsource.org/2011/01/04/green-beans-getting-started-with-spring-mvc</a>
+</p><p>
+This involves a very basic/minimal web.xml, a basic annotated controller with a single method which
+returns a full path to a view at 'WEB-INF/view/test/index.jsp', and a minimal default annotation driven
+configuration.
+</p><p>
+I ran into various unexpected behaviors, chiefly because I was trying to vary the web.xml
+DispatcherServlet mapping, the RequestMapping in the controller, the view, and the GET request.  The
+table below illustrates the various use cases and the resulting behavior.
+</p>
+<p>The sample app was deployed at localhost/mvc or /mvc in short.</p>
+<p>The controller is called BasicController</p>
+<p>The view returned by the controller was either:</p>
+<ul>
+	<li>relative: "WEB-INF/view/test/index.jsp", or</li>
+	<li>absolute: "/WEB-INF/view/test/index.jsp"</li>
+</ul>
+
+<table border="1" cellspacing="0" cellpadding="3">
+	<tr>
+		<th>web.xml</br>mapping</th>
+		<th>RequestMapping<br/>in BasicController</th>
+		<th>View returned<br/>in BasicController</th>
+		<th>GET URI</th>
+		<th>Result</th>
+	</tr>
+	<tr>
+		<td>/</td>
+		<td>"/"</td>
+		<td>either</td>
+		<td>/mvc or /mvc/</td>
+		<td>
+		Requests to either /mvc or /mvc/ go to /mvc/,<br/>
+		/mvc/ request mapped to  "/" to controller,<br/> 
+		renders either view <b>successfully</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/*</td>
+		<td>"/"</td>
+		<td>either</td>
+		<td>/mvc or /mvc/</td>
+		<td>
+		Requests to either /mvc or /mvc/ go to /mvc/,<br/>
+		/mvc/ request mapped to  "/" to controller,<br/> 
+		forwards to resource "/WEB-INF/view/test/index.jsp",<br/>
+		which in turn is mapped to "/mvc/WEB-INF/view/test/index.jsp",</br>
+		since there is no such mapping in BasicController, the request <b>fails</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/</td>
+		<td>"/test"</td>
+		<td>relative</td>
+		<td>/mvc/test</td>
+		<td>
+		Request to /mvc/test is mapped to "/test" and to Controller,<br/>
+		and is forwarded to resource "WEB-INF/view/test/index.jsp relative to "/mvc/",<br/>
+		Request <b>succeeds</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/</td>
+		<td>"/test"</td>
+		<td>relative</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request to /mvc/test/ is mapped to "/test/" and also mapped to Controller,<br/>
+		but is forwarded to resource "WEB-INF/view/test/index.jsp relative to "/mvc/test/",<br/>
+		Request <b>fails</b> with 404 error because container cannot find resource:<br/>
+		"/mvc/test/WEB-INF/view/test/index.jsp",<br/>
+		</td>
+	</tr>
+	<tr>
+		<td>/</td>
+		<td>"/test"</td>
+		<td>absolute</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request to /mvc/test/ is mapped to "/test/" and also mapped to Controller,<br/>
+		but is forwarded to absolute resource "/mvc/WEB-INF/view/test/index.jsp,</br>
+		Request <b>succeeds</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/</td>
+		<td>"/test/"</td>
+		<td>relative</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request to /mvc/test/ is mapped to "/mvc/test/",<br/>
+		and is forwarded to relative resource "WEB-INF/view/test/index.jsp,<br/>
+		Request <b>fails</b> with 404 error because container cannot find resource:<br/>
+		"/mvc/test/WEB-INF/view/test/index.jsp"<br/>
+		request succeeds when view is specified as absolute.
+		</td>
+	</tr>
+	<tr>
+		<td>/</td>
+		<td>"/test/"</td>
+		<td>absolute</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request to /mvc/test <b>fails</b> with mapping not found,</br>
+		Request to /mvc/test/ is mapped to "/mvc/test/",<br/>
+		and is forwarded to absolute resource "/mvc/WEB-INF/view/test/index.jsp<br/>
+		Request <b>succeeds</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/test/</td>
+		<td>"/"</td>
+		<td>either</td>
+		<td>/mvc/test</td>
+		<td>
+		Request is not serviced by the Dispatcher Servlet and <b>fails</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/test/</td>
+		<td>"/"</td>
+		<td>either</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request to /mvc/test/ will be mapped to "/test/",<br/>
+		and will <b>fail</b> because there is no RequestMapping with that value in the controller
+		</td>
+	</tr>
+	<tr>
+		<td>/test/</td>
+		<td>"/test/"</td>
+		<td>relative</td>
+		<td>/mvc/test or /mvc/test/</td>
+		<td>
+		Requests to /mvc/test/ are mapped to "/test/",</br>
+		Forwarded to relative resource "WEB-INF/view/test/index.jsp,</br>
+		Request <b>fails</b> with 404 error because container cannot find resource:<br/>
+		"/mvc/test/WEB-INF/view/test/index.jsp"
+		</td>
+	</tr>
+	<tr>
+		<td>/test/</td>
+		<td>"/test/"</td>
+		<td>absolute</td>
+		<td>/mvc/test or /mvc/test/</td>
+		<td>
+		Request is mapped to "/test/",</br>
+		Forwarded to absolute resource "/mvc/WEB-INF/view/test/index.jsp",<br/> 
+		request <b>succeeds</b>
+		</td>
+	</tr>
+	<tr>
+		<td>/test</td>
+		<td>"/test"</td>
+		<td>absolute</td>
+		<td>/mvc/test or /mvc/test/</td>
+		<td>
+		This case is the same as the preceding one.<br/>  
+		The web.xml mappings and the RequestMappings "/test/" and "/test" are equivalent in this case.<br/>
+		The Request succeeds if the View is specified as an absolute path.
+		</td>
+	</tr>
+	<tr>
+		<td>/test/*</td>
+		<td>"/"</td>
+		<td>either</td>
+		<td>/mvc/test</td>
+		<td>
+		Request is serviced by Dispatcher Servlet, <br/>
+		is mapped to "/test" but <b>fails</b> because no such RequestMapping is found
+		</td>
+	</tr>
+	<tr>
+		<td>/test/*</td>
+		<td>"/"</td>
+		<td>absolute</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request is serviced by Dispatcher Servlet, <br/>
+		is mapped to "/" and <b>succeeds</b>,<br/>
+		</td>
+	</tr>
+	<tr>
+		<td>/test/*</td>
+		<td>"/"</td>
+		<td>relative</td>
+		<td>/mvc/test/</td>
+		<td>
+		Request is serviced by Dispatcher Servlet, <br/>
+		is mapped to "/" and forwarded to view "/mvc/test/WEB-INF/view/test/index.jsp",<br/>
+		and re-serviced by Dispatcher Servlet,<br/>
+		request <b>fails</b> because there is no RequestMapping for that URI
+		</td>
+	</tr>
+
+</table>
+<h2>Additional Notes</h2>
+<p>
+I had initially included an old-style org.springframework.web.context.ContextLoaderListener and this
+was causing the default InternalResourceView to disappear, thus not being able to serve the view at
+WEB-INF/view/test/index.jsp.
+</p>
+
+<p>
+Also, although the Dispatcher Servlet is mapped to '/', adding an 'index.jsp' file in the root of
+the webapp folder causes this page to be served and the DispatcherServlet to be ignored.
+</p>
+
+

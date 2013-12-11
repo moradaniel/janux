@@ -1,0 +1,33 @@
+<div id="orgForm">
+<div id="basicInfo">
+<h1>$org.name.short</h1>
+<form action="Description" method="POST">
+<table cellSpacing="4" cellPadding="0" border="0" class="parmsTable">
+	<tr>
+		<td class="label" width="175">Organization Code:</td>
+		<td class="bodytext">$org.code</td>
+	</tr>
+	<tr>
+		<td class="label">Short Name:</td>
+		<td>#springFormInput("org.name.short" "size='25'")</td>
+	</tr>
+	<tr>
+		<td class="label">Long Name:</td>
+		<td>#springFormInput("org.name.long" "size='50'")</td>
+	</tr>
+	<tr>
+		<td class="label">Legal Name:</td>
+		<td>#springFormInput("org.name.legal" "size='50'")</td>
+	</tr>
+	<tr>
+		<td class="label">Description:</td>
+		<td>#springFormTextarea("org.properties['description']" "rows='7' class='descrBox'")</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td align="right"><input type="submit" value="Save"/></td>
+	</tr>
+</table>
+</form>
+</div>
+</div>

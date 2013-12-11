@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util    http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	"
+>
+	<!-- 
+		The file below can be used override default properties provided in the Application Context
+		files, in particular the jdbc connection parameters which are different in
+		staging/test/production environments
+	-->
+	<bean id="propertyOverrideConfigurer" class="org.janux.bus.spring.BeanRefPropertyOverrideConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:janux-payment/ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+
+	<import resource="DatabaseContext.xml"/>
+	<import resource="HibernateContext.xml"/>
+	<import resource="HibernateMappings.xml"/>
+	<import resource="GenericDaoContext.xml"/>
+	<import resource="GeographyContextGeneric.xml"/>
+	<import resource="PaymentStorageDaoContext.xml"/>
+	<import resource="PaymentStorageServiceContext.xml"/>
+	<import resource="PaymentUtilContext.xml"/>
+	<import resource="PaymentMockContext.xml"/>
+	<import resource="PaymentJsonMappingContext.xml"/>
+
+	<import resource="AppInitStrategyMock.xml"/>
+
+	<!--
+		A map that stores various application-scoped Global Variables see
+		biz.janux.payment.gateway.AppStatus for a description of each of the global
+		variables defined below
+	-->
+	<bean id="appStatus" class="biz.janux.payment.gateway.AppStatus">
+		<constructor-arg>
+			<util:properties>
+				<prop key="isInitialized">false</prop>
+				<prop key="viewInitError">console/init_error</prop>
+			</util:properties>
+		</constructor-arg>
+	</bean>
+
+	<!-- Implements ApplicationListener and listens for KeyInitEvent -->
+	<bean id="appInitializer" class="biz.janux.payment.gateway.AppInitializer">
+		<property name="appStatus"><ref local="appStatus"/></property>
+		<property name="appInitStrategy"><ref bean="appInitStrategyMock"/></property><!-- set as override -->
+	</bean>
+
+	<!-- the main bean that we are testing -->
+	<bean id="creditCardControllerRest" class="biz.janux.payment.gateway.controllers.creditcard.CreditCardControllerRest">
+			<property name="creditCardService" ref="CreditCardStorageServiceMock"></property>
+			<property name="creditCardTypeService" ref="CreditCardTypeServiceMock"></property>
+			<property name="geographyService" ref="GeographyServiceMock"></property>
+	</bean>
+	
+	<bean id="countryControllerRest" class="biz.janux.geography.controllers.CountryControllerRestImpl">
+			<property name="geographyService" ref="GeographyServiceMock"></property>
+	</bean>
+	
+	<bean id="stateControllerRest" class="biz.janux.geography.controllers.StateControllerRestImpl">
+			<property name="geographyService" ref="GeographyServiceMock"></property>
+	</bean>
+	
+	<bean id="creditCardTypeControllerRest" class="biz.janux.payment.gateway.controllers.creditcard.CreditCardTypeControllerRestImpl">
+			<property name="creditCardTypeService" ref="CreditCardTypeServiceMock"></property>
+	</bean>
+
+	<bean id="consoleController" class="biz.janux.payment.gateway.console.ConsoleController">
+
+		<property name="stringDigester">
+			<bean class="org.jasypt.digest.StandardStringDigester">
+				<property name="algorithm"     value="SHA-1" />
+				<property name="iterations"    value="100000" />
+				<property name="saltSizeBytes" value="10" />
+				<property name="saltGenerator">
+					<bean class="org.jasypt.salt.FixedStringSaltGenerator">
+						<!-- if you change this, you will need to change the KeyDigest accordingly -->
+						<property name="salt" value="PhohKah9oow6ui5Z"/> 
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<!-- 
+			This defaults programmatically to the digest for the default Password Encryption Key "initializeMe"
+			(ConsoleController.DEFAULT_INIT_KEY), based on the values of the StandardStringDigester
+			defined above. 
+			CHANGE IN PRODUCTION to the Digest of whatever Password Encryption Key you decide to use.
+		-->
+		<!-- <property name="initKeyDigest" value="qi/colMrHQHV09k/TrizJV8V/Ro="/> -->
+	</bean>
+
+	<!-- 
+		Used by the Console UI to provide a util encrypt/decrypt function; note that in order for
+		this util function to mimic the password encryption process, the encrytorSaltGenerator must be the
+		same as the one that was/will be used to encrypt the Password Encryption Key, and the same that
+		is used in the initialization strategy class to decrypt the PEK
+	-->
+	<bean name="utilStringEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor" scope="prototype">
+		<property name="algorithm" value="PBEWithMD5AndTripleDES"/>
+		<property name="saltGenerator" ref="encryptorSaltGenerator"/>
+	</bean>
+
+
+	<!-- 
+		The salt below should be used for both the utility Encryptor defined in the
+		console-servlet.xml, and the Encryptor used in the AppInitStrategy instance used 
+		to initialize this application
+	-->
+	<bean id="encryptorSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
+		<property name="salt" value="QuodiL8sSiet1sun"/> 
+	</bean>
+
+
+	<!-- The following two beans are used for testing and should not be necessary in a production environment -->
+	<bean id="CreditCardFactory" class="biz.janux.payment.mock.CreditCardFactoryImpl">
+	</bean>
+	
+	<bean id="MerchantAccountFactory" class="biz.janux.payment.MerchantAccountFactoryImpl">
+	</bean>
+ 
+</beans>

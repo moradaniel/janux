@@ -1,0 +1,12 @@
+INSERT INTO sec_role_aggr_role VALUES (5,7,0);
+INSERT INTO sec_role_aggr_role VALUES (5,6,1);
+INSERT INTO sec_role_aggr_role VALUES (4,9,0);
+INSERT INTO sec_role_aggr_role VALUES (4,10,1);
+INSERT INTO sec_role_aggr_role VALUES (4,8,2);
+INSERT INTO sec_role_aggr_role VALUES (2,4,0);
+INSERT INTO sec_role_aggr_role VALUES (11,7,0);
+INSERT INTO sec_role_aggr_role VALUES (11,6,1);
+INSERT INTO sec_role_aggr_role VALUES (3,1,0);
+INSERT INTO sec_role_aggr_role VALUES (1,2,0);
+INSERT INTO sec_role_aggr_role VALUES (1,5,1);
+INSERT INTO sec_role_aggr_role VALUES (1,11,2);

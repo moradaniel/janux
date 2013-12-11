@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>../project.xml</extend>
+	<artifactId>janux-api</artifactId>
+	<name>Janux API</name>
+	<currentVersion>${janux.api.version}</currentVersion>
+	<shortDescription>Janux interfaces</shortDescription>
+
+	<!-- <package>org.janux</package> -->
+  <build>
+    <nagEmailAddress>build@janux.org</nagEmailAddress>
+    <sourceDirectory>src/main/java</sourceDirectory>
+  </build>
+	
+	<developers>
+		<developer>
+			<name>Daniel Mora</name>
+			<email>moradaniel@janux.org</email>
+		</developer>
+		<developer>
+			<name>Philippe Paravicini</name>
+			<email>philippe.paravicini@janux.org</email>
+			<timezone>-8</timezone>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+	</dependencies>
+	
+</project>

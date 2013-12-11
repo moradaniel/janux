@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<class name="biz.janux.payment.CreditCardTypeImpl"  table="pay_credit_card_type">
+	<meta attribute="class-description">Represents the credit card company (Visa, Mastercard, American Express, etc...; should be a java Enumeration, except that we want to be able to store/edit the list outside the java code</meta>
+	<meta attribute="implements">CreditCardType</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this credit card type record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+	<property name="code" type="string" length="2" not-null="true" unique="true">
+		<meta attribute="field-description">A 2-letter code identifying the credit card</meta>
+		<meta attribute="use-in-tostring">true</meta>
+		<meta attribute="use-in-equals">true</meta>
+	</property>
+
+	<property name="description" type="string" length="32">
+		<meta attribute="field-description">Name/Description of the Credit Card Type</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="sortOrder" type="integer" length="2">
+		<meta attribute="field-description">Optional field to sort the credit card types in a list</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+</class>
+
+</hibernate-mapping>

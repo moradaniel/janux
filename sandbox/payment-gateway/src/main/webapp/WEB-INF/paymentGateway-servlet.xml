@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+">
+	<context:component-scan base-package="
+		biz.janux
+	">
+	</context:component-scan>
+	
+	<context:annotation-config/>
+	
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<bean id="urlMappingRestCreditCard" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="biz.janux.payment.gateway.AuditInterceptor"/>
+				<bean class="biz.janux.payment.gateway.AppInitInterceptor"/>				
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/app/creditCard.*">creditCardControllerRest</prop>
+				<prop key="/app/creditCard/">creditCardControllerRest</prop>
+				<prop key="/app/creditCard">creditCardControllerRest</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="urlMappingRestCreditCardType" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/app/creditCardType.*">creditCardTypeControllerRest</prop>
+				<prop key="/app/creditCardType/">creditCardTypeControllerRest</prop>
+				<prop key="/app/creditCardType">creditCardTypeControllerRest</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="urlMappingRestGeography" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/geography/country.*">countryControllerRest</prop>
+				<prop key="/geography/country/">countryControllerRest</prop>
+				<prop key="/geography/country">countryControllerRest</prop>
+				<prop key="/geography/state.*">stateControllerRest</prop>
+				<prop key="/geography/state/">stateControllerRest</prop>
+				<prop key="/geography/state">stateControllerRest</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<bean id="urlMappingRemotingServices" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="biz.janux.payment.gateway.AppInitInterceptor"/>				
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/remoting/CreditCardRemotingService">CreditCardRemotingServiceHttpExporter</prop>
+				<prop key="/remoting/AuthorizationHotelRemotingService">AuthorizationHotelRemotingServiceHttpExporter</prop>
+				<prop key="/remoting/CreditCardProcessingRemotingService">CreditCardProcessingRemotingServiceHttpExporter</prop>
+				<prop key="/remoting/BusinessUnitRemotingService">BusinessUnitRemotingServiceHttpExporter</prop>
+				<prop key="/remoting/SettlementItemHotelRemotingService">SettlementItemHotelRemotingServiceHttpExporter</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="biz.janux.payment.gateway.AppInitInterceptor"/>				
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/jsp/*">urlFilenameViewController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- View Configuration -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	
+	<bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+	
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="html"  value="text/html"/>
+				<entry key="json"  value="application/json"/>
+				<entry key="jsonp" value="application/jsonp"/>
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+				</bean>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="prefix" value="/WEB-INF/jsp/"/>
+					<property name="suffix" value=".jsp"/>
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+					<property name="objectMapper" ref="januxObjectMapper"/>
+				</bean>
+				<bean class="biz.janux.payment.gateway.controllers.creditcard.MappingJacksonJsonpView">
+					<property name="objectMapper" ref="januxObjectMapper"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+ 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+	
+	<!-- janux gateway controllers -->
+	<bean id="creditCardControllerRest" class="biz.janux.payment.gateway.controllers.creditcard.CreditCardControllerRest">
+		<property name="creditCardService"     ref="CreditCardStorageService"/>
+		<property name="creditCardTypeService" ref="CreditCardTypeService"/>
+		<property name="geographyService"      ref="geoServiceGeneric"/>
+	</bean>
+	
+	<bean id="creditCardTypeControllerRest" class="biz.janux.payment.gateway.controllers.creditcard.CreditCardTypeControllerRestImpl">
+		<property name="creditCardTypeService" ref="CreditCardTypeService"/>
+	</bean>
+		
+	<bean id="countryControllerRest" class="biz.janux.geography.controllers.CountryControllerRestImpl">
+		<property name="geographyService" ref="geoServiceGeneric"/>
+	</bean>
+	
+	<bean id="stateControllerRest" class="biz.janux.geography.controllers.StateControllerRestImpl">
+		<property name="geographyService" ref="geoServiceGeneric"/>
+	</bean>
+	
+	<!-- for remoting services -->
+	<bean name="AuthorizationHotelRemotingService" class="biz.janux.payment.AuthorizationHotelRemotingServiceImpl">
+		<property name="creditCardStorageService"  ref="CreditCardStorageService"/>
+		<property name="businessUnitService"       ref="BusinessUnitService"/>
+		<property name="authorizationHotelService" ref="AuthorizationHotelService"/>
+		<property name="translatorObjectService"   ref="TranslatorObjectService"/>
+	</bean>
+	
+	<bean name="BusinessUnitRemotingService" class="biz.janux.payment.BusinessUnitRemotingServiceImpl">
+		<property name="businessUnitService"     ref="BusinessUnitService"/>
+		<property name="merchantAccountService"  ref="MerchantAccountService"/>
+		<property name="translatorObjectService" ref="TranslatorObjectService"/>
+	</bean>
+	
+	<bean name="CreditCardProcessingRemotingService" class="biz.janux.payment.CreditCardProcessingRemotingServiceImpl">
+		<property name="creditCardProcessingService" ref="CreditCardProcessingService"/>
+		<property name="translatorObjectService"     ref="TranslatorObjectService"/>
+	</bean>
+
+	<bean name="SettlementItemHotelRemotingService" class="biz.janux.payment.SettlementItemHotelRemotingServiceImpl">
+		<property name="settlementItemHotelService" ref="SettlementItemHotelService"/>
+		<property name="translatorObjectService"    ref="TranslatorObjectService"/>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+    
+	<bean name="CreditCardRemotingServiceHttpExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service"            ref="CreditCardStorageService"/>
+		<property name="serviceInterface" value="biz.janux.payment.CreditCardStorageService"/>
+	</bean>
+
+	<bean name="AuthorizationHotelRemotingServiceHttpExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service"            ref="AuthorizationHotelRemotingService"/>
+		<property name="serviceInterface" value="biz.janux.payment.AuthorizationHotelRemotingService"/>
+	</bean>
+	
+	<bean name="CreditCardProcessingRemotingServiceHttpExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service"            ref="CreditCardProcessingRemotingService"/>
+		<property name="serviceInterface" value="biz.janux.payment.CreditCardProcessingRemotingService"/>
+	</bean>
+	
+	<bean name="BusinessUnitRemotingServiceHttpExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service"            ref="BusinessUnitRemotingService"/>
+		<property name="serviceInterface" value="biz.janux.payment.BusinessUnitRemotingService"/>
+	</bean>
+	
+	<bean name="SettlementItemHotelRemotingServiceHttpExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service"            ref="SettlementItemHotelRemotingService"/>
+		<property name="serviceInterface" value="biz.janux.payment.SettlementItemHotelRemotingService"/>
+	</bean>
+
+</beans>

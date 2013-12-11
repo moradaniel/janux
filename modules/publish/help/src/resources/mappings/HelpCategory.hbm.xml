@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<class 
+	name="org.janux.help.HelpCategoryImpl" table="help_category"
+>
+	<meta attribute="class-description">Represents a Help category</meta>
+	<meta attribute="implements">HelpCategory</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<property name="title" type="string" not-null="true">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="description" type="string">
+	</property>
+
+	<!-- 
+	Category has a one-to-many relationship to HelpEntry,
+	-->
+	<set name="helpEntries"
+		cascade="none" inverse="false" lazy="false"
+	>
+		<meta attribute="field-description">Returns a list with all help entries</meta>
+		<key column="categoryId" foreign-key="fk_HelpEntry__HelpCategory"  />
+		<!-- index column="label"/-->
+		<one-to-many class="org.janux.help.HelpEntryImpl" />
+	</set>
+
+	<property name="sortOrder" type="java.lang.Integer">
+	</property>
+
+	<property name="created" column="cdate" type="timestamp">
+	</property>
+
+	<property name="modified" column="mdate" type="timestamp">
+	</property>
+
+</class>
+
+</hibernate-mapping>

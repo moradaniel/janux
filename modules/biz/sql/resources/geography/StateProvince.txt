@@ -1,0 +1,314 @@
+1	1	UNKNOWN	Unknown State or Province in Afghanistan	0	0
+2	2	UNKNOWN	Unknown State or Province in Åland Islands	0	0
+3	3	UNKNOWN	Unknown State or Province in Albania	0	0
+4	4	UNKNOWN	Unknown State or Province in Algeria	0	0
+5	5	UNKNOWN	Unknown State or Province in American Samoa	0	0
+6	6	UNKNOWN	Unknown State or Province in Andorra	0	0
+7	7	UNKNOWN	Unknown State or Province in Angola	0	0
+8	8	UNKNOWN	Unknown State or Province in Anguilla	0	0
+9	9	UNKNOWN	Unknown State or Province in Antarctica	0	0
+10	10	UNKNOWN	Unknown State or Province in Antigua And Barbuda	0	0
+11	11	UNKNOWN	Unknown State or Province in Argentina	0	0
+12	12	UNKNOWN	Unknown State or Province in Armenia	0	0
+13	13	UNKNOWN	Unknown State or Province in Aruba	0	0
+14	14	UNKNOWN	Unknown State or Province in Australia	0	0
+15	15	UNKNOWN	Unknown State or Province in Austria	0	0
+16	16	UNKNOWN	Unknown State or Province in Azerbaijan	0	0
+17	17	UNKNOWN	Unknown State or Province in Bahamas	0	0
+18	18	UNKNOWN	Unknown State or Province in Bahrain	0	0
+19	19	UNKNOWN	Unknown State or Province in Bangladesh	0	0
+20	20	UNKNOWN	Unknown State or Province in Barbados	0	0
+21	21	UNKNOWN	Unknown State or Province in Belarus	0	0
+22	22	UNKNOWN	Unknown State or Province in Belgium	0	0
+23	23	UNKNOWN	Unknown State or Province in Belize	0	0
+24	24	UNKNOWN	Unknown State or Province in Benin	0	0
+25	25	UNKNOWN	Unknown State or Province in Bermuda	0	0
+26	26	UNKNOWN	Unknown State or Province in Bhutan	0	0
+27	27	UNKNOWN	Unknown State or Province in Bolivia	0	0
+28	28	UNKNOWN	Unknown State or Province in Bosnia And Herzegovina	0	0
+29	29	UNKNOWN	Unknown State or Province in Botswana	0	0
+30	30	UNKNOWN	Unknown State or Province in Bouvet Island	0	0
+31	31	UNKNOWN	Unknown State or Province in Brazil	0	0
+32	32	UNKNOWN	Unknown State or Province in British Indian Ocean Territory	0	0
+33	33	UNKNOWN	Unknown State or Province in Brunei Darussalam	0	0
+34	34	UNKNOWN	Unknown State or Province in Bulgaria	0	0
+35	35	UNKNOWN	Unknown State or Province in Burkina Faso	0	0
+36	36	UNKNOWN	Unknown State or Province in Burundi	0	0
+37	37	UNKNOWN	Unknown State or Province in Cambodia	0	0
+38	38	UNKNOWN	Unknown State or Province in Cameroon	0	0
+39	39	UNKNOWN	Unknown State or Province in Canada	0	0
+40	40	UNKNOWN	Unknown State or Province in Cape Verde	0	0
+41	41	UNKNOWN	Unknown State or Province in Cayman Islands	0	0
+42	42	UNKNOWN	Unknown State or Province in Central African Republic	0	0
+43	43	UNKNOWN	Unknown State or Province in Chad	0	0
+44	44	UNKNOWN	Unknown State or Province in Chile	0	0
+45	45	UNKNOWN	Unknown State or Province in China	0	0
+46	46	UNKNOWN	Unknown State or Province in Christmas Island	0	0
+47	47	UNKNOWN	Unknown State or Province in Cocos (keeling) Islands	0	0
+48	48	UNKNOWN	Unknown State or Province in Colombia	0	0
+49	49	UNKNOWN	Unknown State or Province in Comoros	0	0
+50	50	UNKNOWN	Unknown State or Province in Congo	0	0
+51	51	UNKNOWN	Unknown State or Province in Congo, The Democratic Republic Of The	0	0
+52	52	UNKNOWN	Unknown State or Province in Cook Islands	0	0
+53	53	UNKNOWN	Unknown State or Province in Costa Rica	0	0
+54	54	UNKNOWN	Unknown State or Province in CÔTE D'IVOIRE	0	0
+55	55	UNKNOWN	Unknown State or Province in Croatia	0	0
+56	56	UNKNOWN	Unknown State or Province in Cuba	0	0
+57	57	UNKNOWN	Unknown State or Province in Cyprus	0	0
+58	58	UNKNOWN	Unknown State or Province in Czech Republic	0	0
+59	59	UNKNOWN	Unknown State or Province in Denmark	0	0
+60	60	UNKNOWN	Unknown State or Province in Djibouti	0	0
+61	61	UNKNOWN	Unknown State or Province in Dominica	0	0
+62	62	UNKNOWN	Unknown State or Province in Dominican Republic	0	0
+63	63	UNKNOWN	Unknown State or Province in Ecuador	0	0
+64	64	UNKNOWN	Unknown State or Province in Egypt	0	0
+65	65	UNKNOWN	Unknown State or Province in El Salvador	0	0
+66	66	UNKNOWN	Unknown State or Province in Equatorial Guinea	0	0
+67	67	UNKNOWN	Unknown State or Province in Eritrea	0	0
+68	68	UNKNOWN	Unknown State or Province in Estonia	0	0
+69	69	UNKNOWN	Unknown State or Province in Ethiopia	0	0
+70	70	UNKNOWN	Unknown State or Province in Falkland Islands (malvinas)	0	0
+71	71	UNKNOWN	Unknown State or Province in Faroe Islands	0	0
+72	72	UNKNOWN	Unknown State or Province in Fiji	0	0
+73	73	UNKNOWN	Unknown State or Province in Finland	0	0
+74	74	UNKNOWN	Unknown State or Province in France	0	0
+75	75	UNKNOWN	Unknown State or Province in French Guiana	0	0
+76	76	UNKNOWN	Unknown State or Province in French Polynesia	0	0
+77	77	UNKNOWN	Unknown State or Province in French Southern Territories	0	0
+78	78	UNKNOWN	Unknown State or Province in Gabon	0	0
+79	79	UNKNOWN	Unknown State or Province in Gambia	0	0
+80	80	UNKNOWN	Unknown State or Province in Georgia	0	0
+81	81	UNKNOWN	Unknown State or Province in Germany	0	0
+82	82	UNKNOWN	Unknown State or Province in Ghana	0	0
+83	83	UNKNOWN	Unknown State or Province in Gibraltar	0	0
+84	84	UNKNOWN	Unknown State or Province in Greece	0	0
+85	85	UNKNOWN	Unknown State or Province in Greenland	0	0
+86	86	UNKNOWN	Unknown State or Province in Grenada	0	0
+87	87	UNKNOWN	Unknown State or Province in Guadeloupe	0	0
+88	88	UNKNOWN	Unknown State or Province in Guam	0	0
+89	89	UNKNOWN	Unknown State or Province in Guatemala	0	0
+90	90	UNKNOWN	Unknown State or Province in Guinea	0	0
+91	91	UNKNOWN	Unknown State or Province in Guinea-Bissau	0	0
+92	92	UNKNOWN	Unknown State or Province in Guyana	0	0
+93	93	UNKNOWN	Unknown State or Province in Haiti	0	0
+94	94	UNKNOWN	Unknown State or Province in Heard Island And Mcdonald Islands	0	0
+95	95	UNKNOWN	Unknown State or Province in Holy See (Vatican City State)	0	0
+96	96	UNKNOWN	Unknown State or Province in Honduras	0	0
+97	97	UNKNOWN	Unknown State or Province in Hong Kong	0	0
+98	98	UNKNOWN	Unknown State or Province in Hungary	0	0
+99	99	UNKNOWN	Unknown State or Province in Iceland	0	0
+100	100	UNKNOWN	Unknown State or Province in India	0	0
+101	101	UNKNOWN	Unknown State or Province in Indonesia	0	0
+102	102	UNKNOWN	Unknown State or Province in Iran, Islamic Republic Of	0	0
+103	103	UNKNOWN	Unknown State or Province in Iraq	0	0
+104	104	UNKNOWN	Unknown State or Province in Ireland	0	0
+105	105	UNKNOWN	Unknown State or Province in Israel	0	0
+106	106	UNKNOWN	Unknown State or Province in Italy	0	0
+107	107	UNKNOWN	Unknown State or Province in Jamaica	0	0
+108	108	UNKNOWN	Unknown State or Province in Japan	0	0
+109	109	UNKNOWN	Unknown State or Province in Jordan	0	0
+110	110	UNKNOWN	Unknown State or Province in Kazakhstan	0	0
+111	111	UNKNOWN	Unknown State or Province in Kenya	0	0
+112	112	UNKNOWN	Unknown State or Province in Kiribati	0	0
+113	113	UNKNOWN	Unknown State or Province in Korea, Democratic People's Republic Of	0	0
+114	114	UNKNOWN	Unknown State or Province in Korea, Republic Of	0	0
+115	115	UNKNOWN	Unknown State or Province in Kuwait	0	0
+116	116	UNKNOWN	Unknown State or Province in Kyrgyzstan	0	0
+117	117	UNKNOWN	Unknown State or Province in Lao People's Democratic Republic	0	0
+118	118	UNKNOWN	Unknown State or Province in Latvia	0	0
+119	119	UNKNOWN	Unknown State or Province in Lebanon	0	0
+120	120	UNKNOWN	Unknown State or Province in Lesotho	0	0
+121	121	UNKNOWN	Unknown State or Province in Liberia	0	0
+122	122	UNKNOWN	Unknown State or Province in Libyan Arab Jamahiriya	0	0
+123	123	UNKNOWN	Unknown State or Province in Liechtenstein	0	0
+124	124	UNKNOWN	Unknown State or Province in Lithuania	0	0
+125	125	UNKNOWN	Unknown State or Province in Luxembourg	0	0
+126	126	UNKNOWN	Unknown State or Province in Macao	0	0
+127	127	UNKNOWN	Unknown State or Province in Macedonia, The Former Yugoslav Republic Of	0	0
+128	128	UNKNOWN	Unknown State or Province in Madagascar	0	0
+129	129	UNKNOWN	Unknown State or Province in Malawi	0	0
+130	130	UNKNOWN	Unknown State or Province in Malaysia	0	0
+131	131	UNKNOWN	Unknown State or Province in Maldives	0	0
+132	132	UNKNOWN	Unknown State or Province in Mali	0	0
+133	133	UNKNOWN	Unknown State or Province in Malta	0	0
+134	134	UNKNOWN	Unknown State or Province in Marshall Islands	0	0
+135	135	UNKNOWN	Unknown State or Province in Martinique	0	0
+136	136	UNKNOWN	Unknown State or Province in Mauritania	0	0
+137	137	UNKNOWN	Unknown State or Province in Mauritius	0	0
+138	138	UNKNOWN	Unknown State or Province in Mayotte	0	0
+139	139	UNKNOWN	Unknown State or Province in Mexico	0	0
+140	140	UNKNOWN	Unknown State or Province in Micronesia, Federated States Of	0	0
+141	141	UNKNOWN	Unknown State or Province in Moldova, Republic Of	0	0
+142	142	UNKNOWN	Unknown State or Province in Monaco	0	0
+143	143	UNKNOWN	Unknown State or Province in Mongolia	0	0
+144	144	UNKNOWN	Unknown State or Province in Montserrat	0	0
+145	145	UNKNOWN	Unknown State or Province in Morocco	0	0
+146	146	UNKNOWN	Unknown State or Province in Mozambique	0	0
+147	147	UNKNOWN	Unknown State or Province in Myanmar	0	0
+148	148	UNKNOWN	Unknown State or Province in Namibia	0	0
+149	149	UNKNOWN	Unknown State or Province in Nauru	0	0
+150	150	UNKNOWN	Unknown State or Province in Nepal	0	0
+151	151	UNKNOWN	Unknown State or Province in Netherlands	0	0
+152	152	UNKNOWN	Unknown State or Province in Netherlands Antilles	0	0
+153	153	UNKNOWN	Unknown State or Province in New Caledonia	0	0
+154	154	UNKNOWN	Unknown State or Province in New Zealand	0	0
+155	155	UNKNOWN	Unknown State or Province in Nicaragua	0	0
+156	156	UNKNOWN	Unknown State or Province in Niger	0	0
+157	157	UNKNOWN	Unknown State or Province in Nigeria	0	0
+158	158	UNKNOWN	Unknown State or Province in Niue	0	0
+159	159	UNKNOWN	Unknown State or Province in Norfolk Island	0	0
+160	160	UNKNOWN	Unknown State or Province in Northern Mariana Islands	0	0
+161	161	UNKNOWN	Unknown State or Province in Norway	0	0
+162	162	UNKNOWN	Unknown State or Province in Oman	0	0
+163	163	UNKNOWN	Unknown State or Province in Pakistan	0	0
+164	164	UNKNOWN	Unknown State or Province in Palau	0	0
+165	165	UNKNOWN	Unknown State or Province in Palestinian Territory, Occupied	0	0
+166	166	UNKNOWN	Unknown State or Province in Panama	0	0
+167	167	UNKNOWN	Unknown State or Province in Papua New Guinea	0	0
+168	168	UNKNOWN	Unknown State or Province in Paraguay	0	0
+169	169	UNKNOWN	Unknown State or Province in Peru	0	0
+170	170	UNKNOWN	Unknown State or Province in Philippines	0	0
+171	171	UNKNOWN	Unknown State or Province in Pitcairn	0	0
+172	172	UNKNOWN	Unknown State or Province in Poland	0	0
+173	173	UNKNOWN	Unknown State or Province in Portugal	0	0
+174	174	UNKNOWN	Unknown State or Province in Puerto Rico	0	0
+175	175	UNKNOWN	Unknown State or Province in Qatar	0	0
+176	176	UNKNOWN	Unknown State or Province in RÉunion	0	0
+177	177	UNKNOWN	Unknown State or Province in Romania	0	0
+178	178	UNKNOWN	Unknown State or Province in Russian Federation	0	0
+179	179	UNKNOWN	Unknown State or Province in Rwanda	0	0
+180	180	UNKNOWN	Unknown State or Province in Saint Helena	0	0
+181	181	UNKNOWN	Unknown State or Province in Saint Kitts And Nevis	0	0
+182	182	UNKNOWN	Unknown State or Province in Saint Lucia	0	0
+183	183	UNKNOWN	Unknown State or Province in Saint Pierre And Miquelon	0	0
+184	184	UNKNOWN	Unknown State or Province in Saint Vincent And The Grenadines	0	0
+185	185	UNKNOWN	Unknown State or Province in Samoa	0	0
+186	186	UNKNOWN	Unknown State or Province in San Marino	0	0
+187	187	UNKNOWN	Unknown State or Province in Sao Tome And Principe	0	0
+188	188	UNKNOWN	Unknown State or Province in Saudi Arabia	0	0
+189	189	UNKNOWN	Unknown State or Province in Senegal	0	0
+190	190	UNKNOWN	Unknown State or Province in Serbia And Montenegro	0	0
+191	191	UNKNOWN	Unknown State or Province in Seychelles	0	0
+192	192	UNKNOWN	Unknown State or Province in Sierra Leone	0	0
+193	193	UNKNOWN	Unknown State or Province in Singapore	0	0
+194	194	UNKNOWN	Unknown State or Province in Slovakia	0	0
+195	195	UNKNOWN	Unknown State or Province in Slovenia	0	0
+196	196	UNKNOWN	Unknown State or Province in Solomon Islands	0	0
+197	197	UNKNOWN	Unknown State or Province in Somalia	0	0
+198	198	UNKNOWN	Unknown State or Province in South Africa	0	0
+199	199	UNKNOWN	Unknown State or Province in South Georgia And The South Sandwich Islands	0	0
+200	200	UNKNOWN	Unknown State or Province in Spain	0	0
+201	201	UNKNOWN	Unknown State or Province in Sri Lanka	0	0
+202	202	UNKNOWN	Unknown State or Province in Sudan	0	0
+203	203	UNKNOWN	Unknown State or Province in Suriname	0	0
+204	204	UNKNOWN	Unknown State or Province in Svalbard And Jan Mayen	0	0
+205	205	UNKNOWN	Unknown State or Province in Swaziland	0	0
+206	206	UNKNOWN	Unknown State or Province in Sweden	0	0
+207	207	UNKNOWN	Unknown State or Province in Switzerland	0	0
+208	208	UNKNOWN	Unknown State or Province in Syrian Arab Republic	0	0
+209	209	UNKNOWN	Unknown State or Province in Taiwan, Province Of China	0	0
+210	210	UNKNOWN	Unknown State or Province in Tajikistan	0	0
+211	211	UNKNOWN	Unknown State or Province in Tanzania, United Republic Of	0	0
+212	212	UNKNOWN	Unknown State or Province in Thailand	0	0
+213	213	UNKNOWN	Unknown State or Province in Timor-LESTE	0	0
+214	214	UNKNOWN	Unknown State or Province in Togo	0	0
+215	215	UNKNOWN	Unknown State or Province in Tokelau	0	0
+216	216	UNKNOWN	Unknown State or Province in Tonga	0	0
+217	217	UNKNOWN	Unknown State or Province in Trinidad And Tobago	0	0
+218	218	UNKNOWN	Unknown State or Province in Tunisia	0	0
+219	219	UNKNOWN	Unknown State or Province in Turkey	0	0
+220	220	UNKNOWN	Unknown State or Province in Turkmenistan	0	0
+221	221	UNKNOWN	Unknown State or Province in Turks And Caicos Islands	0	0
+222	222	UNKNOWN	Unknown State or Province in Tuvalu	0	0
+223	223	UNKNOWN	Unknown State or Province in Uganda	0	0
+224	224	UNKNOWN	Unknown State or Province in Ukraine	0	0
+225	225	UNKNOWN	Unknown State or Province in United Arab Emirates	0	0
+226	226	UNKNOWN	Unknown State or Province in United Kingdom	0	0
+227	227	UNKNOWN	Unknown State or Province in United States	0	0
+228	228	UNKNOWN	Unknown State or Province in United States Minor Outlying Islands	0	0
+229	229	UNKNOWN	Unknown State or Province in Uruguay	0	0
+230	230	UNKNOWN	Unknown State or Province in Uzbekistan	0	0
+231	231	UNKNOWN	Unknown State or Province in Vanuatu	0	0
+232	232	UNKNOWN	Unknown State or Province in Venezuela	0	0
+233	233	UNKNOWN	Unknown State or Province in Viet Nam	0	0
+234	234	UNKNOWN	Unknown State or Province in Virgin Islands, British	0	0
+235	235	UNKNOWN	Unknown State or Province in Virgin Islands, U.S.	0	0
+236	236	UNKNOWN	Unknown State or Province in Wallis And Futuna	0	0
+237	237	UNKNOWN	Unknown State or Province in Western Sahara	0	0
+238	238	UNKNOWN	Unknown State or Province in Yemen	0	0
+239	239	UNKNOWN	Unknown State or Province in Zambia	0	0
+240	240	UNKNOWN	Unknown State or Province in Zimbabwe	0	0
+241	227	AL	Alabama	1	1
+242	227	AK	Alaska	2	1
+243	227	AS	American Samoa	3	1
+244	227	AZ	Arizona	4	1
+245	227	AR	Arkansas	5	1
+246	227	CA	California	6	1
+247	227	CO	Colorado	7	1
+248	227	CT	Connecticut	8	1
+249	227	DE	Delaware	9	1
+250	227	DC	District of Columbia	10	1
+251	227	FM	Federated states of Micronesia	11	1
+252	227	FL	Florida	12	1
+253	227	GA	Georgia	13	1
+254	227	GU	Guam	14	1
+255	227	HI	Hawaii	15	1
+256	227	ID	Idaho	16	1
+257	227	IL	Illinois	17	1
+258	227	IN	Indiana	18	1
+259	227	IA	Iowa	19	1
+260	227	KS	Kansas	20	1
+261	227	KY	Kentucky	21	1
+262	227	LA	Louisiana	22	1
+263	227	ME	Maine	23	1
+264	227	MH	Marshall Islands	24	1
+265	227	MD	Maryland	25	1
+266	227	MA	Massachusetts	26	1
+267	227	MI	Michigan	27	1
+268	227	MN	Minnesota	28	1
+269	227	MS	Mississippi	29	1
+270	227	MO	Missouri	30	1
+271	227	MT	Montana	31	1
+272	227	NE	Nebraska	32	1
+273	227	NV	Nevada	33	1
+274	227	NH	New Hampshire	34	1
+275	227	NJ	New Jersey	35	1
+276	227	NM	New Mexico	36	1
+277	227	NY	New York	37	1
+278	227	NC	North Carolina	38	1
+279	227	ND	North Dakota	39	1
+280	227	MP	Northern Mariana Islands	40	1
+281	227	OH	Ohio	41	1
+282	227	OK	Oklahoma	42	1
+283	227	OR	Oregon	43	1
+284	227	PW	Palau	44	1
+285	227	PA	Pennsylvania	45	1
+286	227	PR	Puerto Rico	46	1
+287	227	RI	Rhode Island	47	1
+288	227	SC	South Carolina	48	1
+289	227	SD	South Dakota	49	1
+290	227	TN	Tennessee	50	1
+291	227	TX	Texas	51	1
+292	227	UT	Utah	52	1
+293	227	VT	Vermont	53	1
+294	227	VI	Virgin Islands	54	1
+295	227	VA	Virginia	55	1
+296	227	WA	Washington	56	1
+297	227	WV	West Virginia	57	1
+298	227	WI	Wisconsin	58	1
+299	227	WY	Wyoming	59	1
+300	227	AA	Armed Forces Americas (except Canada)	60	1
+301	227	AE	Armed Forces Africa/Canada/Europe/Middle East	61	1
+302	227	AP	Armed Forces Pacific	62	1
+303	39	AB	Alberta	1	1
+304	39	BC	British Columbia	2	1
+305	39	MB	Manitoba	3	1
+306	39	NB	New Brunswick	4	1
+307	39	NF	Newfoundland	5	1
+308	39	NT	Northwest Territories	6	1
+309	39	NS	Nova Scotia	7	1
+310	39	ON	Ontario	8	1
+311	39	PE	Prince Edward Island	9	1
+312	39	QC	Quebec	10	1
+313	39	SK	Saskatchewan	11	1
+314	39	YT	Yukon	12	1

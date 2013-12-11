@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:ant="jelly:ant">
+	<goal name="compile">
+		<ant:path id="my-classpath">
+			<ant:mkdir dir="${basedir}/target/classes"/>
+			<ant:path refid="maven.dependency.classpath"/>
+			<ant:pathelement path="${maven.build.dest}"/>
+			<ant:pathelement location="${plugin.getDependencyPath('junit:junit')}"/>
+		</ant:path>
+		<javac srcdir="${Janux.payment.source.java}" destdir="./target/classes" debug="on" optimize="off">
+			<classpath refid="maven.dependency.classpath" />
+		</javac>
+	</goal>
+
+	<preGoal name="test:test-resources">
+		<attainGoal name="replaceTokens" />
+		<echo>done</echo>
+	</preGoal>
+	
+	<preGoal name="war:war-resources">
+		<echo>Copying war resource files</echo>
+		<ant:copy file="${basedir}/config/web.xml" toFile="${basedir}/src/webapp/WEB-INF/web.xml" />
+		<ant:copy file="${basedir}/config/applicationContext.xml" toFile="${basedir}/src/webapp/WEB-INF/applicationContext.xml" />
+		<ant:copy file="${basedir}/config/payment-service-servlet.xml" toFile="${basedir}/src/webapp/WEB-INF/payment-service-servlet.xml" />
+		<ant:copy file="${basedir}/config/log4j.xml" toFile="${basedir}/src/webapp/WEB-INF/classes/log4j.xml" />
+	</preGoal>
+
+	<goal name="mysql">
+		<echo>printing mysql....</echo>
+			<sql driver="${janux_payment.db.driver}" url="jdbc:mysql://${hibernate.connection.url}" userid="${janux_payment.db.user}"	password="${janux_payment.db.password}" >
+				<classpath>
+					<fileset dir="${maven.repo.local}/mysql/jars" includes="*.jar"/>
+				</classpath>		
+			<transaction src="${sqlfile}"/>
+		</sql>
+	</goal>
+
+	<goal name="replaceTokens">
+		<ant:filter token="DB.DRIVER" value="${hibernate.connection.driver_class}" />
+		<ant:filter token="DB.URL" value="jdbc:mysql://${hibernate.connection.url}" />
+		<ant:filter token="DB.USER" value="${hibernate.connection.username}" />
+		<ant:filter token="DB.PASSWORD" value="${hibernate.connection.password}" />
+		<ant:copy file="${basedir}/config/hibernate.cfg.xml" toFile="${basedir}/src/java/hibernate.cfg.xml" filtering="true" />
+		<ant:copy file="${basedir}/config/hibernate.cfg.xml" toFile="${basedir}/src/test/hibernate.cfg.xml" filtering="true" />
+		<ant:copy file="${basedir}/config/model.hbm.xml" toFile="${basedir}/src/java/model.hbm.xml" filtering="true" />
+		<ant:copy file="${basedir}/config/model.hbm.xml" toFile="${basedir}/src/test/model.hbm.xml" filtering="true" />
+	</goal>
+
+</project>

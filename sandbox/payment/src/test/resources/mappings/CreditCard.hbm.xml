@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<class name="biz.janux.payment.CreditCardImpl" table="pay_credit_card">
+	<meta attribute="class-description">Represents a Credit Card Account</meta>
+	<meta attribute="implements">CreditCard</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this credit card record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+  <!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  -->
+	<property name="uuid" type="java.lang.String"
+		not-null="true" unique="true" length="36"
+	>
+		<meta attribute="field-description">A random alphanumeric string that uniquely identifies this Credit Card in the Janux Payment Service. This is the code that external clients must use to reference the Credit Card when calling the Janux Payment Service.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="token" type="java.lang.String" not-null="true" length="255">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+		<meta attribute="use-in-equals">true</meta>
+	</property>
+
+	<property name="numberMasked" type="java.lang.String" not-null="true" length="32">
+		<meta attribute="field-description">Masked representation of the the Credit Card Number, or also the Primary Account Number (PAN)</meta>
+		<meta attribute="use-in-tostring">true</meta>
+		<meta attribute="use-in-equals">true</meta>
+	</property>
+
+	<property name="cardholderName" column="cardHolder" type="java.lang.String">
+		<meta attribute="field-description">A String representation of the Card Holder Name; for the sake of convenience this is stored in the credit card table, but the Card Holder should be stored as a Party, along with her/his billing Address</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="expirationDate" column="expDate" type="date" not-null="true">
+		<meta attribute="field-description">The expiration month and year of the Credit Card</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+		
+	<property name="securityCode" column="secCode" type="java.lang.String">
+		<meta attribute="field-description">The 3 letter security code in the back of the card, also known as the Card Verification Code (CVC), or Card Verification Value (CVV).  Note that PCI Compliance states very explicitly that this code should never be stored.  We include it here because some businesses may require storing this code for very short time periods</meta>
+	</property>
+	
+	<property name="swiped" column="swiped" type="boolean" not-null="true">
+		<meta attribute="field-description">Indicates if the cc was swiped</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+		
+	<property name="enabled" column="enabled" type="boolean" not-null="true">
+		<meta attribute="field-description">Provides a way to disable a credit card without deleting it from the system</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<component name="billingAddress" class="biz.janux.geography.PostalAddressImpl">
+		<meta attribute="use-in-tostring">true</meta>
+		<property name="line1" type="string"/>
+		<property name="line2" type="string"/>
+		<property name="line3" type="string"/>
+		<property name="postalCode" type="string"/>
+		<property name="cityAsString" column="city" type="string"/>
+		<property name="stateProvinceAsString" column="state" type="string"/>
+		<property name="countryAsString" column="country" type="string"/>
+	</component>
+
+	<many-to-one name="type" class="biz.janux.payment.CreditCardTypeImpl" column="typeId" not-null="true" foreign-key="fk_CreditCard__CreditCardType" lazy="false">
+		<meta attribute="field-description">The type of Credit Card, such as Visa, Mastercard, American Express, Diner, Discover, etc...</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+	
+	<many-to-one 
+		name="businessUnit" class="biz.janux.payment.BusinessUnitImpl"
+		column="businessUnitId" not-null="true" foreign-key="fk_CreditCard__BusinessUnit"
+		lazy="false"
+	>
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+	
+	<property name="cardNumberHash" column="cardNumberHash" type="java.lang.String">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">false</meta>
+	</property>
+
+</class>
+
+</hibernate-mapping>

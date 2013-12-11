@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>../../project.xml</extend>
+  <artifactId>janux-tomcat-util</artifactId>
+
+  <name>Janux Tomcat Request Logging</name>
+  <currentVersion>0.1</currentVersion>
+
+  <inceptionYear>2011</inceptionYear>
+  <package>org.janux.ui.web</package>
+
+	<build>
+		<unitTest>
+			<resources>
+				<resource>
+					<directory>src/resources</directory>
+				</resource>
+			</resources>
+		</unitTest>
+	</build>
+
+  <dependencies>
+
+    <dependency>
+			<groupId>janux</groupId>
+      <artifactId>janux-api</artifactId>
+      <version>${janux.api.version}</version>
+    </dependency>
+
+    <dependency>
+      <id>servletapi</id>
+      <version>2.3</version>
+    </dependency>
+
+     <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.12</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-asm</artifactId>
+      <version>${spring.version}</version>
+    </dependency -->
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.8</version>
+    </dependency>
+
+		<!-- 
+			The following dependencies are required to support the RequestLoggingValve, which is tied to
+			the tomcat implementation.  This Valve was necessary because it is not possible to fully inspect the
+			returned HttpServletResponse
+		-->
+    <dependency>
+      <groupId>org.apache.catalina</groupId>
+      <artifactId>catalina</artifactId>
+      <version>6.0.26</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.catalina</groupId>
+      <artifactId>tomcat-coyote</artifactId>
+      <version>6.0.26</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.catalina</groupId>
+      <artifactId>tomcat-juli</artifactId>
+      <version>6.0.29</version>
+    </dependency>
+
+  </dependencies>
+</project>

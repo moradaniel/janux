@@ -1,0 +1,27 @@
+<?xml version='1.0' ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"
+>
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">@JANUX.DB.DIALECT@</property>
+		<property name="hibernate.connection.driver_class">@JANUX.DB.DRIVER@</property>
+		<property name="hibernate.connection.url">@JANUX.DB.URL@</property>
+		<property name="hibernate.connection.username">@JANUX.DB.USER@</property>
+		<property name="hibernate.connection.password">@JANUX.DB.PASSWORD@</property>
+
+		<mapping resource="mappings/Country.hbm.xml"/>
+		<mapping resource="mappings/StateProvince.hbm.xml"/>
+		<mapping resource="mappings/City.hbm.xml"/>
+		<mapping resource="mappings/ContactMethod.hbm.xml"/>
+		<mapping resource="mappings/MerchantAccount.hbm.xml"/>
+		<mapping resource="mappings/CreditCardType.hbm.xml"/>
+		<mapping resource="mappings/CreditCard.hbm.xml"/>
+		<mapping resource="mappings/Transaction.hbm.xml"/>
+		<mapping resource="mappings/TransactionResponse.hbm.xml"/>
+		<mapping resource="mappings/AuthorizationModification.hbm.xml"/>
+		<mapping resource="mappings/SettlementItem.hbm.xml"/>
+		<mapping resource="mappings/BusinessUnit.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

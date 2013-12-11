@@ -1,0 +1,8 @@
+<!-- cvs: $Id: TomcatContext.xml,v 1.1 2005-11-14 19:29:56 philippe Exp $ -->
+<Context 
+	displayName="Janux Biz UI" 
+	docBase="[PROJECT_PATH]/janux/ui/biz/src/webapp" path="/biz"
+	privileged="false" reloadable="true" crossContext="true"
+	debug="3"
+>
+</Context>

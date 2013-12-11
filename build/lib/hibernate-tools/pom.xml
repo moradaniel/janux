@@ -1,0 +1,56 @@
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>pom janux-lib-hibernate-tools</name>
+	<description>Janux libs required to run hibernate-tools</description>
+
+	<artifactId>janux-lib-hibernate-tools</artifactId>
+	<packaging>pom</packaging>
+	<!-- <version>${janux.lib.hibernate.tools.version}</version> -->
+
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+  <dependencies>
+
+		<dependency>
+			<groupId>hibernate</groupId>
+			<artifactId>hibernate-tools</artifactId>
+			<version>3.2.3.GA</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		    <version>2.3.8</version>
+		</dependency> 
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>r8-21122004</version>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!--
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools-generic</artifactId>
+			<version>1.1</version>
+		</dependency>
+		-->
+	</dependencies>
+
+</project>

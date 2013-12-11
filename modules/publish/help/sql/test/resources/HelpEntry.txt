@@ -1,0 +1,5 @@
+1	TEST1	1	Hello Help!	Some Text	1	2006-11-06 21:21:17	2006-11-06 21:21:17
+2	TEST2	1	Help Entry2	Some more text	2	2006-11-06 21:21:17	2006-11-06 21:21:17
+3	TEST3	2	Help Entry3	Some other text	3	2006-11-06 21:21:17	2006-11-06 21:21:17
+4	TEST4	2	Help Entry4	Some lame text	6	2006-11-06 21:21:17	2006-11-06 21:21:17
+5	TEST5	3	Help Entry5	Some brief text	1	2006-11-06 21:21:17	2006-11-06 21:21:17

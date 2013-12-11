@@ -1,0 +1,1 @@
+INSERT INTO people_language (id,code, descr) VALUES (1,'en_US','US English'), (2,'en_UK','UK English');

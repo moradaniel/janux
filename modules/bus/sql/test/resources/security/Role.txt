@@ -1,0 +1,12 @@
+1	GODDESS	Aggregates Roles WORK_SUPERVISOR, MANAGER, SUPER_HUMAN, in effect providing permissions to do everything	0	1
+11	WORK_SUPERVISOR	Aggregates Roles HOLIDAY_MANAGER, WORK_MANAGER, plus permissions to declare holidays and skip work	1	1
+5	MANAGER	Aggregates Roles WORK_MANAGER, HOLIDAY_MANAGER	2	1
+2	SUPER_HUMAN	Aggregates single Role ENGINEER, but is denied all perms of CTX_HOLIDAY	3	1
+4	ENGINEER	Aggregates Roles ACCOUNT_ADMIN, ROLE_ADMIN, and HOLIDAY_TAKER	4	1
+3	HUMAN	Aggregates single Role GODDESS, but role is disabled	5	0
+7	WORK_MANAGER	has permissions to create, assign, and do work, but cannot skip work	6	1
+6	HOLIDAY_MANAGER	has permissions to approve and take holidays, but cannot declare them	7	1
+8	HOLIDAY_TAKER	has permission to take holidays, but not approve or declare them	8	1
+9	ACCOUNT_ADMIN	has all perms of CTX_ACCOUNT	9	1
+10	ROLE_ADMIN	has all perms ofCTX_ROLE	10	1
+12	ROLE_WITH_NULLS	Aggregates Roles ACCOUNT_ADMIN, ROLE_ADMIN, and HOLIDAY_TAKER, but has gaps in the sortOrder sequence and will return two null AggrRoles	11	1

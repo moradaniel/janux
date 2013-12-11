@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<!--
+		| This bean adds the excelViewResolver to the resolvers chain. It looks for views 
+		| in the excel-views.xml file 
+		+-->
+	<bean id="excelViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="order" value="2" />
+		<property name="location" value="/WEB-INF/excel-views.xml" />
+	</bean>
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!-- 
+		The file below can be used override default properties provided in the Application Context
+		files, in particular the jdbc connection parameters which are different in
+		staging/test/production environments
+	-->
+	<bean id="propertyOverrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+		<!-- <property name="order" value="1"/> -->
+		<property name="locations">
+			<list>
+				<value>classpath:janux-auth-cas/ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="false"/>
+	</bean>
+</beans>

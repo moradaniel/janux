@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util    http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	"
+>
+	<!-- mock application initialization strategy which decrypts an unused password in the EncryptedStorageServiceMockImpl -->
+	<bean id="appInitStrategyMock" class="biz.janux.payment.gateway.AppInitStrategyMock">
+		<property name="stringEncryptor">
+			<bean class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+				<property name="algorithm" value="PBEWithMD5AndTripleDES"/>
+				<property name="saltGenerator" ref="encryptorSaltGenerator"/>
+			</bean>
+		</property>
+		<property name="credential"><ref local="mockCredential"/></property>
+	</bean>
+
+	<!-- This may also be in use in encryptedStorageServiceMockImpl -->
+	<bean id="mockCredential" class="biz.janux.payment.mock.Credential">
+		<property name="username" value="buddyBoy"/>
+		<property name="password" value="s6Qh0xxF5KFuSFICXHaMp4G06EVl3HXq"/>
+	</bean>
+
+	<bean id="encryptorSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
+		<property name="salt" value="QuodiL8sSiet1sun"/>
+	</bean>
+
+</beans>
+

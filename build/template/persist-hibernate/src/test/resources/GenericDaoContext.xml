@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+">
+	<!--
+		The AbstractGenericDao bean below provides a template that can be used to instantiate
+		type-specific instances of GenericDaoHibImpl, without having to reference the same
+		sessionFactory, searchFacade and uuidGenerator in multiple beans
+	-->
+	<bean id="abstractGenericDao"  class="org.janux.bus.persistence.GenericDaoHibImpl" abstract="true">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+		<property name="searchFacade"><ref bean="searchFacade"/></property>
+		<property name="uuidGenerator"><ref local="uuidGenerator"/></property>
+	</bean>
+
+	<bean id="searchFacade" class="com.trg.search.hibernate.HibernateSearchFacade">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+	<bean id="uuidGenerator" class="org.janux.util.RandomBasedGenerator">
+		<description>used to generate random identifiers</description>
+	</bean>
+	
+	<!-- 
+		By default all operations of the abstract GenericDaoHibImpl support Transaction Propagation
+	-->
+	<aop:config>
+		<aop:pointcut id="genericDaoOperation" expression="execution(* org.janux.bus.persistence.GenericDaoHibImpl.*(..))"/>
+		<aop:advisor advice-ref="txAllPropagationSupport" pointcut-ref="genericDaoOperation"/>
+	</aop:config>
+
+	<!-- transactional advice for read operations -->
+	<!-- TODO: pp-20120430: 
+		the 'get' prefix should not be used in DAOs and Services, 
+		as it should be reserved for javabeans.
+	-->
+	<tx:advice id="txReadAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- all methods starting with 'get,load or find' are read-only -->
+			<tx:method name="get*"  read-only="true"/>
+			<tx:method name="load*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- transactional advice for set operations -->
+	<!-- TODO: pp-20120430: 
+		the 'set' prefix should not be used in DAOs and Services, 
+		as it should be reserved for javabeans. This prefix is used, in particular, in the
+		GeographyService.setCountryCityState method, and this name should be changed to
+		'mergeCountryCityState' or the like
+	-->
+	<tx:advice id="txSetAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- all methods starting with 'set' are transactional -->
+			<tx:method name="set*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+
+</beans>

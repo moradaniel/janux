@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>${basedir}/../project.xml</extend>
+	<currentVersion>${janux.biz.version}</currentVersion>
+
+	<artifactId>janux-modules</artifactId>
+	<name>Janux Modules</name>
+
+	<shortDescription>Used to factor aspects common to janux modules</shortDescription>
+
+	<description>
+	This build file is here solely to provide a place to factor maven goals and
+	other aspects that are common to the various modules, in particular the
+	database script goals. Eventually the goal is to isolate the POJO aspects of
+	the modules from the database implementation
+	</description>
+
+	<dependencies>
+
+
+		<!-- BEGIN Hibernate DAO Framework dependencies -->
+		<dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-search</artifactId>
+			<version>0.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-search-hibernate</artifactId>
+			<version>0.5.1</version>
+		</dependency>
+		<!-- END Hibernate DAO Framework dependencies -->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency> 
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<!-- dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-asm</artifactId>
+			<version>${spring.version}</version>
+		</dependency -->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-annotation_1.0_spec</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!-- aspectj is used for parsing advice expressions -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.10</version>
+		</dependency>
+				
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-api</artifactId>
+			<version>${janux.api.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-util</artifactId>
+			<version>${janux.lib.util.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-db</artifactId>
+			<version>${janux.lib.db.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-hibernate</artifactId>
+			<version>${janux.lib.hibernate.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-hibernate-tools</artifactId>
+			<version>${janux.lib.hibernate.tools.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-test</artifactId>
+			<version>${janux.lib.test.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${janux.db.postgresql.driverVersion}</version>
+		</dependency> 
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${janux.db.mysql.driverVersion}</version>
+		</dependency>
+		
+	</dependencies>
+
+</project>
+

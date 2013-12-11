@@ -1,0 +1,10 @@
+<project
+	xmlns:j     = "jelly:core"
+	xmlns:maven = "jelly:maven"
+>
+	<postGoal name="clean:clean">
+		<delete dir="src/webapp/WEB-INF/classes"/>
+		<delete dir="src/webapp/WEB-INF/lib"/>
+		<delete dir="src/webapp/WEB-INF/tld"/>
+	</postGoal>
+</project>

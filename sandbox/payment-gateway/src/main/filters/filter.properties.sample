@@ -1,0 +1,11 @@
+gateway.urlServerProtocol=http
+gateway.urlServerHost=localhost
+gateway.urlServerPort=9090
+gateway.urlServerContext=${gateway.urlServerContext}
+
+#urls in controllers
+url.CreditCardSecureControllerRest=/app/creditCard
+url.CreditCardTypeControllerRest=/app/creditCardType
+url.CountryControllerRest=/geography/country
+url.StateControllerRest=/geography/state
+

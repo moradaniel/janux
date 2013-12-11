@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+">
+  
+	<!-- 
+		The following beans implement declarative transaction management 
+		via Spring AOP. This is a dynamic proxying strategy used in DAO and Services
+		that handles hibernate sessions and transactions, 
+		thus freeing the DAO/Service code from having to implement 
+		hibernate session management and programmatic transaction declarations
+	-->
+
+	<!--
+		****************************************************************************
+		Accessor for biz.janux.geography package
+		****************************************************************************
+	-->
+	<bean id="geoService" class="biz.janux.geography.GeographyServiceImpl">
+		<constructor-arg><ref bean="countryDao"/></constructor-arg>
+		<constructor-arg><ref bean="stateProvinceDao"/></constructor-arg>
+		<constructor-arg><ref bean="cityDao"/></constructor-arg>
+	</bean>
+	
+	<!-- Two types of advice for GeographyServiceImpl -->
+	<aop:config>
+		<aop:pointcut id="geographyServiceOperation" expression="execution(* biz.janux.geography.GeographyServiceImpl.*(..))"/>
+		<aop:advisor advice-ref="txSetAdvice" pointcut-ref="geographyServiceOperation"/>
+		<aop:advisor advice-ref="txReadAdvice" pointcut-ref="geographyServiceOperation"/>
+	</aop:config>
+
+
+	<bean id="countryDao" class="biz.janux.geography.CountryDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+
+	<bean id="stateProvinceDao" class="biz.janux.geography.StateProvinceDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+
+	<bean id="cityDao" class="biz.janux.geography.CityDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+	
+
+	<bean id="postalAddressDao" class="biz.janux.geography.PostalAddressDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+	<!-- txAllPropagationSupport for all geography DAOs -->			
+	<aop:config>
+		<aop:pointcut id="geographyDaoOperation" expression="execution(* biz.janux.geography.*DaoHibImpl.*(..))"/>
+		<aop:advisor advice-ref="txAllPropagationSupport" pointcut-ref="geographyDaoOperation"/>
+	</aop:config>
+
+</beans>

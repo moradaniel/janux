@@ -1,0 +1,24 @@
+<?xml version='1.0' ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"
+>
+<!-- 
+	This is only used when running the hibernate tools;
+	it is not part of the regular build or the test runs
+-->
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">${janux.db.dialect}}</property>
+		<property name="hibernate.connection.driver_class">${janux.db.driver}</property>
+		<property name="hibernate.connection.url">${janux.db.url}</property>
+		<property name="hibernate.connection.username">${janux.db.user}</property>
+		<property name="hibernate.connection.password">${janux.db.password}</property>
+
+		<!-- <mapping resource="/mappings/Permission.hbm.xml"/> -->
+		<mapping resource="/mappings/PermissionContext.hbm.xml"/>
+		<mapping resource="/mappings/Role.hbm.xml"/>
+		<mapping resource="/mappings/Account.hbm.xml"/>
+
+	</session-factory>
+</hibernate-configuration>

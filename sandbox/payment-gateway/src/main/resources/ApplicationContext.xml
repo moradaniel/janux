@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util   http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	"
+>
+	<!-- 
+		The file below can be used override default properties provided in the Application Context
+		files, in particular the jdbc connection parameters which are different in
+		staging/test/production environments
+	-->
+	<bean id="propertyOverrideConfigurer" class="org.janux.bus.spring.BeanRefPropertyOverrideConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:janux-payment/ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+
+	<import resource="DatabaseContext.xml"/>
+	<import resource="HibernateContext.xml"/>
+	<import resource="HibernateMappings.xml"/>
+	<import resource="GenericDaoContext.xml"/>
+	<import resource="GeographyContextGeneric.xml"/>
+	<import resource="PaymentStorageDaoContext.xml"/>
+	<import resource="PaymentStorageServiceContext.xml"/>
+	<import resource="PaymentUtilContext.xml"/>
+	<import resource="PaymentMockContext.xml"/>
+	<import resource="PaymentJsonMappingContext.xml"/>
+	<import resource="PaymentProcessorDaoContext.xml"/>
+	<import resource="PaymentProcessorServiceContext.xml"/>
+	<import resource="JanuxSecurityContext.xml"/>
+
+	<import resource="PaymentProcessorMockContext.xml"/>
+
+	<!--
+		A map that stores various application-scoped Global Variables see
+		biz.janux.payment.gateway.AppStatus for a description of each of the global
+		variables defined below
+	-->
+	<bean id="appStatus" class="biz.janux.payment.gateway.AppStatus">
+		<constructor-arg>
+			<util:properties>
+				<prop key="isInitialized">false</prop>
+				<prop key="viewInitError">console/init_error</prop>
+			</util:properties>
+		</constructor-arg>
+	</bean>
+
+	<!-- Implements ApplicationListener and listens for KeyInitEvent -->
+	<bean id="appInitializer" class="biz.janux.payment.gateway.AppInitializer">
+		<property name="appStatus"><ref local="appStatus"/></property>
+		<property name="appInitStrategy"><ref bean="appInitStrategyMock"/></property><!-- set as override -->
+	</bean>
+
+	<import resource="AppInitStrategyMock.xml"/>
+
+</beans>

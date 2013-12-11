@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util    http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	"
+>
+	<!-- 
+		The file below can be used override default properties provided in the Application Context
+		files, in particular the jdbc connection parameters which are different in
+		staging/test/production environments
+	-->
+	<bean id="propertyOverrideConfigurer" class="org.janux.bus.spring.BeanRefPropertyOverrideConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:janux-springmvc/ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+
+	<import resource="DatabaseContext.xml"/>
+	<import resource="HibernateContext.xml"/>
+	<import resource="HibernateMappings.xml"/>
+	<import resource="GenericDaoContext.xml"/>
+	<import resource="SecurityContextGeneric.xml"/>
+
+</beans>

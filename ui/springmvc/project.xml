@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>${basedir}/../../project.xml</extend>
+
+  <artifactId>janux-springmvc</artifactId>
+  <name>Janux extensions to Spring MVC</name>
+  <currentVersion>${janux.ui.springmvc.version}</currentVersion>
+
+  <shortDescription>Spring MVC support for Tiles and Velocity</shortDescription>
+
+  <package>org.janux.ui.springmvc</package>
+
+  <developers>
+
+		<developer>
+			<name>Pavel Muller</name>
+			<email>pavel@jehlanka.cz</email>
+		</developer>
+
+		<developer>
+			<name>Philippe Paravicini</name>
+			<email>philippe.paravicini@janux.org</email>
+			<timezone>-8</timezone>
+		</developer>
+
+		<developer>
+			<name>Kevin Irlen</name>
+			<email>kirlen@janux.org</email>
+		</developer>
+
+	</developers>
+
+  <dependencies>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+
+		<!-- spring-related libraries -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>${spring.version}</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc-struts</artifactId>
+			<version>${spring.version}</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+
+		<!-- servlet api libraries -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<!-- this is where tiles is packaged -->
+		<dependency>
+			<groupId>struts</groupId>
+			<artifactId>struts</artifactId>
+			<version>1.2.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools-view</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.8</version>
+		</dependency>
+		
+		<!-- jxls libraries -->  			
+  		<dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+            <version>0.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jexl</groupId>
+            <artifactId>commons-jexl</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.2-FINAL</version>
+        </dependency>
+
+	</dependencies>
+</project>

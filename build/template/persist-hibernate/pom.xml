@@ -1,0 +1,349 @@
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>pom janux-persist-hibernate</name>
+	<description>
+		Provides a parent POM for modules that implement persistence of a model using
+		hibernate, spring, and the trg Search abstraction
+	</description>
+
+	<groupId>janux</groupId>
+	<artifactId>janux-persist-hibernate</artifactId>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+
+		<janux.db.type>mysql</janux.db.type>
+		<janux.db.driver>com.mysql.jdbc.Driver</janux.db.driver>
+		<janux.db.dialect>org.hibernate.dialect.MySQLDialect</janux.db.dialect>
+		<janux.db.executable>mysql</janux.db.executable>
+
+		<janux.db.host>localhost</janux.db.host>
+		<janux.db.port>3306</janux.db.port>
+		<janux.db.admin.user>root</janux.db.admin.user>
+		<janux.db.admin.password></janux.db.admin.password>
+		<janux.db.user>janux</janux.db.user>
+		<janux.db.password>janux</janux.db.password>
+
+		<janux.db.name>janux</janux.db.name>
+		<janux.db.schema.dir>./sql/${janux.db.type}</janux.db.schema.dir>
+
+		<janux.db.url>jdbc:${janux.db.type}://${janux.db.host}/${janux.db.name}?${janux.db.args}</janux.db.url>
+		<janux.db.args></janux.db.args>
+
+		<janux.log.dir>${basedir}/target</janux.log.dir>
+
+		<sql.drop.all>
+			drop database if exists ${janux.db.name};
+			revoke all privileges, grant option from '${janux.db.user}'@'${janux.db.host}';
+			drop user '${janux.db.user}'@'${janux.db.host}';
+		</sql.drop.all>
+
+		<!--	create the janux database and user -->
+		<echo>Create the janux database and user</echo>
+		<sql.create.user.db>
+			create database ${janux.db.name};
+			grant all on ${janux.db.name}.* to '${janux.db.user}'@'${janux.db.host}'
+			identified by '${janux.db.password}';
+		</sql.create.user.db>
+
+		<args.base>-v -u ${janux.db.user} -h ${janux.db.host} -p${janux.db.password} ${janux.db.name}</args.base>
+
+		<args.recreate>${args.base} -e "source recreate.sql"</args.recreate>
+		<args.seed    >${args.base} -e "source seed.sql"</args.seed>
+		<args.seedTest>${args.base} -e "source seedTest.sql"</args.seedTest>
+	</properties>
+
+	<build>
+
+		<testResources>
+
+			<testResource>
+				<directory>src/test/resources</directory>
+				<excludes>
+					<exclude>hibernate.cfg.xml</exclude>
+				</excludes>
+			</testResource>
+
+		</testResources>
+		
+
+		<!-- 
+			The configuration for the following plugins is inherited by child modules, 
+			but you still need to declare them in the <build><plugins> section of the child modules.
+		-->
+		<pluginManagement>	
+			<plugins>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sql-maven-plugin</artifactId>
+
+					<!--jar file that has the jdbc driver -->
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>${connector.mysql.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<version>${connector.postgresql.version}</version>
+						</dependency>
+					</dependencies>
+
+					<!-- common configurations -->
+					<configuration>
+						<driver>${janux.db.driver}</driver>
+						<url>jdbc:${janux.db.type}://${janux.db.host}:${janux.db.port}/</url>
+						<username>${janux.db.admin.user}</username>
+						<password>${janux.db.admin.password}</password>
+					</configuration>
+
+					<executions>
+						<execution>
+							<id>drop-db-if-any</id>
+							<phase>process-test-resources</phase>
+							<goals>
+								<goal>execute</goal>
+							</goals>
+							<configuration>
+								<autocommit>true</autocommit>
+								<sqlCommand>${sql.drop.all}</sqlCommand>
+								<onError>continue</onError> <!-- ignore error when database is not available -->
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>create-db</id>
+							<phase>process-test-resources</phase>
+							<goals>
+								<goal>execute</goal>
+							</goals>
+							<configuration>
+								<autocommit>true</autocommit>
+								<sqlCommand>${sql.create.user.db}</sqlCommand>
+							</configuration>
+						</execution>
+
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.1</version>
+					<executions>
+						<execution>
+							<id>create-test-data</id>
+							<phase>process-test-resources</phase>
+
+							<configuration>
+								<executable>${janux.db.executable}</executable>
+								<workingDirectory>${janux.db.schema.dir}</workingDirectory>
+								<commandlineArgs>${args.recreate}</commandlineArgs>
+								<environmentVariables>
+									<PGPASSWORD>${janux.db.password}</PGPASSWORD>
+								</environmentVariables>
+							</configuration>
+
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+
+						<execution>
+							<id>seed-data</id>
+							<phase>process-test-resources</phase>
+
+							<configuration>
+								<executable>${janux.db.executable}</executable>
+								<workingDirectory>${janux.db.schema.dir}</workingDirectory>
+								<commandlineArgs>${args.seed}</commandlineArgs>
+								<environmentVariables>
+									<PGPASSWORD>${janux.db.password}</PGPASSWORD>
+								</environmentVariables>
+							</configuration>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+
+						<execution>
+							<id>seed-test-data</id>
+							<phase>process-test-resources</phase>
+
+							<configuration>
+								<executable>${janux.db.executable}</executable>
+								<workingDirectory>${janux.db.schema.dir}</workingDirectory>
+								<commandlineArgs>${args.seedTest}</commandlineArgs>
+								<environmentVariables>
+									<PGPASSWORD>${janux.db.password}</PGPASSWORD>
+								</environmentVariables>
+							</configuration>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+
+				<!--
+					****************************************************************************
+					The following are optional hibernate tool goals that are not used
+					as part of the official build of the project; our position is that
+					code-generation can be a time-saving device, but that the source
+					code of a project should not be undully influenced by
+					code-generation artifacts or limitations. For example, the id db
+					columns generated by the hibernate tools are signed integers, where
+					we prefer to use unsigned integers for object ids. Certain members
+					of our team (philippe) use the tools below to generate sql scripts
+					and java source code based on hibernate mappings; these are then
+					edited as necessary and cut-and-pasted into the official source
+					code for the project
+					****************************************************************************
+				-->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>hibernate3-maven-plugin</artifactId>
+					<version>2.2</version>
+
+					<configuration>
+						<components>
+							<component>
+								<!--  generates a database schema based on hibernate mappings -->
+								<name>hbm2ddl</name>
+								<implementation>configuration</implementation>
+							</component>
+							<component>
+								<!-- creates javadoc like documentation of the database -->
+								<name>hbm2doc</name>
+								<implementation>configuration</implementation>
+							</component>
+							<component>
+								<!-- generates java classes based on hibernate mappings -->
+								<name>hbm2java</name>
+								<implementation>configuration</implementation>
+							</component>
+
+							<component>
+								<!-- reverse engineers hibernate mappings based on a database schema -->
+								<name>hbm2cfgxml</name>
+								<implementation>configuration</implementation>
+							</component>
+						</components>
+						<componentProperties>
+							<drop>true</drop>
+							<configurationfile>classpath:hibernate.cfg.xml</configurationfile>
+							<outputfilename>${project.artifactId}-${janux.db.type}-schema.sql</outputfilename>
+							<export>false</export>
+							<!--
+								do not execute the generated script against the target database
+							-->
+							<!-- dot.executable>${dot.executable}</dot.executable-->
+						</componentProperties>
+					</configuration>
+
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>${connector.mysql.version}</version>
+						</dependency>
+
+						<dependency>
+							<groupId>postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<version>${connector.postgresql.version}</version>
+						</dependency>
+
+						<dependency>
+							<groupId>janux</groupId>
+							<artifactId>janux-lib-hibernate-tools</artifactId>
+							<version>${janux.version}</version>
+							<type>pom</type>
+						</dependency>
+
+					</dependencies>
+
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-util</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-test</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-spring</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-db</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-hibernate</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-search</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-search-hibernate</artifactId>
+		</dependency>
+
+	</dependencies>
+
+</project>

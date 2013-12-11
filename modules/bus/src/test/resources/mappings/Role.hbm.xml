@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: Role.hbm.xml,v 1.4 2007-01-11 23:13:10 philippe Exp $ -->
+<hibernate-mapping package="org.janux.bus.security" >
+
+<class name="RoleImpl" table="sec_role">
+	<meta attribute="implements">Role</meta>
+
+	<meta attribute="class-description">Roles are hierarchical constructs that
+	aggregate Permissions and other Roles; for example, a ROLE_PRODUCT_MANAGER
+	Role may be created comprising Create/Read/Update/Delete Permissions to
+	Product objects, a ROLE_CONTENT_MANAGER may be created comprising
+	Create/Read/Update/Delete Permissions to marketing content, and a
+	ROLE_SUPERVISOR may be created that encompasses the ROLE_PRODUCT_MANAGER and
+	the ROLE_CONTENT_MANAGER plus the permission to publish content.
+	</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="sequence">
+				<param name="sequence">SEC_ROLE_SEQ</param>
+        </generator>
+	</id>
+
+	<property name="name" type="string" not-null="true" unique="true">
+		<meta attribute="use-in-tostring">true</meta>
+		<meta attribute="use-in-equals">true</meta>
+	</property>
+
+	<property name="description" type="text">
+		<meta attribute="field-description">Human readable description of this Role</meta>
+	</property>
+
+	<property name="sortOrder" type="java.lang.Integer">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="enabled" type="boolean">
+		<meta attribute="use-in-tostring">true</meta>
+		<column name="enabled" not-null="true" default="1"/>
+	</property>
+
+
+	<map name="permissionsGranted"
+		table="sec_permission_granted"
+		lazy="false"
+	>
+		<meta attribute="field-description">Indicates the Permissions granted to the containing Role, in the context of a PermissionContext</meta>
+		<key column="roleId" foreign-key="fk_role__permission_granted"/>
+
+		<composite-map-key class="PermissionGrantedKey">
+
+			<key-property name="deny" type="boolean">
+				<meta attribute="use-in-equals">true</meta>
+				<meta attribute="use-in-tostring">true</meta>
+				<column name="deny" not-null="true" default="0"/>
+			</key-property>
+
+			<key-many-to-one 
+				name="permissionContext" 
+				class="PermissionContextImpl" 
+				foreign-key="fk_permission_granted__permission_context"
+				lazy="false"
+			>
+				<meta attribute="use-in-equals">true</meta>
+				<meta attribute="use-in-tostring">true</meta>
+				<column name="contextId" not-null="true"/>
+			</key-many-to-one>
+
+		</composite-map-key>
+
+		<element type="long">
+			<column name="permissions" not-null="true" default="0"/>
+		</element>
+	</map>
+
+	<!-- one-directional many-to-many association of Role to itself -->
+	<list name="roles"
+		table="sec_role_aggr_role"
+		cascade="none"
+	>
+		<meta attribute="field-description">The Roles that this Role aggregates</meta>
+		<meta attribute="use-in-tostring">true</meta>
+		<key column="roleId" foreign-key="fk_RoleAggrRole__Role"/>
+		<index column="sortOrder"/>
+		<many-to-many class="RoleImpl" column="aggrRoleId" foreign-key="fk_RoleAggrRole__AggrRole"/>
+	</list>
+
+	<!--
+	<list name="permissionsGrantedList"
+		table="sec_permission_granted"
+		lazy="false"
+	>
+		<key column="roleId" foreign-key="fk_PermissionGranted__Role"/>
+		<list-index column="sortOrder"/>
+
+		<composite-element class="PermissionGranted">
+			<meta attribute="class-description">Stores the permissions assigned to a Role via a PermissionContext</meta>
+
+			<parent name="owner"/>
+
+			<many-to-one name="permissionContext" class="PermissionContextImpl"
+				column="contextId" foreign-key="fk_PermissionGranted__PermissionContext" not-null="true"
+				lazy="false"
+			>
+				<meta attribute="field-description">PermissionContext that provides the meaning of these permissions</meta>
+				<meta attribute="use-in-equals">true</meta>
+				<meta attribute="use-in-tostring">true</meta>
+			</many-to-one>
+
+			<property name="permissions" type="long">
+				<meta attribute="field-description">Indicates the Permissions granted to the containing Role, in the context of getPermissionContext</meta>
+				<meta attribute="use-in-equals">true</meta>
+				<meta attribute="use-in-tostring">true</meta>
+				<column name="permissions" not-null="true" default="0"/>
+			</property>
+
+			<property name="deny" type="boolean">
+				<meta attribute="field-description">Used to indicate that this
+PermissionGranted object should be interpreted as denying the Permissions
+indicated in the getValue field. This field is useful, for example, if it is
+desireable to create a Role that has the same permissions as another Role, or
+set of Roles, *except* for the Permissions listed in the
+deny objects; denied Permissions are always removed at the end, after
+calculating the Union of all Permissions Granted and the Permissions Granted to
+any sub-Roles; use of this feature is mostly useful in the context of a Role
+that aggregates the permissions of sub-roles: while it is possible to grant
+permissions and than deny a subset of these within a Role without sub-roles,
+the same result would be accomplished in a simpler and arguably clearer manner
+by not granting the denied permissions in the first place.</meta>
+				<meta attribute="use-in-equals">true</meta>
+				<meta attribute="use-in-tostring">true</meta>
+				<column name="deny" not-null="true" default="0"/>
+			</property>
+
+			<property name="sortOrder" formula="sortOrder">
+				<meta attribute="field-description">Used to sort PermissionsGranted in the context of a Role</meta>
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+		</composite-element>
+	</list>
+	-->
+	<!--
+	this won't work because the sortOrder for the relationship is not stored in the role object itself
+	<set name="subRoles"
+		table="sec_role_subrole"
+		sort="org.janux.util.SortOrderComparator"
+		cascade="none"
+	>
+		<meta attribute="field-description">The sub-Roles that this Role aggregates</meta>
+		<meta attribute="use-in-tostring">true</meta>
+		<key column="roleId" foreign-key="fk_RoleSubRole__Role"/>
+		<many-to-many class="RoleImpl" column="subRoleId" foreign-key="fk_RoleSubRole__SubRole"/>
+	</set>
+	-->
+
+
+
+	<!--
+	We use a <composite-element> and a RoleAssignment bean below to be able to:
+		- enforce set semantics on subRoles (no duplicate subRoles)
+	  - be able to sort by an arbitrary sortOrder that characterizes the subRole
+		  assignment, not the Role per-se, since the Role can be assigned to multiple Parent Roles
+	We could have used a simpler <list> mapping to obtain a sorted list of
+	subRoles, but this would not have made it possible to enforce the uniqueness of subRole assignments
+	-->
+	<!--
+	<set name="subRoleAssignments"
+		table="sec_RoleSet"
+		cascade="none"
+	>
+		<meta attribute="field-description">The sub-Roles that this Role aggregates</meta>
+		<key column="roleId" foreign-key="fk_role__subRole"/>
+		<composite-element class="RoleAssignmentBean">
+			<many-to-one name="subRole" class="RoleImpl" column="subRoleId" foreign-key="fk_subRole__role"/>
+			<property name="sortOrder" type="int" index="idx_subRoleSortOrder"/>
+		</composite-element>
+	</set>
+	-->
+
+
+
+</class>
+
+</hibernate-mapping>

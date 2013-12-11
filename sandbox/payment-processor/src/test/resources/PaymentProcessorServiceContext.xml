@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	"
+>
+	<bean name="AuthorizationHotelService" class="biz.janux.payment.AuthorizationHotelServiceImpl">
+		<property name="genericDaoWrite" ref="AuthorizationHotelDao"/>
+		<property name="genericDaoRead"  ref="AuthorizationHotelDao"/>
+		<property name="creditCardTypeService" ref="CreditCardTypeService"/>
+	</bean>
+	
+	<bean name="TransactionService" class="biz.janux.payment.TransactionServiceImpl">
+		<property name="genericDaoWrite" ref="TransactionDao"/>
+		<property name="genericDaoRead"  ref="TransactionDao"/>
+	</bean>
+	
+	<bean name="SettlementItemHotelService" class="biz.janux.payment.SettlementItemHotelServiceImpl">
+		<property name="genericDaoWrite" ref="SettlementItemHotelDao"/>
+		<property name="genericDaoRead"  ref="SettlementItemHotelDao"/>
+		<property name="authorizationHotelService" ref="AuthorizationHotelService"/>
+	</bean>
+	
+	<bean name="SettlementService" class="biz.janux.payment.SettlementServiceImpl">
+		<property name="genericDaoWrite" ref="SettlementDao"/>
+		<property name="genericDaoRead"  ref="SettlementDao"/>
+		<property name="batchNumberDao"  ref="BatchNumberDao"/>
+		<property name="authorizationHotelService" ref="AuthorizationHotelService"/>
+	</bean>
+	
+	<bean name="TranslatorObjectService" class="biz.janux.payment.TranslatorObjectServiceImpl"/>
+	
+	<bean name="AuthorizationHotelRemotingService" class="biz.janux.payment.AuthorizationHotelRemotingServiceImpl">
+		<property name="creditCardStorageService"  ref="CreditCardStorageService"/>
+		<property name="businessUnitService"       ref="BusinessUnitService"/>
+		<property name="authorizationHotelService" ref="AuthorizationHotelService"/>
+		<property name="translatorObjectService"   ref="TranslatorObjectService"/>
+	</bean>
+	
+	<bean name="BusinessUnitRemotingService" class="biz.janux.payment.BusinessUnitRemotingServiceImpl">
+		<property name="businessUnitService"     ref="BusinessUnitService"/>
+		<property name="merchantAccountService"  ref="MerchantAccountService"/>
+		<property name="translatorObjectService" ref="TranslatorObjectService"/>
+	</bean>
+	
+	<bean name="CreditCardProcessingRemotingService" class="biz.janux.payment.CreditCardProcessingRemotingServiceImpl">
+		<property name="creditCardProcessingService" ref="CreditCardProcessingService"/>
+		<property name="translatorObjectService"     ref="TranslatorObjectService"/>
+	</bean>
+
+	<bean name="SettlementItemHotelRemotingService" class="biz.janux.payment.SettlementItemHotelRemotingServiceImpl">
+		<property name="settlementItemHotelService" ref="SettlementItemHotelService"/>
+		<property name="translatorObjectService"    ref="TranslatorObjectService"/>
+	</bean>
+	
+	<bean name="CreditCardProcessingService" class="biz.janux.payment.CreditCardProcessingServiceImpl">
+		<property name="creditCardService"     ref="CreditCardStorageService"/>
+		<property name="authorizationService"  ref="AuthorizationHotelService"/>
+		<property name="businessUnitService"   ref="BusinessUnitService"/>
+		<property name="creditCardTypeService" ref="CreditCardTypeService"/>
+		<property name="settlementItemService" ref="SettlementItemHotelService"/>
+		<property name="settlementService"     ref="SettlementService"/>
+		<property name="paymentProcessorIntegrator" ref="PaymentProcessorIntegrator"/>
+	</bean>
+	
+</beans>

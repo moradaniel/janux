@@ -1,0 +1,4 @@
+1	CTX_ACCOUNT	Defines permissions for creating, reading, updating, disabling, purging, and assigning roles to accounts	0	1
+2	CTX_ROLE	Defines permissions for creating, reading, updating, disabling and purging roles	1	1
+3	CTX_HOLIDAY	Defines permissions for declaring, approve, and taking holidays	2	1
+4	CTX_WORK	Defines permissions for creating, doing, assigning, and skipping work	3	0

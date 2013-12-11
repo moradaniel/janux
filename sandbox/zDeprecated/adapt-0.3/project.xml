@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>${basedir}/../project.xml</extend>
+	<currentVersion>${janux.adapt.version}</currentVersion>
+
+	<artifactId>janux-adapt</artifactId>
+	<name>Janux Extension Infrastructure</name>
+
+	<shortDescription>
+		Enables arbitrary applications and objects to be extended via taxonomies
+		and categorization schemes defined via metadata.
+	</shortDescription>
+
+	<description>
+		This set of packages models customization and integration concerns as
+		extension mechanisms that make it possible to adapt the Janux eBiz entities
+		to the requirements of a specific business domain, and/or to extend
+		entities from external systems in order to interconnect them.
+	</description>
+
+	<package>org.janux.adapt</package>
+
+	<build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+		<unitTest>
+			<resources>
+
+				<resource>
+					<directory>../../resources</directory>
+					<filtering>true</filtering>
+					<includes>
+						<include>log4j.xml</include>
+					</includes>
+				</resource>
+
+			</resources>
+		</unitTest>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-bus</artifactId>
+			<version>${janux.bus.version}</version>
+		</dependency>
+	</dependencies>
+</project>

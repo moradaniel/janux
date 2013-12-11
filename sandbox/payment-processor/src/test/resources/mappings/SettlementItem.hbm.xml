@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<typedef name="SettlementItemType" class="api.org.janux.bus.service.GenericEnumUserType">
+ 	<param name="enumClass">biz.janux.payment.SettlementItemType</param>
+ </typedef>
+
+<class name="biz.janux.payment.SettlementItemImpl"  table="pay_settlement_item" proxy="biz.janux.payment.SettlementItem">
+	<meta attribute="class-description">
+		A settlement item is each payment applied by a CreditCard
+ 		They are grouped into a settlement batch Settlement
+	</meta>
+	<meta attribute="implements">SettlementItem</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+	
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this credit card record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  	-->
+  	<property name="uuid" type="java.lang.String"
+		not-null="true" unique="true" length="36"
+	>
+		<meta attribute="field-description">A random alphanumeric string that uniquely identifies this Credit Card in the Janux Payment Service. This is the code that external clients must use to reference the Credit Card when calling the Janux Payment Service.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="date" column="date" type="date" not-null="true">
+		<meta attribute="field-description">Date of the capture</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="amount" column="amount" type="java.math.BigDecimal"
+		not-null="true">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="purchaseIdentifier" column="purchaseIdentifier" type="java.lang.String"
+		not-null="true">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="externalSourceId" column="externalSourceId" type="java.lang.String"
+		not-null="true">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<many-to-one 
+		name="authorization" class="biz.janux.payment.AuthorizationImpl"
+		column="authorizationId" not-null="false" foreign-key="fk_SettlementItem__Authorization" lazy="false">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+	
+	<property name="type" column="type" type="SettlementItemType" not-null="true">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+		
+	<many-to-one 
+		name="creditCard" class="biz.janux.payment.CreditCardImpl"
+		column="creditCardId" not-null="false" foreign-key="fk_SettlementItem__CreditCard"
+		lazy="false"
+		>
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</many-to-one>
+	
+	<many-to-one 
+		name="businessUnit" class="biz.janux.payment.BusinessUnitImpl"
+		column="businessUnitId" not-null="true" foreign-key="fk_SettlementItem__BusinessUnit">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+	
+	<many-to-one insert="false" update="false" name="settlement" class="biz.janux.payment.SettlementImpl" column="settlementId" not-null="false" foreign-key="fk_SettlementItem__Settlement">
+		<meta attribute="field-description">It is a inverse relationship</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+
+	<joined-subclass name="biz.janux.payment.SettlementItemHotelImpl" table="pay_settlement_item_hotel" proxy="biz.janux.payment.SettlementItemHotel">
+		<meta attribute="class-description"></meta>
+		<meta attribute="implements">SettlementItemHotel</meta>
+
+		<key column="id" foreign-key="fk_SettlementHotelItem__SettlementItem" />
+		
+		<property name="checkOutDate" column="checkOutDate" type="timestamp" not-null="true">
+			<meta attribute="field-description">Date of the transaction.</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+
+		<property name="averageRate" column="averageRate" type="java.math.BigDecimal"
+			not-null="true">
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+	</joined-subclass>
+</class>
+
+</hibernate-mapping>

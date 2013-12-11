@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	"
+>
+	<bean name="GeographyServiceMock" class="biz.janux.geography.GeographyServiceMockImpl"/>
+
+	<bean name="BusinessUnitServiceMock" class="biz.janux.payment.BusinessUnitServiceMockImpl"/>
+
+	<bean name="CreditCardStorageServiceMock" class="biz.janux.payment.CreditCardStorageServiceMockImpl">
+		<property name="creditCardMask"          ref="creditCardMask"/>
+		<property name="creditCardValidator"     ref="creditCardValidator"/>
+		<property name="encryptedStorageService" ref="encryptedStorageServiceMock"/>
+		<property name="businessUnitService"     ref="BusinessUnitServiceMock"/>
+	</bean>
+
+	<bean name="CreditCardTypeServiceMock" class="biz.janux.payment.CreditCardTypeServiceMockImpl"/>
+
+	<bean name="encryptedStorageServiceMock" class="biz.janux.payment.EncryptedStorageServiceMockImpl">
+		<property name="credential" ref="mockCredential"/>
+	</bean>
+
+	<bean id="mockCredential" class="biz.janux.payment.mock.Credential">
+		<property name="username" value="buddyBoy"/>
+		<property name="password" value="s6Qh0xxF5KFuSFICXHaMp4G06EVl3HXq"/>
+	</bean>
+
+	<!-- The following two beans are mostly used for testing and should not be necessary in a production environment -->
+	<bean id="CreditCardFactory" class="biz.janux.payment.mock.CreditCardFactoryImplPersistent">
+		<property name="creditCardTypeService" ref="CreditCardTypeService"></property>
+	</bean>
+	
+	<bean id="MerchantAccountFactory" class="biz.janux.payment.MerchantAccountFactoryImpl"/>
+
+	<bean id="BusinessUnitFactory" class="biz.janux.payment.mock.BusinessUnitFactoryImpl"/>
+	
+</beans>

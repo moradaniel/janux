@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="hibernateMappings" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>/mappings/Country.hbm.xml</value>
+				<value>/mappings/StateProvince.hbm.xml</value>
+				<value>/mappings/BusinessUnit.hbm.xml</value>
+				<value>/mappings/MerchantAccount.hbm.xml</value>
+				<value>/mappings/CreditCardType.hbm.xml</value>
+				<value>/mappings/CreditCard.hbm.xml</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

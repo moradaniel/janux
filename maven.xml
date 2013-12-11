@@ -1,0 +1,65 @@
+<project
+	xmlns:j     = "jelly:core"
+	xmlns:maven = "jelly:maven"
+>
+
+	<preGoal name="test:test-resources">
+		<attainGoal name="populateTokens"/>
+
+		<j:if test="${janux.onTest.createLogDir}">
+			<mkdir dir="${janux.log.dir}"/>
+		</j:if>
+	</preGoal>
+
+
+	<!-- set up tokens to use when filtering from resources folder -->
+	<goal name="populateTokens">
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<j:set var="janux.db.dialect"    value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<j:set var="janux.db.driver"     value="org.postgresql.Driver"/>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<j:set var="janux.db.dialect"    value="org.hibernate.dialect.MySQLDialect"/>
+			<j:set var="janux.db.driver"     value="com.mysql.jdbc.Driver"/>
+		</j:if>
+
+		<filter token="JANUX.DB.DIALECT"  value="${janux.db.dialect}"/>
+		<filter token="JANUX.DB.DRIVER"   value="${janux.db.driver}"/>
+		<filter token="JANUX.DB.URL"      value="${janux.db.url}"/>
+		<filter token="JANUX.DB.USER"     value="${janux.db.user}"/>
+		<filter token="JANUX.DB.PASSWORD" value="${janux.db.password}"/>
+
+		<filter token="JANUX.LOG.DIR"     value="${janux.log.dir}"/>
+	</goal>
+
+
+	<postGoal name="clean:clean">
+
+		<j:if test="${janux.onClean.recreateClassDir}">
+			<echo>recreating folders in: ${maven.build.dir}</echo>
+			<mkdir dir="${maven.build.dir}/classes"/>
+			<mkdir dir="${maven.build.dir}/test-classes"/>
+		</j:if>
+
+		<j:if test="${janux.onClean.deleteLogDir}">
+			<delete dir="${maven.build.dest}/mappings"/>
+		</j:if>
+
+	</postGoal>
+
+
+	<!-- 
+		cleans the folders created by war:inplace 
+		TODO: this should be moved to a maven.xml specific to ui projects
+	-->
+	<postGoal name="war:clean">
+		<delete dir="${maven.war.src}/WEB-INF/classes"/>
+		<delete dir="${maven.war.src}/WEB-INF/lib"/>
+		<delete dir="${maven.war.src}/WEB-INF/tld"/>
+	</postGoal>
+
+	<!-- empty goal so that we can run a multiproject:goal w/o failing because a sub-project does not have such a goal -->
+	<goal name="db-recreate"/>
+
+</project>

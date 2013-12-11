@@ -1,0 +1,26 @@
+<project 
+  xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>jar janux-payment-api</name>
+
+  <artifactId>janux-payment-api</artifactId>
+  <packaging>jar</packaging>
+
+	<parent><!-- defined in build/pom.xml -->
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>janux</groupId>
+      <artifactId>janux-api</artifactId>
+      <version>0.4.01-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>

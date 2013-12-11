@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+	<table-filter match-name="BIN$.*" exclude="true" /> <!-- BIN$ is recycle bin tables in Oracle -->
+	<table-filter match-name="DoNotWantIt" exclude="true" /> <!-- Exclude DoNotWantIt from all catalogs/schemas -->
+	<table-filter match-catalog="BAD" match-schema="SCHEMA" match-name=".*" exclude="true" /> <!-- exclude all tables from the schema SCHEMA in catalog BAD. -->
+	<table-filter match-schema="authentication" match-name=".*" exclude="false" />
+	
+</hibernate-reverse-engineering>
+

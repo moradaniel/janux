@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- CVS: $Id: Party.hbm.xml,v 1.14 2007-01-12 20:10:51 philippe Exp $ -->
+<hibernate-mapping package="biz.janux.people">
+
+	<class name="Party" table="people_party">
+		<meta attribute="class-description">
+The class hierarchy to which a Person and an Organization belong
+		</meta>
+
+		<id name="id" type="java.lang.Integer" unsaved-value="-1">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="native"/>
+		</id>
+
+		<property name="code" type="string">
+			<meta attribute="field-description">Optional unique business identifier for this Party</meta>
+		</property>
+
+		<!-- 
+		Party has a one-to-many relationship to ContactMethods, we use a many-to-many
+		mapping with unique="true" to store the relationship in a PartyContactMethod
+		join table so that we do not have to embed the PartyId key in the
+		ContactMethod table, and we can relate other entities to ContactMethods 
+		(such as Orders) 
+		-->
+		<map name="contactMethods" table="people_party_contact_method" cascade="all" fetch="join" lazy="false">
+			<meta attribute="field-description">Returns a map with all ContactMethods, which may include PostalAddresses, PhoneNumbers, URLs and EmailAddresses (URIs)</meta>
+			<key column="partyId" foreign-key="fk_PartyContactMethod__Party" not-null="true" unique="true"/>
+			<map-key column="kind" type="string"/>
+			<many-to-many 
+				class="ContactMethod" fetch="join" lazy="false"
+				column="contactMethodId" foreign-key="fk_PartyContactMethod__ContactMethod" 
+			/>
+		</map>
+
+		<!-- 
+		Party has a one-to-many relationship to FormOfPayment,
+		-->
+		<list name="formsOfPayment" table="commerce_form_of_payment" 
+			cascade="all-delete-orphan" inverse="false" lazy="false"
+		>
+			<meta attribute="field-description">Returns a list with all forms of payment, which may include credit card, check, or cash</meta>
+			<key column="partyId" foreign-key="fk_FormOfPayment__Party"  not-null="true"/>
+			<index column="position"/>
+			<one-to-many class="biz.janux.commerce.AbstractFormOfPayment" />
+		</list>
+		
+		<!--
+   	****************************************************************************
+	 	Person and Organization are sub-classes mapped to separate tables,
+	 	sharing a common key to the Party table
+   	****************************************************************************
+  	-->
+		<joined-subclass name="PersonImpl" table="people_person">
+			<meta attribute="class-description">Represents a person</meta>
+			<meta attribute="implements">Person</meta>
+
+			<key column="id" foreign-key="fk_Person__Party"/>
+
+			<component name="name" class="PersonNameImpl" lazy="false">
+				<meta attribute="use-in-tostring">true</meta>
+				<property name="honorificPrefix" column="namePrefix" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+				<property name="first" column="firstName" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+				<property name="middle" column="middleName" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+				<property name="last" column="lastName" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+				<property name="honorificSuffix" column="nameSuffix" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+			</component>
+		</joined-subclass>
+
+
+		<joined-subclass name="OrganizationImpl" table="people_organization">
+			<meta attribute="class-description">Represents an Organization</meta>
+			<meta attribute="implements">Organization</meta>
+
+			<key column="id" foreign-key="fk_Organization__Party"/>
+
+			<component name="name" class="OrganizationNameImpl" lazy="false">
+				<meta attribute="use-in-tostring">true</meta>
+				<meta attribute="implements">OrganizationName</meta>
+
+				<property name="short" column="shortName" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+				<property name="long" column="longName" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+				<property name="legal" column="legalName" type="string">
+					<meta attribute="use-in-tostring">true</meta>
+				</property>
+			</component>
+
+			<!-- 
+			Temporary example of extending a class with 'soft-coded' attributes
+			using hibernate's dynamic-component; to extend a class:
+
+			- implement the org.janux.adapt.Extensible interface
+			- change the hibernate mapping to add a node as is done below, with the name of the desired
+				additional 'extended' properties that the class should have
+			- change the database schema to add those columns to the corresponding table
+			
+			This is a less than desireable implementation because it requires touching both the mappings
+			and the database schema (since we are not generating the schema blindly from the mappings).
+			-->
+			<!--
+			<dynamic-component name="properties">
+				<property name="numEmployees" type="java.lang.Integer"/>
+				<property name="isForProfit" type="boolean"/>
+				<property name="description" type="text" column="descr"/>
+				<property name="memo1" type="text"/>
+				<property name="memo2" type="text"/>
+			</dynamic-component>
+-->
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>
+

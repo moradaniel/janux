@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<name>jar janux-biz</name>
+  <description>Janux Business Infrastructure</description>
+
+  <artifactId>janux-biz</artifactId>
+  <packaging>jar</packaging>
+
+	<parent><!-- defined in build/template/persist-hibernate -->
+		<groupId>janux</groupId>
+		<artifactId>janux-persist-hibernate</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<testResources>
+
+			<testResource>
+				<directory>${janux.home}/modules/bus/src/test/resources</directory>
+				<includes>
+					<include>SecurityContext.xml</include>
+					<include>SecurityContextGeneric.xml</include>
+					<include>mappings/*</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>${janux.home}/build/template/persist-hibernate/src/test/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>DatabaseContext.xml</include>
+					<include>HibernateContext.xml</include>
+					<include>GenericDaoContext.xml</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>${janux.home}/build/template/persist-hibernate/src/test/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>ApplicationContext.properties</include>
+					<include>log4j.xml</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>src/test/resources</directory>
+				<excludes>
+					<exclude>hibernate.cfg.xml</exclude>
+				</excludes>
+			</testResource>
+
+		</testResources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>janux</groupId>
+      <artifactId>janux-api</artifactId>
+			<version>${janux.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>janux</groupId>
+      <artifactId>janux-bus</artifactId>
+			<version>${janux.version}</version>
+    </dependency>
+
+		<!--
+    <dependency>
+      <groupId>janux</groupId>
+      <artifactId>janux-adapt</artifactId>
+			<version>${janux.version}</version>
+    </dependency>
+		-->
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency> 
+
+  </dependencies>
+
+</project>

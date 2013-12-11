@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="freemarkerConfig" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath"><value>classpath:template</value></property>
+		<!--
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="auto_import">SomeMacroLib.ftl as rn</prop>
+			</props>
+		</property>
+		-->
+	</bean>
+
+	<!-- By default, configures a CookieFormatter when constructed with a suitable Freemarker Config -->
+	<bean id="requestFormatter" class="org.janux.ui.web.HttpRequestFormatter">
+		<constructor-arg><ref local="freemarkerConfig"/></constructor-arg>
+	</bean>
+
+	<!-- By default, configures a CookieFormatter when constructed with a suitable Freemarker Config -->
+	<bean id="responseFormatter" class="org.janux.ui.web.HttpResponseFormatter">
+		<constructor-arg><ref local="freemarkerConfig"/></constructor-arg>
+	</bean>
+
+	<!-- Or uncomment to configure the HttpRequestFormatter and CookieFormatter explicitly -->
+	<!--
+	<bean id="requestFormatter" class="org.janux.ui.web.HttpRequestFormatter">
+		<property name="freemarkerConfig"><ref local="freemarkerConfig"/></property>
+		<property name="cookieFormatter"><ref local="cookieFormatter"/></property>
+	</bean>
+
+	<bean id="cookieFormatter" class="org.janux.ui.web.CookieFormatter">
+		<property name="freemarkerConfig"><ref local="freemarkerConfig"/></property>
+	</bean>
+	-->
+</beans>

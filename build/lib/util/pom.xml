@@ -1,0 +1,70 @@
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>pom janux-lib-util</name>
+	<description>Janux Misc Utility Libs</description>
+
+	<artifactId>janux-lib-util</artifactId>
+	<packaging>pom</packaging>
+	<!-- <version>${janux.lib.util.version}</version> -->
+
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+  <dependencies>
+		<!-- standard apache utility libraries -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		<!-- end standard apache utility libraries -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+
+		<!-- 
+			Used to generate human-readable random strings 
+			see http://ostermiller.org/utils
+		-->
+		<dependency>
+			<groupId>ostermiller</groupId>
+			<artifactId>ostermiller-utils</artifactId>
+			<version>1.05</version>
+		</dependency>
+  
+		<!-- 
+			java uuid generator 
+			see http://wiki.fasterxml.com/JugHome
+		-->
+		<dependency>
+			<groupId>jug</groupId>
+			<artifactId>jug</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

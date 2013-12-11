@@ -1,0 +1,6 @@
+<h1>Janux Spring MVC UI</h1>
+
+<p>
+This is a sample administrative interface that uses Spring MVC, and Tiles and
+Velocity for displaying views.
+</p>

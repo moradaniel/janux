@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+	
+	<beans>
+		<bean id="propertyOverrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath:ApplicationContext-test.properties</value>
+				</list>
+			</property>
+			<property name="ignoreInvalidKeys" value="false"/>
+		</bean>
+		
+		<bean id="spreadSheetReportTest" class="org.janux.spreadsheetReport.SpreadSheetReportTest">
+			<property name="spreadSheetReportService"  ref="spreadSheetReportService"/>
+			<property name="spreadSheetReportTestConfiguration"  ref="spreadSheetReportTestConfiguration"/>
+		</bean>
+		
+		<bean id="spreadSheetReportTestConfiguration" class="org.janux.spreadsheetReport.SpreadSheetReportTestConfiguration">
+			<property name="testDestDirectory" value="OVERRIDE"/>
+			<property name="testTemplateDirectory" value="OVERRIDE"/>
+			<property name="nameTemplate" value="OVERRIDE"/>
+		</bean>
+		
+</beans>

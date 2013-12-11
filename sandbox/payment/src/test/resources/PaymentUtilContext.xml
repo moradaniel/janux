@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	"
+>
+	<bean name="creditCardValidator" class="biz.janux.payment.CreditCardValidatorDefaultImpl">
+		<!-- 
+			CreditCardValidatorDefaultImpl defaults to the following values, 
+			set them explicitly if you wish to override them
+		-->
+		<!--
+		<property name = "cardTypePatterns">
+			<map>
+				<entry key="VI" ><value>4(\d{12}|\d{15})</value></entry>
+				<entry key="MC" ><value>5[12345]\d{14}</value></entry>
+				<entry key="CA" ><value>5[12345]\d{14}</value></entry>
+				<entry key="EU" ><value>5[12345]\d{14}</value></entry>
+				<entry key="AX" ><value>3[47]\d{13}</value></entry>
+				<entry key="DS" ><value>6011\d{12}</value></entry>
+				<entry key="DI" ><value>3[068]\d{12}</value></entry>
+				<entry key="CB" ><value>3[068]\d{12}</value></entry>
+				<entry key="JC" ><value>(3088|3096|3112|3158|3337|3528)\d{12}</value></entry>
+			</map>
+		</property>        
+		-->
+	</bean>
+
+	
+	<bean id="saltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
+		<property name="salt" value="justAnotherSalt"/>
+	</bean>
+
+
+	<bean id="encryptorOneWay" class="org.jasypt.digest.StandardStringDigester">
+		<property name="algorithm" value="SHA-1" />
+		<property name="iterations" value="100000" />
+		<property name="saltGenerator" ref="saltGenerator"/>
+		<property name="saltSizeBytes" value="10" />
+	</bean>
+
+	<bean id="creditCardMask" class="biz.janux.commerce.CreditCardMask"/>
+
+</beans>

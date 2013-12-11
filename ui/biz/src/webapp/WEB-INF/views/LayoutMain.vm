@@ -1,0 +1,93 @@
+<!DOCTYPE html 
+	PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
+	<title>$tiles.title</title>
+
+	<!-- to correct the unsightly Flash of Unstyled Content. http://www.bluerobot.com/web/css/fouc.asp -->
+	<script type="text/javascript"></script>
+
+	<link rel="stylesheet" href="../css/basic.css"  type="text/css"/>
+	<link rel="stylesheet" href="../css/layout.css" type="text/css"/>
+	<link rel="stylesheet" href="../css/color.css"  type="text/css"/>
+	<link rel="stylesheet" href="../css/font.css"   type="text/css"/>
+
+	<!-- this is how csszengarden import their stylesheet, for reasons unknown
+	<style type="text/css" media="all">
+		@import "../css/basic.css";
+		@import "../css/layout.css";
+		@import "../css/color.css";
+		@import "../css/font.css";
+	</style>
+	-->
+
+  <script type="text/javascript" src="../js/cooltree.js"></script>
+  <!-- <script type="text/javascript" src="../js/leftnav_nodes.js"></script> -->
+  <script type="text/javascript" src="../js/leftnav_format.js"></script>
+
+	<script type="text/javascript">
+
+		var LEFTNAV_NODES = [
+			[{id:'OrganizationInfo'},"Organization Information", null, null
+				,["Description", "$contextPath/organization/Description", null]
+			],
+			[{id:'PeopleInfo'}, "People", null, null
+				,["Staff", "", null]
+				,["Customers", "", null]
+			],
+		];
+
+		/* 
+		,["Contact Information", "$contextPath/organization/ContactInfo", null]
+		*/
+
+		var leftnav = new COOLjsTree("leftnav", LEFTNAV_NODES, LEFTNAV_FORMAT);
+
+
+		#if ($servletPath == "/organization")
+		var node = leftnav.nodeByID("OrganizationInfo");
+		#end
+
+		#if ($servletPath == "/people")
+		var node = leftnav.nodeByID("PeopleInfo");
+		#end
+
+		leftnav.expandNode(node.index);
+
+	</script>
+
+</head>
+
+
+<body onload="window.defaultStatus='Janux Biz';" id="body_tag">
+
+<div id="container">
+	<div id="masthead"><div style="margin: 12px 0px 0px 10px">Janux Biz</div></div>
+
+	<div id="topnav">
+		<div id="selectOrg">
+			<form action="$contextPath/organization/SelectOrganization" method="POST">
+				Now editing:
+				<select id="selectOrgDropdown" name="orgCode" onchange="this.form.submit()">
+					#foreach ($code in $myOrgs.keySet())
+						<option value="$code" #if ($org.code == $code) selected #end>$myOrgs.get($code)</option>
+					#end
+				</select>
+			</form>
+		</div>
+	</div>
+
+	<!-- the leftnav is created via a javascript tree -->
+	<div id="leftnav"></div>
+
+	<div id="body">
+	$!tiles.content
+	</div>
+
+</div>
+</body>
+</html>

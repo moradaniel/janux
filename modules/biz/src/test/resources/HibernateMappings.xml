@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="hibernateMappings" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>/mappings/Account.hbm.xml</value>
+				<value>/mappings/Role.hbm.xml</value>
+				<value>/mappings/PermissionContext.hbm.xml</value>
+				<value>/mappings/Country.hbm.xml</value>
+				<value>/mappings/StateProvince.hbm.xml</value>
+				<value>/mappings/City.hbm.xml</value>
+				<value>/mappings/ContactMethod.hbm.xml</value>
+				<value>/mappings/Party.hbm.xml</value>
+				<value>/mappings/FormOfPayment.hbm.xml</value>
+				<value>/mappings/Currency.hbm.xml</value>
+				<value>/mappings/Language.hbm.xml</value>
+				<value>/mappings/PaymentMethod.hbm.xml</value>
+				<value>/mappings/DepositMethod.hbm.xml</value>
+				<value>/mappings/GuaranteeMethod.hbm.xml</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

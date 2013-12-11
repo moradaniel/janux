@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration>
+
+	<appender name="AppLogger" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/var/log/tomcat/payment/application.log"/>
+		<param name="Append" value="true"/>
+		<param name="DatePattern" value="'.'yyyyMMdd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} | %-7.7t | %-5p | %-16.16c{1} | %m | %c%n"/>
+		</layout>
+	</appender>
+
+	<appender name="StdOut" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} | %-7.7t | %-5p | %-16.16c{1} | %m | %c%n"/>
+		</layout>
+	</appender>
+
+
+	<logger name="biz.janux">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="biz.janux.payment">
+		<level value="DEBUG" />
+	</logger>
+	
+	<!--
+	<logger name="janux.payment.gateway.test">
+		<level value="INFO" />
+	</logger>
+	-->
+	
+	<logger name="api.org.janux.bus.service">
+		<level value="INFO" />
+	</logger>
+	
+
+	<root>
+		<level value="WARN"/>
+		<appender-ref ref="AppLogger" />
+	</root>	
+	
+</log4j:configuration>

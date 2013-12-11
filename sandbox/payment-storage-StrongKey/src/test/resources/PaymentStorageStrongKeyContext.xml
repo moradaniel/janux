@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	"
+>
+	<bean id="strongKeyStorageService" class="biz.janux.payment.EncryptedStorageServiceStrongKeyImpl">
+		<property name="domain"            value="1"/>
+		<property name="uriWebService"     value="https://secvault01.secure.innpoints.com:8181/strongkeyliteWAR/EncryptionService"/>
+		<property name="usernameEncryptor" value="encryptor"/>
+		<property name="passwordEncryptor" value="SET_AS_OVERRIDE"/>
+		<property name="usernameDecryptor" value="decryptor"/>
+		<property name="passwordDecryptor" value="SET_AS_OVERRIDE"/>
+		<property name="webServiceClient"><ref local="webServiceClient"/></property>
+	</bean>
+
+	<!-- Web service client -->
+	<bean id="webServiceClient" class="biz.janux.payment.WebServiceClient">
+		<property name="webServiceTemplate">
+
+			<bean class="org.springframework.ws.client.core.WebServiceTemplate">
+				<constructor-arg>
+					<bean class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory"/>
+				</constructor-arg>
+				<property name="messageSender">
+					<bean class="org.springframework.ws.transport.http.CommonsHttpMessageSender"/>
+				</property>
+			</bean>
+
+		</property>
+	</bean>
+	
+</beans>

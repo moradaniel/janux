@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: Language.hbm.xml,v 1.2 2007-01-12 20:10:51 philippe Exp $ -->
+<hibernate-mapping>
+
+<class 
+	name="biz.janux.people.LanguageImpl" 
+	table="people_language"
+>
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+		<property name="code" type="string" not-null="true">
+			<meta attribute="field-description">
+A code that uniquely identifies the language
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+			<meta attribute="use-in-equals">true</meta>
+		</property>
+
+	<property name="description" type="string" column="descr"/>
+
+</class>
+
+</hibernate-mapping>

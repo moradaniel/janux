@@ -1,0 +1,79 @@
+<div id="orgForm">
+<div id="basicInfo">
+<h1 style="margin-bottom: 0px">$org.name.short</h1>
+<form style="margin-top: 0px" action="Descriptions" method="POST">
+<table cellSpacing="4" cellPadding="0" border="0" class="parmsTable">
+	<tr>
+		<td class="label" width="175">Organization Code: $org.code</td>
+	</tr>
+	<tr>
+		<td class="label" vAlign="top">Street Address:</td>
+		<td>#springFormInput("org.postalAddresses['MAILING'].line1" "")</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>#springFormInput("org.postalAddresses['MAILING'].line2" "")</td>
+	</tr>
+
+	#set($address = $org.getPostalAddress("MAILING"))
+
+	<tr>
+		<td class="label" vAlign="top">City</td>
+		<td>#if ($address.city) $address.city.name #end</td>
+	</tr>
+
+	<tr>
+		<td class="label">State/Province:</td>
+		<td>#if ($address.state) $address.state.name #end</td>
+	</tr>
+	<tr>
+		<td class="label">Postal Code:</td>
+		<td>#springFormInput("org.postalAddresses['MAILING'].postalCode" "")</td>
+	</tr>
+	<tr>
+		<td class="label">Country:</td>
+		<td>#if ($address.country) $address.country.name #end</td>
+	</tr>
+	<tr>
+		<td class="label">Phone #:</td>
+		<td nowrap>
+			(#springFormInput("org.phoneNumbers['PHONE1'].areaCode"  "size='3'")) 
+			 #springFormInput("org.phoneNumbers['PHONE1'].number"    "size='8'") ext. 
+			 #springFormInput("org.phoneNumbers['PHONE1'].extension" "size='4'")
+		</td>
+	</tr>
+	<tr>
+		<td class="label">Fax #:</td>
+		<td>
+			(#springFormInput("org.phoneNumbers['FAX1'].areaCode"  "size='3'")) 
+			 #springFormInput("org.phoneNumbers['FAX1'].number"    "size='8'") ext.
+			 #springFormInput("org.phoneNumbers['FAX1'].extension" "size='4'")
+		</td>
+	</tr>
+	<tr>
+		<td class="label">Resrv. Fax #:</td>
+		<td>
+			(#springFormInput("org.phoneNumbers['FAX2'].areaCode"  "size='3'")) 
+			 #springFormInput("org.phoneNumbers['FAX2'].number"    "size='8'") ext.
+			 #springFormInput("org.phoneNumbers['FAX2'].extension" "size='4'")
+		</td>
+	</tr>
+	<tr>
+		<td class="label">Hotel Email:</td>
+		<td>#springFormInput("org.emailAddresses['HOTEL'].address" "")</td>
+	</tr>
+	<tr>
+		<td class="label">Resv. Info. Email:</td>
+		<td>#springFormInput("org.emailAddresses['RESERVATION'].address" "")</td>
+	</tr>
+	<tr>
+		<td class="label">Hotel Url:</td>
+		<td>#springFormInput("org.urls['WEBSITE'].address" "")</td>
+	</tr>
+	<tr>
+		<td align="right"><input type="submit" value="Save"/></td>
+	</tr>
+</table>
+</form>
+</div>
+</div>

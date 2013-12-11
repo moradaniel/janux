@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- 
+		Sample list bean that can be used to inject the hibernate mappings to a default configuration
+		for a Hibernate Session Factory; assumes that the mappings are located in the /mappings
+		folder in the classpath (such as WEB-INF/classes/mappings)
+	-->
+
+	<bean id="hibernateMappings" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>/mappings/Country.hbm.xml</value>
+				<value>/mappings/StateProvince.hbm.xml</value>
+				<value>/mappings/City.hbm.xml</value>
+				<!-- ... -->
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

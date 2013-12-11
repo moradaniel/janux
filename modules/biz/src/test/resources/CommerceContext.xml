@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+  
+	<!-- 
+		The following beans implement declarative transaction management 
+		via Spring AOP. This is a dynamic proxying strategy used in DAO and Services
+		that handles hibernate sessions and transactions, 
+		thus freeing the DAO/Service code from having to implement 
+		hibernate session management and programmatic transaction declarations
+	-->
+	<!--
+		****************************************************************************
+		Accessors for biz.janux.commerce package
+		****************************************************************************
+	-->
+
+	<bean id="commerceDao" class="biz.janux.commerce.CommerceDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+	
+	<bean id="creditCardFopDao" class="biz.janux.commerce.CreditCardFopDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+	
+	<bean id="creditCardFopService" class="biz.janux.commerce.CreditCardFopServiceImpl">
+		<property name="creditCardFopDao"    ref="creditCardFopDao"/>
+		<property name="creditCardEncryptor" ref="creditCardEncryptor"/>
+		<property name="creditCardMask"      ref="creditCardMask"/>
+	</bean>
+
+	
+	<bean id="creditCardEncryptor" class="biz.janux.commerce.CreditCardEncryptorDesImpl">
+		<!-- encryptionAlgorithm -->
+		<constructor-arg type="java.lang.String" value="DES/ECB/PKCS5Padding"/>
+
+		<!-- keyAlgorithm -->
+		<constructor-arg type="java.lang.String" value="DES"/>
+		
+		<!-- keyString -->
+		<constructor-arg type="java.lang.String" value="V4XIg0nOZGQ="/>
+	</bean>
+	
+	<bean id="creditCardMask" class="biz.janux.commerce.CreditCardMask"/>
+
+
+	<!-- txAllPropagationSupport for CommerceDaoHibImpl -->
+	<aop:config>
+		<aop:pointcut id="commerceDaoOperation" expression="execution(* biz.janux.commerce.CommerceDaoHibImpl.*(..))"/>
+		<aop:advisor advice-ref="txAllPropagationSupport" pointcut-ref="commerceDaoOperation"/>
+	</aop:config>
+
+</beans>

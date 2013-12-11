@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+<class name="biz.janux.payment.AuthorizationModificationImpl"  table="pay_authorization_modificaiton">
+	<meta attribute="class-description">
+		Represents each authorization request.
+		If the Authorization was incremented or reverted, 
+		it will have more than one instance of AuthorizationModification
+	</meta>
+	<meta attribute="implements">AuthorizationModification</meta>
+	<meta attribute="implement-equals">true</meta>
+	
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+	
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this credit card record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  	-->
+	<property name="date" column="date" type="date" not-null="true">
+		<meta attribute="field-description">Date of the authorization modification.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="amount" column="amount" type="java.math.BigDecimal"
+		not-null="true">
+		<meta attribute="field-description">
+			the amount of AuthorizationModification
+		</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+</class>
+
+</hibernate-mapping>

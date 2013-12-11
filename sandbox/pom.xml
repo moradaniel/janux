@@ -1,0 +1,25 @@
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>janux</groupId>
+	<artifactId>janux-sandbox</artifactId>
+	<packaging>pom</packaging>
+	<version>0.4.01-SNAPSHOT</version>
+
+	<name>pom janux-master</name>
+	<description>Used to build the whole janux project</description>
+	
+	<modules>
+		<module>payment-api</module>
+		<module>payment</module>
+		<module>payment-controllers</module>
+		<module>payment-processor</module>
+		<module>payment-util</module>
+		<!-- <module>sandbox/payment-client</module> -->
+		<module>payment-storage-StrongKey</module>
+	</modules>
+
+</project>

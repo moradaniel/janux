@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>${basedir}/../../project.xml</extend>
+
+  <artifactId>janux-biz-ui</artifactId>
+  <name>Janux Biz User Interface</name>
+
+  <shortDescription>Web Application for managing Janux Business Entities</shortDescription>
+
+  <description>
+	The janux-biz module models generic eBiz entities such as people,
+	organization, products, inventory, etc... that are commonly used across a
+	wide array of eBusiness domains, and which can be made more specific through
+	the Janux Adapt set of packages. This package provides a reference web interface
+	for managing the entities in the janux-biz module. 
+	</description>
+
+  <package>biz.janux.ui</package>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>../../modules/bus/src/resources</directory>
+       	<includes>
+         	<include>ApplicationContextBus.xml</include>
+       	</includes>
+      </resource>
+
+      <resource>
+        <directory>../../modules/biz/src/resources</directory>
+       	<includes>
+         	<include>ApplicationContextBiz.xml</include>
+         	<include>mappings/*</include>
+       	</includes>
+      </resource>
+
+			<resource>
+				<directory>../../resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>jdbc.properties</include>
+					<include>log4j.xml</include>
+				</includes>
+			</resource>
+    </resources>
+
+  </build>
+
+  <dependencies>
+
+		<!-- internal janux dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-bus</artifactId>
+			<version>${janux.bus.version}</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-adapt</artifactId>
+			<version>${janux.adapt.version}</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-biz</artifactId>
+			<version>${janux.biz.version}</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-springmvc</artifactId>
+			<version>${janux.ui.springmvc.version}</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<!-- standard utility libraries -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.7</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<!-- servlet api libraries -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<!--
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.0.6</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+		-->
+
+		<dependency>
+			<groupId>struts</groupId>
+			<artifactId>struts</artifactId>
+			<version>1.2.7</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools-view</artifactId>
+			<version>1.1</version>
+			<properties><war.bundle>true</war.bundle></properties>
+		</dependency>
+
+	</dependencies>
+</project>

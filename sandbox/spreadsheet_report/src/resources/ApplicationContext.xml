@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- 
+		The file below can be used override default properties provided in the Application Context
+		files, in particular the jdbc connection parameters which are different in
+		staging/test/production environments
+	-->
+	<bean id="propertyOverrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+		<!-- <property name="order" value="1"/> -->
+		<property name="locations">
+			<list>
+				<value>classpath:ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+	
+	<bean id="xLSTransformer" class="net.sf.jxls.transformer.XLSTransformer">
+	</bean>
+	
+	<bean id="spreadSheetReportService" class="org.janux.spreadsheetReport.SpreadSheetReportServiceImpl">
+		<property name="transformer"  ref="xLSTransformer"/>
+	</bean>
+</beans>

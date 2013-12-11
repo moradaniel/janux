@@ -1,0 +1,17 @@
+<?xml version='1.0' ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"
+>
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">@HELP.DB.DIALECT@</property>
+		<property name="hibernate.connection.driver_class">@HELP.DB.DRIVER@</property>
+		<property name="hibernate.connection.url">@HELP.DB.URL@</property>
+		<property name="hibernate.connection.username">@HELP.DB.USER@</property>
+		<property name="hibernate.connection.password">@HELP.DB.PASSWORD@</property>
+
+		<!--mapping resource="/mappings/HelpEntry.hbm.xml"/-->
+
+	</session-factory>
+</hibernate-configuration>

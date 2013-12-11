@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  <!--
+   ****************************************************************************
+	 Accessor for org.janux.help package
+   ****************************************************************************
+  -->
+	<bean id="helpService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target">
+			<bean class="org.janux.help.HelpServiceImpl">
+    		<constructor-arg><ref bean="helpEntryDao"/></constructor-arg>
+			</bean>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="load*">PROPAGATION_SUPPORTS</prop>
+				<prop key="find*">PROPAGATION_SUPPORTS</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="helpEntryDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target">
+			<bean class="org.janux.help.HelpEntryDaoHibImpl">
+				<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+			</bean>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_SUPPORTS</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="helpCategoryDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target">
+			<bean class="org.janux.help.HelpCategoryDaoHibImpl">
+				<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+			</bean>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_SUPPORTS</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

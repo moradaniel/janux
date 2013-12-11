@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: Country.hbm.xml,v 1.8 2007-01-12 20:10:51 philippe Exp $ -->
+<hibernate-mapping>
+
+<class name="biz.janux.payment.BatchNumberImpl" table="pay_batch_number">
+	<meta attribute="class-description">
+Represents the last batch number used in the settlement process
+</meta>
+	<meta attribute="implements">BatchNumber</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<version name="dateUpdated" column="updated" type="timestamp" unsaved-value="undefined">
+		<meta attribute="field-description">Date on which this account was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+		
+  <!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  -->
+	<property name="number" type="java.lang.Integer" not-null="true" unique="true">
+		<meta attribute="field-description">A batch number</meta> 
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<many-to-one 
+		name="merchantAccount" class="biz.janux.payment.MerchantAccountImpl"
+		column="merchantAccountId" not-null="false" foreign-key="fk_BatchNumber__MerchantAccount"
+		lazy="false"
+	>
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</many-to-one>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+</class>
+
+</hibernate-mapping>

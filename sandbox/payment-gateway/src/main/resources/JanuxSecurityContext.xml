@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx ="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+">
+  
+	<!--
+	 *************************************************************************************************
+	 The januxUserDetailsService used for authentication and authorization; 
+	 almost all beans and references are local to this file, except for references 
+	 to two abstract beans in DatabaseContext.xml and HibernateContext.xml; eventually it would be
+	 good to implement this service over a remote service
+	 *************************************************************************************************
+	-->
+	<bean id="januxUserDetailsService" class="org.janux.bus.security.spring.JanuxUserDetailsService">
+		<property name="accountDao"><ref local="accountDaoGeneric"/></property>
+	</bean>    
+	
+	<bean id="accountServiceGeneric" class="org.janux.bus.security.AccountServiceImplGeneric">
+		<constructor-arg><ref local="accountDaoGeneric"/></constructor-arg>
+		<constructor-arg><ref local="roleDaoGeneric"/></constructor-arg>
+		<constructor-arg><ref local="permContextDaoGeneric"/></constructor-arg>
+	</bean>
+
+	<bean 
+		id="accountDaoGeneric" 
+		class="org.janux.bus.security.AccountDaoHibImplGeneric" 
+		parent="secAbstractGenericDao"
+	/>
+
+	<bean 
+		id="roleDaoGeneric" 
+		class="org.janux.bus.security.RoleDaoHibImplGeneric" 
+		parent="secAbstractGenericDao"
+	/>
+
+	<bean 
+		id="permContextDaoGeneric" 
+		class="org.janux.bus.security.PermissionContextDaoHibImplGeneric" 
+		parent="secAbstractGenericDao"
+	/>
+
+	<bean id="secAbstractGenericDao"  class="org.janux.bus.persistence.GenericDaoHibImpl" abstract="true">       
+		<property name="sessionFactory"><ref local="secHibernateSessionFactory"/></property>                        
+		<property name="searchFacade"  ><ref local="secSearchFacade"/></property>                                     
+		<property name="uuidGenerator" ><ref local="secUuidGenerator"/></property>                                  
+	</bean>                                                                                                   
+
+	<bean id="secSearchFacade" class="com.trg.search.hibernate.HibernateSearchFacade">                           
+		<property name="sessionFactory"><ref local="secHibernateSessionFactory"/></property>                        
+	</bean>                                                                                                   
+
+	<bean id="secUuidGenerator" class="org.janux.util.RandomBasedGenerator">                                     
+		<description>used to generate random identifiers</description>                                          
+	</bean>          
+
+	<bean id="secHibernateSessionFactory" parent="abstractHibernateSessionFactory">                              
+		<property name="dataSource"><ref local="secDataSource"/></property>                                   
+		<property name="mappingResources">
+			<list>
+				<value>/mappings/Account.hbm.xml</value>                                                            
+				<value>/mappings/Role.hbm.xml</value>                                                               
+				<value>/mappings/PermissionContext.hbm.xml</value>
+			</list>
+		</property>                            
+	</bean>
+
+	<bean id="secTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">     
+		<property name="sessionFactory"><ref local="secHibernateSessionFactory"/></property>                       
+		<property name="dataSource"    ><ref local="secDataSource"/></property>                               
+	</bean>  
+
+	<tx:advice id="secTxAllPropagationSupport" transaction-manager="transactionManager">                         
+		<tx:attributes>                                                                                         
+			<tx:method name="*" propagation="SUPPORTS"/>                                                          
+		</tx:attributes>                                                                                        
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="readSecurityDaoOperation" expression="execution(* org.janux.bus.security.*HibImpl*.*(..))"/>
+		<aop:advisor advice-ref="secTxAllPropagationSupport" pointcut-ref="readSecurityDaoOperation"/>
+	</aop:config>
+	
+		<aop:config>
+		<aop:pointcut id="readSecurityServiceOperation" expression="execution(* org.janux.bus.security.*ServiceImpl*.*(..))"/>
+		<aop:advisor advice-ref="secTxAllPropagationSupport" pointcut-ref="readSecurityServiceOperation"/>
+	</aop:config>
+
+	<bean id="secDataSource" parent="C3P0_PooledDataSource">
+		<property name="driverClass" value="SET_IN_ApplicationContext.properties"/>                             
+		<property name="jdbcUrl"     value="SET_IN_ApplicationContext.propertie" />                             
+		<property name="user"        value="SET_IN_ApplicationContext.propertie" />                             
+		<property name="password"    value="SET_IN_ApplicationContext.propertie" />
+	</bean>
+	
+</beans>
+

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: ContactMethod.hbm.xml,v 1.9 2007-12-18 20:47:06 philippe Exp $ -->
+<hibernate-mapping package="biz.janux.people" >
+
+<class 
+	name="ContactMethod" 
+	table="people_contact_method"
+>
+	<id name="id" type="java.lang.Integer" column="id" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<discriminator column="class" type="string"/>	
+
+	<!-- store email addresses and URLs in the shared table 'ContactMethod' -->
+	<subclass name="biz.janux.people.net.EmailAddressImpl" discriminator-value="email">
+		<meta attribute="class-description">Represents an electronic mail address</meta>
+		<meta attribute="implements">biz.janux.people.net.Uri</meta>
+		<property name="address" type="string"/>
+	</subclass>
+
+	<subclass name="biz.janux.people.net.HttpAddressImpl" discriminator-value="http">
+		<meta attribute="class-description">
+Represents an absolute http address, such as the address of a web site
+		</meta>
+		<meta attribute="implements">biz.janux.people.net.Url</meta>
+		<property name="address" type="string"/>
+	</subclass>
+
+
+	<!-- store postal addresses in a joined table -->
+	<subclass 
+		name="biz.janux.geography.PostalAddressImpl" 
+		discriminator-value="postal"
+	>
+		<meta attribute="class-description">Represents a physical address</meta>
+		<meta attribute="implements">PostalAddress</meta>
+
+		<join table="geography_postal_address">
+			<key column="id" foreign-key="fk_PostalAddress__ContactMethod"/>
+
+			<property name="line1" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+			<property name="line2" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+			<property name="line3" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+			<property name="postalCode" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+			<property name="cityAsString" column="city" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			
+			<property name="stateProvinceAsString" column="state" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+			<property name="countryAsString" column="country" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+
+			<many-to-one
+				name="city"
+				column="cityId"
+				class="biz.janux.geography.CityImpl"
+				not-null="false"
+				cascade="none"
+				foreign-key="fk_PostalAddress__City"
+				lazy="false"
+			>
+				<meta attribute="use-in-tostring">true</meta>
+			</many-to-one>
+
+			<many-to-one
+				name="country"
+				column="countryId"
+				class="biz.janux.geography.CountryImpl"
+				not-null="false"
+				cascade="none"
+				foreign-key="fk_PostalAddress__Country"
+				lazy="false"
+			>
+				<meta attribute="use-in-tostring">true</meta>
+			</many-to-one>
+		</join>
+
+	</subclass>
+
+
+	<!-- store phone numbers in a joined table -->
+	<subclass 
+		name="PhoneNumberImpl" 
+		discriminator-value="phone"
+	>
+		<meta attribute="class-description">Represents a phone number</meta>
+		<meta attribute="implements">PhoneNumber</meta>
+
+		<join table="people_phone_number">
+			<key column="id" foreign-key="fk_PhoneNumber__ContactMethod"/>
+
+			<!-- 
+				At the interface level, countryCode and areaCode are returned as strings, 
+				but we store them internally as integers
+			-->
+			<property name="countryCode" type="int" access="field">
+				<meta attribute="use-in-tostring">true</meta>
+				<meta attribute="use-in-equals">true</meta>
+			</property>
+
+			<property name="areaCode" type="int" access="field">
+				<meta attribute="use-in-tostring">true</meta>
+				<meta attribute="use-in-equals">true</meta>
+			</property>
+
+			<property name="number" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+				<meta attribute="use-in-equals">true</meta>
+			</property>
+
+			<property name="extension" type="string">
+				<meta attribute="use-in-tostring">true</meta>
+				<meta attribute="use-in-equals">true</meta>
+			</property>
+		</join>
+
+	</subclass>
+
+</class>
+
+</hibernate-mapping>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- CVS: $Id: FormOfPayment.hbm.xml,v 1.6 2007-03-06 16:03:33 kirlen Exp $ -->
+<hibernate-mapping package="biz.janux.commerce" >
+	<class name="AbstractFormOfPayment" table="commerce_form_of_payment">
+		<id name="id" type="java.lang.Integer" column="id" unsaved-value="-1">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="native"/>
+		</id>
+		
+		<property name="position" column="position" type="integer" not-null="true" insert="false" update="false">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<!-- uni-directional many-to-one association to Party -->
+		<many-to-one name="party" column="partyId" class="biz.janux.people.Party" not-null="true" cascade="none" foreign-key="fk_FormOfPayment__Party" lazy="false" insert="false" update="false">
+			<meta attribute="use-in-equals">true</meta>
+		</many-to-one>
+		
+		<joined-subclass name="CreditCardFop" table="commerce_credit_card">
+			<key column="formOfPaymentId"/>
+
+			<!-- uni-directional many-to-one association to PaymentMethod (i.e. CreditCardType) -->
+			<many-to-one
+				name="cardType"
+				column="cardTypeId"
+				class="biz.janux.commerce.PaymentMethodImpl"
+				not-null="true"
+				cascade="none"
+				foreign-key="fk_CreditCard__CardType"
+				lazy="false"
+			/>
+			
+			<property name="cardNumber" type="string" not-null="true">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="cardOwnerName" column="ownerName" type="string" not-null="false">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="expiration" type="date" not-null="true">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="masked" type="boolean" column="isMasked">
+				<meta attribute="field-description">Flag indicating whether the cardNumber is masked or not</meta>
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="encrypted" type="boolean" column="isEncrypted">
+				<meta attribute="field-description">Flag indicating whether the cardNumber is encrypted or not</meta>
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+		</joined-subclass>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<script>
+	var idx = leftnav.nodeByID('OrgSection').index;
+	leftnav.expandNode(idx,true,true);
+</script>
+
+<h1>Organization Summary</h1>
+
+<table>
+	<tr>
+		<td>Short Name</td><td><b>$org.partyName.short</b></td>
+	</tr>
+	<tr>
+		<td>Long Name</td><td><b>$org.partyName.long</b></td>
+	</tr>
+	<tr>
+		<td>Legal Name</td><td><b>$org.name.legal</b></td>
+	</tr>
+</table>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	"
+>
+	<bean name="MerchantAccountService" class="biz.janux.payment.MerchantAccountServiceImpl">
+		<property name="merchantAccountDao"  ref="MerchantAccountDao"/>
+		<property name="businessUnitService" ref="BusinessUnitService"/>
+	</bean>
+		
+	<bean name="BusinessUnitService" class="biz.janux.payment.BusinessUnitServiceImpl">
+		<property name="businessUnitDao"    ref="BusinessUnitDao"/>
+	</bean>
+	
+	<bean name="CreditCardStorageService" class="biz.janux.payment.CreditCardStorageServiceImpl">
+		<property name="creditCardDao"       ref="CreditCardDao"/>
+		<property name="creditCardMask"      ref="creditCardMask"/>
+		<property name="businessUnitService" ref="BusinessUnitService"/>
+		<property name="encryptorOneWay"     ref="encryptorOneWay"/>
+
+		<!-- If you do not wish to validate credit card numbers, do not set this property -->
+		<property name="creditCardValidator" ref="creditCardValidator"/>
+
+		<!-- On a local environment use the Mock implementation by default -->
+		<property name="encryptedStorageService" ref="encryptedStorageServiceMock"/>
+
+
+	</bean>
+	
+	<bean name="CreditCardTypeService" class="biz.janux.payment.CreditCardTypeServiceImpl">
+		<property name="creditCardTypeDao"><ref bean="CreditCardTypeDao"/></property>
+	</bean>
+
+</beans>

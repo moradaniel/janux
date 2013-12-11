@@ -1,0 +1,23 @@
+1	phone	
+2	phone	
+3	email	philippe.paravicini@janux.org
+4	email	philippe@paravicini.com
+5	http	www.paravicini.com
+6	postal	
+7	postal	
+8	phone	
+9	email	davidf@innpoints.com
+10	email	david_m_fairchild@yahoo.com
+11	postal	
+12	postal	
+13	phone	
+14	email	info@janux.org
+15	postal	
+16	http	www.janux.org
+17	http	wiki.janux.org
+18	postal	
+19	postal	
+20	postal	
+21	postal	
+22	postal	
+23	postal	

@@ -1,0 +1,302 @@
+<project
+	xmlns:j     = "jelly:core"
+	xmlns:maven = "jelly:maven"
+>
+
+	<preGoal name="test:test">
+		<!-- by default, the database is reset to a known state prior to each test run -->
+		<j:if test="${janux.test.db.seedTest and !maven.test.skip}">
+			<attainGoal name="db-seedTest"/>
+		</j:if>
+	</preGoal>
+
+	<goal 
+		name="db-echo"
+		description="Prints db properties, useful to run before dropping the database to make sure that you are not shooting yourself in the foot"
+	>
+		<echo>janux.db.type     = ${janux.db.type}</echo>
+		<echo>janux.db.name     = ${janux.db.name}</echo>
+		<echo>janux.db.host     = ${janux.db.host}</echo>
+		<echo>janux.db.user     = ${janux.db.user}</echo>
+		<echo>janux.db.password = ${janux.db.password}</echo>
+
+		<echo>janux.db.admin.user     = ${janux.db.admin.user}</echo>
+		<echo>janux.db.admin.password = ${janux.db.admin.password}</echo>
+	</goal>
+
+
+	<goal 
+		name="db-recreate"
+		description="Recreate database user, schema and tables"
+	>
+		<attainGoal name="db-drop"/>
+		<attainGoal name="db-create"/>
+
+		<j:set var="janux.db.schema.dir"  value="sql/${janux.db.type}"/>
+
+		<!-- create the mysql schema -->
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<exec dir="${janux.db.schema.dir}" executable="mysql" >
+				<arg line="-v -u ${janux.db.user} -h ${janux.db.host} -p${janux.db.password} ${janux.db.name} -e 'source recreate.sql'"/>
+			</exec>
+		</j:if>
+
+		<!--  create the pgsql schema -->
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<exec dir="${janux.db.schema.dir}" executable="psql" >
+				<env key="PGPASSWORD" value="${janux.db.password}"/>
+				<arg line="-X -f recreate.sql -h ${janux.db.host} -d ${janux.db.name} -U ${janux.db.user}"/>
+			</exec>
+		</j:if>
+
+	</goal>
+
+
+	<goal 
+		name="db-drop" 
+		description="Create database and user"
+		prereqs="db-echo, db-setDriverPath"
+	>
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Drop the janux database and user</echo>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<!-- drop the mysql janux database and drop the janux user -->
+			<sql driver="${janux.db.driver}" url="jdbc:${janux.db.type}://${janux.db.host}/" userid="${janux.db.admin.user}" password="${janux.db.admin.password}" onerror="continue" classpathref="driver.class.path" autocommit="true">
+				DROP DATABASE IF EXISTS ${janux.db.name};
+				DROP USER '${janux.db.user}'@'${janux.db.host}';
+			</sql>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<!-- drop the pgsql janux database and drop the janux user -->
+			<echo>Drop the janux database and user</echo>
+			<sql driver="${janux.db.driver}" url="jdbc:${janux.db.type}://${janux.db.host}/" userid="${janux.db.admin.user}" password="${janux.db.admin.password}" onerror="continue" classpathref="driver.class.path" autocommit="true">
+				DROP DATABASE IF EXISTS ${janux.db.name};
+				DROP USER ${janux.db.user};
+			</sql>
+		</j:if>
+	</goal>
+
+
+	<goal 
+		name="db-create" 
+		description="Drop database schemas and user"
+		prereqs="db-echo, db-setDriverPath"
+	>
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Create the janux database and user</echo>
+
+		<!-- create mysql db -->
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<echo>Create mysql the janux database and user</echo>
+			<sql driver="${janux.db.driver}" url="jdbc:${janux.db.type}://${janux.db.host}/" userid="${janux.db.admin.user}" password="${janux.db.admin.password}" onerror="abort" classpathref="driver.class.path" autocommit="true">
+				CREATE DATABASE ${janux.db.name};
+				GRANT ALL ON ${janux.db.name}.* TO '${janux.db.user}'@'${janux.db.host}' IDENTIFIED BY '${janux.db.password}';
+			</sql>
+		</j:if>
+
+		<!-- create pgsql db -->
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<echo>Create the pgsql janux database and user</echo>
+			<sql driver="${janux.db.driver}" url="jdbc:${janux.db.type}://${janux.db.host}/" userid="${janux.db.admin.user}" password="${janux.db.admin.password}" onerror="abort" classpathref="driver.class.path" autocommit="true">
+				CREATE DATABASE ${janux.db.name};
+				CREATE USER ${janux.db.user} WITH PASSWORD '${janux.db.password}';
+				GRANT ALL PRIVILEGES ON DATABASE ${janux.db.name} TO ${janux.db.user};
+			</sql>
+		</j:if>
+
+	</goal>
+
+
+	<goal 
+		name="db-seed" 
+		description="Recreate database schemas and tables and populate with seed data"
+		prereqs="db-recreate"
+	>
+		<j:set var="janux.db.schema.dir"  value="sql/${janux.db.type}"/>
+
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Seeding tables using ${janux.db.type}</echo>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<exec dir="${janux.db.schema.dir}" executable="psql" >
+				<env key="PGPASSWORD" value="${janux.db.password}"/>
+				<arg line="-X -f seed.sql -h ${janux.db.host} -d ${janux.db.name} -U ${janux.db.user}"/>
+			</exec>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<exec dir="${janux.db.schema.dir}" executable="mysql" >
+				<arg line="-v -u ${janux.db.user} -h ${janux.db.host} -p${janux.db.password} ${janux.db.name} -e 'source seed.sql'"/>
+			</exec>
+		</j:if>
+	</goal>
+
+
+	<goal 
+		name="db-seedTest" 
+		description="Recreate database schemas and tables and populate with seed and test data"
+		prereqs="db-seed"
+	>
+		<j:set var="janux.db.schema.dir"  value="sql/${janux.db.type}"/>
+
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Seeding tables using ${janux.db.type}</echo>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<exec dir="${janux.db.schema.dir}" executable="psql" >
+				<env key="PGPASSWORD" value="${janux.db.password}"/>
+				<arg line="-X -f seedTest.sql -h ${janux.db.host} -d ${janux.db.name} -U ${janux.db.user}"/>
+			</exec>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<exec dir="${janux.db.schema.dir}" executable="mysql" >
+				<arg line="-v -u ${janux.db.user} -h ${janux.db.host} -p${janux.db.password} ${janux.db.name} -e 'source seedTest.sql'"/>
+			</exec>
+		</j:if>
+	</goal>
+
+
+	<goal name="db-setDriverPath">
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<j:set var="driverPath" value="${maven.repo.local}/mysql/jars/mysql-connector-java-${janux.db.mysql.driverVersion}.jar"/>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<j:set var="driverPath" value="${maven.repo.local}/postgresql/jars/postgresql-${janux.db.postgresql.driverVersion}.jar"/>
+		</j:if>
+
+		<echo>Setting ${janux.db.type} driver path to: ${driverPath}</echo>
+		<path id="driver.class.path">
+			<pathelement location="${driverPath}"/>
+		</path>
+	</goal>
+
+
+  <!--
+   ****************************************************************************
+	 The following are optional hibernate tool goals that are not used as part of
+	 the official build of the project; our position is that code-generation can
+	 be a time-saving device, but that the source code of a project should not be
+	 undully influenced by code-generation artifacts or limitations. For example,
+	 the id db columns generated by the hibernate tools are signed integers, where
+	 we prefer to use unsigned integers for object ids.
+
+	 Certain members of our team (philippe) use the tools below to generate sql
+	 scripts and java source code based on hibernate mappings; these are then
+	 edited as necessary and cut-and-pasted into the official source code for the
+	 project
+	 ****************************************************************************
+  -->
+	<taskdef name="hibernatetool" 
+		classname="org.hibernate.tool.ant.HibernateToolTask" 
+	> 
+		<classpath>
+			<path refid="maven.dependency.classpath"/>
+		</classpath>
+	</taskdef>
+
+
+	<goal 
+		name="hbm2sql"
+		description="optional: generates a database schema based on hibernate mappings"
+		prereqs="test:test-resources"
+	>
+		<j:set var="janux.db.schema.dir"  value="${maven.build.dir}/sql/${janux.db.type}"/>
+		<j:set var="janux.db.schema.file" value="${janux.db.schema.dir}/${maven.final.name}.sql"/>
+
+		<mkdir   dir="${janux.db.schema.dir}"/>
+		<delete file="${janux.db.schema.file}"/>
+
+		<hibernatetool>
+			<classpath>
+				<pathelement path="${maven.build.dest}"/>
+				<pathelement path="${maven.test.dest}"/>
+				<path refid="maven.dependency.classpath"/>
+			</classpath>
+
+			<configuration configurationfile="${maven.test.dest}/hibernate.cfg.xml"/> 
+
+			<hbm2ddl 
+				destdir="${janux.db.schema.dir}"
+				export="false"
+				outputfilename="${maven.final.name}.sql"
+			/>
+		</hibernatetool>
+	</goal>
+ 
+
+	<goal 
+		name="db-doc"
+		description="optional: creates javadoc like documentation of the database"
+	>
+		<mkdir dir="${maven.build.dir}/docs/schema"/>
+
+		<hibernatetool>
+			<classpath>
+				<path refid="maven.dependency.classpath"/>
+				<pathelement path="${maven.build.dest}"/>
+			</classpath>
+
+			<jdbcconfiguration 
+				configurationfile="${janux.resources.dir}/hibernate.cfg.xml" 
+				revengfile="${janux.resources.dir}/hibernate.reveng.xml" 
+			/>
+			<hbm2doc destdir="${maven.build.dir}/docs/schema"/>
+		</hibernatetool>
+	</goal>
+
+
+	<goal 
+		name="hbm2java"
+		description="optional: generates java classes based on hibernate mappings"
+		prereqs="test:test-resources"
+	>
+		<j:set var="janux.db.schema.dir"  value="${maven.build.dir}/schema/${janux.db.type}"/>
+		<j:set var="janux.db.schema.file" value="${janux.db.schema.dir}/${maven.final.name}.sql"/>
+
+		<mkdir   dir="${maven.build.dir}/src"/>
+
+		<hibernatetool>
+			<classpath>
+				<path refid="maven.dependency.classpath"/>
+				<pathelement path="${maven.test.dest}"/>
+			</classpath>
+			<configuration configurationfile="${janux.resources.dir}/hibernate.cfg.xml"/> 
+			<echo>template path: ${janux.hibernate.templates.dir}</echo>
+			<hbm2java 
+				destdir="${maven.build.dir}/src"
+				templatepath="${janux.hibernate.templates.dir}"
+				jdk5="true"
+			/>
+		</hibernatetool>
+	</goal>
+ 
+
+	<goal 
+		name="sql2hbm"
+		description="optional: reverse engineers hibernate mappings based on a database schema"
+		prereqs="test:test-resources"
+	>
+		<mkdir   dir="${maven.build.dir}/mappings"/>
+		<mkdir   dir="${maven.build.dir}/cfg"/>
+
+		<hibernatetool>
+			<classpath>
+				<path refid="maven.dependency.classpath"/>
+				<pathelement path="${maven.test.dest}"/>
+			</classpath>
+
+			<jdbcconfiguration 
+				configurationfile="${janux.resources.dir}/hibernate.cfg.xml" 
+			/>
+			<!-- revengfile="${janux.resources.dir}/hibernate.reveng.xml"  -->
+
+			<hbm2cfgxml destdir="${maven.build.dir}/cfg" />		
+			<hbm2hbmxml destdir="${maven.build.dir}/mappings"/>
+		</hibernatetool>
+	</goal>
+ 
+</project>

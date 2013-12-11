@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+">
+
+	<context:component-scan base-package="biz.janux.payment.gateway.console"/>
+
+	<mvc:annotation-driven/>
+
+	<mvc:view-controller path="/"           view-name="index"/>
+
+	<!-- redirect /payment/console to /payment/console/ -->
+	<mvc:view-controller path="/console"    view-name="redirect:/"/>
+
+	<mvc:view-controller path="/init_error" view-name="init_error"/>
+
+	<mvc:resources mapping="/css/**" location="/css/"/>
+	<mvc:resources mapping="/js/**"  location="/js/"/>
+
+	<!--
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tile/console.xml</value>
+			</list>
+		</property>
+	</bean>
+	-->
+
+	<!--
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/">urlFilenameViewController</prop>
+				<prop key="/index">urlFilenameViewController</prop>
+			</props>
+		</property>
+		<property name="order" value="99"/>
+	</bean>
+
+	<bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+	-->
+
+	<!-- 
+		This is necessary in order to use the SimpleUrlHandlerMapping together with the DefaultAnnotationHandlerMapping 
+		Explicitly declaring a HandlerMapping 'overrides' the default annotation config, and also the
+		default controller below, which needs to be explicitly referenced
+	-->
+	<!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" /> -->
+
+	<!-- View Configuration -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/view/console/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+
+	<!-- mapped to the path /console, configured via Annotations -->
+	<bean id="consoleController" class="biz.janux.payment.gateway.console.ConsoleController">
+
+		<property name="stringDigester">
+			<bean class="org.jasypt.digest.StandardStringDigester">
+				<property name="algorithm"     value="SHA-1" />
+				<property name="iterations"    value="100000" />
+				<property name="saltSizeBytes" value="10" />
+				<property name="saltGenerator">
+					<bean class="org.jasypt.salt.FixedStringSaltGenerator">
+						<property name="salt" value="PhohKah9oow6ui5Z"/>
+					</bean>
+				</property>
+			</bean>
+		</property>
+    <!--
+      This defaults programmatically to the digest for the default secret key "initializeMe"
+      (ConsoleController.DEFAULT_INIT_KEY), based on the values of the StandardStringDigester
+      defined above.
+      CHANGE IN PRODUCTION to the Digest of whatever secret key you decide to use.
+    -->
+    <!-- <property name="initKeyDigest" value="qi/colMrHQHV09k/TrizJV8V/Ro="/> -->
+
+	</bean>
+
+	<!--
+		A utility encryptor that can be accessed on the UI to encrypt/decrypt a String based on an
+		Encryption Key provided via the UI. This bean is not used during the initialization
+		mechanism.  It is useful when it's necessary to change the Password Encryption Key of the
+		application, so that new encrypted passwords can be generated with the new PEK via the Console
+		UI and cut-and-pasted in the proper configuration files. 
+		An instance of this bean cannot be changed once it is initialized with a password, and because we want
+		to be able to generate passwords with an arbitrary key provided via the UI on demand, we scope
+		this as 'prototype' and instantiate a new bean everytime that we want to generate passwords with
+		a different key
+	-->
+	<bean id="utilStringEncryptor" scope="prototype" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="algorithm" value="PBEWithMD5AndTripleDES"/>
+		<property name="saltGenerator" ref="encryptorSaltGenerator"/>
+		<!-- Provided by an admin user on the console/util UI -->
+		<!-- <property name="password" value="someSecretKey"/> -->
+	</bean>
+
+</beans>

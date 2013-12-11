@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+>
+
+	<bean id="propertyOverrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:janux-payment/ApplicationContext.properties</value>
+			</list>
+		</property>
+		<property name="ignoreInvalidKeys" value="true"/>
+	</bean>
+  
+	<import resource="DatabaseContext.xml"/>
+	<import resource="HibernateContext.xml"/>
+	<import resource="HibernateMappings.xml"/>
+	<import resource="GenericDaoContext.xml"/>
+	<import resource="GeographyContextGeneric.xml"/>
+	<!-- <import resource="CommerceContext.xml"/> -->
+	<import resource="PaymentUtilContext.xml"/>
+	<import resource="PaymentStorageDaoContext.xml"/>
+	<import resource="PaymentStorageServiceContext.xml"/>
+	<import resource="PaymentMockContext.xml"/>
+
+</beans>

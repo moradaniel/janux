@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+	<bean id="HttpClient" class="org.apache.commons.httpclient.HttpClient"/>
+
+ 	<bean id="ConfigurationService" class="biz.janux.payment.ConfigurationServiceImpl">
+        <constructor-arg name="urlServerHost" value="${gateway.urlServerHost}"/>
+        <constructor-arg name="urlServerPort" value="${gateway.urlServerPort}"/>
+        <constructor-arg name="loginUsername" value="${gateway.login.username}"/>
+        <constructor-arg name="loginPassword" value="${gateway.login.password}"/>
+		<constructor-arg ref="HttpClient"/>
+		<constructor-arg ref="jasyptPBEStringEncryptor"/>
+		
+        <property name="urlServerProtocol" value="${gateway.urlServerProtocol}"/>
+        <property name="urlServerContext" value="${gateway.urlServerContext}"/>
+    </bean>
+
+	<!-- Remoting Service Client -->
+	<bean id="CreditCardRemotingService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${gateway.urlServerProtocol}://${gateway.urlServerHost}:${gateway.urlServerPort}/${gateway.urlServerContext}/remoting/CreditCardRemotingService"/>
+		<property name="serviceInterface" value="biz.janux.payment.CreditCardStorageService"/>
+		<!--property name="httpInvokerRequestExecutor">
+			<bean class="org.springframework.security.remoting.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor"  />
+		</property-->
+		<property name="httpInvokerRequestExecutor" ref="RemotingServiceHttpClient">
+		</property>
+	</bean>
+	
+	<bean id="RemotingServiceHttpClient" class="org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor">
+		<property name="httpClient" ref="HttpClient"></property>
+	</bean>
+	
+	<!-- Rest client -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<constructor-arg ref="clientHttpRequestFactory" />
+	</bean>
+	
+	<bean id="clientHttpRequestFactory" class="org.springframework.http.client.CommonsClientHttpRequestFactory">
+		<property name="httpClient" ref="HttpClient"></property>
+	</bean>
+	
+	<bean id="paymentGatewayRestClient" class="biz.janux.payment.PaymentGatewayRestClientImpl">
+		<constructor-arg ref="restTemplate" />
+		<constructor-arg ref="ConfigurationService" />
+		<property name="urlCreditCardSecureControllerRest" value="${url.CreditCardSecureControllerRest}"></property>
+		<property name="objectMapper" ref="januxObjectMapper"></property>
+	</bean>
+	
+		<!-- Your application may use the PBEStringEncryptor in several places, -->
+	<!-- like for example at new user sign-up. -->
+	<bean id="jasyptPBEStringEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<!--property name="algorithm" value="PBEWithMD5AndTripleDES" /-->
+		<property name="password" value="test" />
+	</bean>
+ 	
+</beans>
+	

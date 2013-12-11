@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<name>jar janux-payment-storage-StrongKey</name>
+	<description>Adapter to StrongKey applicance</description>
+	
+	<artifactId>janux-payment-storage-StrongKey</artifactId>
+	<packaging>jar</packaging>
+
+	<parent><!-- defined in build/pom.xml -->
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<!-- override these in your settings.xml as appropriate -->
+		<janux.logging.payment-client.Path>${janux.logging.default.Path}</janux.logging.payment-client.Path>
+		<janux.logging.payment-client.Logger>${janux.logging.default.Logger}</janux.logging.payment-client.Logger>
+		<janux.logging.payment-client.Pattern>${janux.logging.default.Pattern}</janux.logging.payment-client.Pattern>
+	</properties>
+	
+	<build>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		
+		<!-- Spring ws -->
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>2.0.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>xerces</groupId>
+		  <artifactId>xercesImpl</artifactId>
+		  <version>2.8.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>xalan</groupId>
+		    <artifactId>xalan</artifactId>
+		    <version>2.7.0</version>
+		</dependency>
+		
+		<!-- Janux dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-spring</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-test</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+	
+		<dependency>
+ 			<groupId>javax.xml.bind</groupId>
+   			<artifactId>jaxb-api</artifactId>
+   			<version>2.2.2</version>
+   		</dependency>
+	</dependencies>
+</project>

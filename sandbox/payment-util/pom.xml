@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>jar janux-payment-util</name>
+	
+	<artifactId>janux-payment-util</artifactId>
+	<packaging>jar</packaging>
+	
+	<parent><!-- defined in build/pom.xml -->
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+
+	<dependencies>
+		<!-- Janux dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-biz</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+    <dependency>
+      <groupId>janux</groupId>
+      <artifactId>janux-lib-test</artifactId>
+      <type>pom</type>
+      <version>${janux.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>janux</groupId>
+      <artifactId>janux-lib-spring</artifactId>
+      <type>pom</type>
+      <version>${janux.version}</version>
+    </dependency>
+		
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+		
+	</dependencies>
+		
+</project>

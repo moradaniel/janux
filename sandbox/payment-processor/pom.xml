@@ -1,0 +1,177 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>jar janux-payment-processor</name>
+	<artifactId>janux-payment-processor</artifactId>
+	<packaging>jar</packaging>
+
+	<!-- defined in build/pom.xml -->
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-persist-hibernate</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<testResources>
+
+			<testResource>
+				<directory>${janux.home}/build/template/persist-hibernate/src/test/resources</directory>
+				<includes>
+					<include>DatabaseContext.xml</include>
+					<include>HibernateContext.xml</include>
+					<include>GenericDaoContext.xml</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>${janux.home}/build/template/persist-hibernate/src/test/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>ApplicationContext.properties</include>
+					<include>log4j.xml</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>${janux.home}/modules/biz/src/test/resources</directory>
+				<includes>
+					<include>GeographyContextGeneric.xml</include>
+					<include>mappings/StateProvince.hbm.xml</include>
+					<include>mappings/Country.hbm.xml</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>${janux.home}/sandbox/payment/src/test/resources</directory>
+				<includes>
+					<include>PaymentStorageDaoContext.xml</include>
+					<include>PaymentStorageServiceContext.xml</include>
+					<include>PaymentUtilContext.xml</include>
+					<include>PaymentMockContext.xml</include>
+					<include>mappings/*</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>src/test/resources</directory>
+				<excludes>
+					<exclude>hibernate.cfg.xml</exclude>
+				</excludes>
+			</testResource>
+
+		</testResources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>	
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-test</artifactId>
+			<type>pom</type>
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-spring</artifactId>
+			<type>pom</type>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-bus</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-biz</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-util</artifactId>
+			<type>pom</type>
+			<version>${janux.version}</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-hibernate</artifactId>
+			<type>pom</type>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-util</artifactId>
+			<type>jar</type>
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.trg</groupId>
+		  <artifactId>trg-search</artifactId>
+		  <version>0.5.1</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>com.trg</groupId>
+		  <artifactId>trg-search-hibernate</artifactId>
+		  <version>0.5.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+	</dependencies>
+</project>

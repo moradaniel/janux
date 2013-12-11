@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <!-- the version of maven's project object model -->
+  <pomVersion>3</pomVersion>
+
+  <artifactId>janux</artifactId>
+	<groupId>janux</groupId>
+	<currentVersion>${janux.api.version}</currentVersion>
+
+  <shortDescription>An Open Source eBusiness Integration Infrastructure</shortDescription>
+  <description>An Open Source eBusiness Integration Infrastructure</description>
+
+  <url>http://www.janux.org</url>
+  <logo>http://www.janux.org/images/janux_logo.gif</logo>
+  <inceptionYear>2005</inceptionYear>
+
+  <issueTrackingUrl></issueTrackingUrl>
+
+
+  <siteAddress>janux.org</siteAddress>
+  <siteDirectory>/siteDirectory</siteDirectory>
+  <distributionDirectory>/distributionDirectory</distributionDirectory>
+
+  <mailingLists/>
+
+  <developers>
+
+		<developer>
+			<name>Philippe Paravicini</name>
+			<email>philippe.paravicini@janux.org</email>
+			<timezone>-8</timezone>
+		</developer>
+
+		<developer>
+			<name>David Fairchild</name>
+			<email>david.fairchild@janux.org</email>
+			<timezone>-8</timezone>
+		</developer>
+
+	</developers>
+
+  <!-- 
+		the version control repository and http url for online access
+		the connection element has the form: 
+		scm:<system>:<system specific connection string> 
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/examples</connection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/examples/</url>
+  </repository>
+	-->
+
+  <organization>
+    <name>Janux</name>
+    <url>http://www.janux.org/</url>
+    <logo>http://www.janux.org/images/janux_logo.gif</logo>
+  </organization>
+
+  <build>
+    <nagEmailAddress>build@janux.org</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+			<excludes>
+        <exclude>**/Abstract*.java</exclude>
+			</excludes>
+    </unitTest>
+  </build>
+
+</project>

@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>war janux-springmvc-basic</name>
+	<artifactId>janux-springmvc-basic</artifactId>
+	<packaging>war</packaging>
+
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+
+	<!--
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-persist-hibernate</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+	-->
+	
+	<properties>
+	</properties>
+	
+	<build>
+
+		<resources>
+
+			<resource>
+			  <directory>${janux.home}/build/template/persist-hibernate/src/test/resources</directory>                    
+        <filtering>false</filtering>                                                                        
+        <includes>                                                                                          
+          <include>DatabaseContext.xml</include>                                                            
+          <include>HibernateContext.xml</include>                                                           
+          <include>GenericDaoContext.xml</include>                                                          
+        </includes>  	
+			</resource>
+			
+			<resource>
+			  <directory>${janux.home}/modules/bus/src/test/resources</directory>                    
+        <filtering>false</filtering>                                                                        
+        <includes>                                                                                          
+          <include>SecurityContextGeneric.xml</include>                                                            
+          <include>HibernateMappings.xml</include>                                                           
+          <include>mappings/*.xml</include>                                                           
+        </includes>  	
+			</resource>
+			
+		</resources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<!-- <warName>mvc</warName> -->
+
+					<webResources>
+						<resource>
+							<directory>src/main/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<filtering>WEB-INF/classes</filtering>
+						</resource>
+					</webResources>
+
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<!-- janux dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-bus</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<!-- Spring dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-spring</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>                                                                                            
+			<groupId>org.springframework.security</groupId>                                                       
+			<artifactId>spring-security-core</artifactId>                                                         
+			<version>${spring.version}</version>                                                         
+			<exclusions>                                                                                          
+				<exclusion>                                                                                         
+					<groupId>commons-logging</groupId>                                                                
+					<artifactId>commons-logging</artifactId>                                                          
+				</exclusion>                                                                                        
+			</exclusions>                                                                                         
+		</dependency>    
+
+		<dependency>                                                                                            
+			<groupId>org.springframework.security</groupId>                                                       
+			<artifactId>spring-security-config</artifactId>                                                         
+			<version>${spring.security.version}</version>                                                         
+			<exclusions>                                                                                          
+				<exclusion>                                                                                         
+					<groupId>commons-logging</groupId>                                                                
+					<artifactId>commons-logging</artifactId>                                                          
+				</exclusion>                                                                                        
+			</exclusions>                                                                                         
+		</dependency>    
+
+		<dependency>                                                                                            
+			<groupId>org.springframework.security</groupId>                                                       
+			<artifactId>spring-security-web</artifactId>                                                         
+			<version>${spring.security.version}</version>                                                         
+			<exclusions>                                                                                          
+				<exclusion>                                                                                         
+					<groupId>commons-logging</groupId>                                                                
+					<artifactId>commons-logging</artifactId>                                                          
+				</exclusion>                                                                                        
+			</exclusions>                                                                                         
+		</dependency>    
+
+	</dependencies>
+</project>

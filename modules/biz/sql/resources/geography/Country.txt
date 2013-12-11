@@ -1,0 +1,240 @@
+1	AF	Afghanistan	93	2	1
+2	AX	Åland Islands	-1	3	1
+3	AL	Albania	355	4	1
+4	DZ	Algeria	213	5	1
+5	AS	American Samoa	684	6	1
+6	AD	Andorra	376	7	1
+7	AO	Angola	244	8	1
+8	AI	Anguilla	809	9	1
+9	AQ	Antarctica	-1	10	1
+10	AG	Antigua And Barbuda	268	11	1
+11	AR	Argentina	54	12	1
+12	AM	Armenia	374	13	1
+13	AW	Aruba	297	14	1
+14	AU	Australia	61	15	1
+15	AT	Austria	43	16	1
+16	AZ	Azerbaijan	994	17	1
+17	BS	Bahamas	242	18	1
+18	BH	Bahrain	973	19	1
+19	BD	Bangladesh	880	20	1
+20	BB	Barbados	246	21	1
+21	BY	Belarus	375	22	1
+22	BE	Belgium	32	23	1
+23	BZ	Belize	501	24	1
+24	BJ	Benin	229	25	1
+25	BM	Bermuda	809	26	1
+26	BT	Bhutan	975	27	1
+27	BO	Bolivia	591	28	1
+28	BA	Bosnia And Herzegovina	387	29	1
+29	BW	Botswana	267	30	1
+30	BV	Bouvet Island	-1	31	1
+31	BR	Brazil	55	32	1
+32	IO	British Indian Ocean Territory	-1	33	1
+33	BN	Brunei Darussalam	673	34	1
+34	BG	Bulgaria	359	35	1
+35	BF	Burkina Faso	226	36	1
+36	BI	Burundi	257	37	1
+37	KH	Cambodia	855	38	1
+38	CM	Cameroon	237	39	1
+39	CA	Canada	1	1	1
+40	CV	Cape Verde	238	40	1
+41	KY	Cayman Islands	345	41	1
+42	CF	Central African Republic	236	42	1
+43	TD	Chad	235	43	1
+44	CL	Chile	56	44	1
+45	CN	China	86	45	1
+46	CX	Christmas Island	-1	46	1
+47	CC	Cocos (keeling) Islands	-1	47	1
+48	CO	Colombia	57	48	1
+49	KM	Comoros	269	49	1
+50	CG	Congo	242	50	1
+51	CD	Congo, The Democratic Republic Of The	242	51	1
+52	CK	Cook Islands	682	52	1
+53	CR	Costa Rica	506	53	1
+54	CI	CÔte d'Ivoire	225	54	1
+55	HR	Croatia	385	55	1
+56	CU	Cuba	53	56	1
+57	CY	Cyprus	357	57	1
+58	CZ	Czech Republic	420	58	1
+59	DK	Denmark	45	59	1
+60	DJ	Djibouti	253	60	1
+61	DM	Dominica	767	61	1
+62	DO	Dominican Republic	809	62	1
+63	EC	Ecuador	593	63	1
+64	EG	Egypt	20	64	1
+65	SV	El Salvador	503	65	1
+66	GQ	Equatorial Guinea	240	66	1
+67	ER	Eritrea	291	67	1
+68	EE	Estonia	372	68	1
+69	ET	Ethiopia	251	69	1
+70	FK	Falkland Islands (Malvinas)	500	70	1
+71	FO	Faroe Islands	298	71	1
+72	FJ	Fiji	679	72	1
+73	FI	Finland	358	73	1
+74	FR	France	33	74	1
+75	GF	French Guiana	594	75	1
+76	PF	French Polynesia	689	76	1
+77	TF	French Southern Territories	-1	77	1
+78	GA	Gabon	241	78	1
+79	GM	Gambia	220	79	1
+80	GE	Georgia	995	80	1
+81	DE	Germany	49	81	1
+82	GH	Ghana	233	82	1
+83	GI	Gibraltar	350	83	1
+84	GR	Greece	30	84	1
+85	GL	Greenland	299	85	1
+86	GD	Grenada	473	86	1
+87	GP	Guadeloupe	596	87	1
+88	GU	Guam	671	88	1
+89	GT	Guatemala	502	89	1
+90	GN	Guinea	224	90	1
+91	GW	Guinea-Bissau	245	91	1
+92	GY	Guyana	592	92	1
+93	HT	Haiti	509	93	1
+94	HM	Heard Island And McDonald Islands	-1	94	1
+95	VA	Holy See (Vatican City State)	39	95	1
+96	HN	Honduras	504	96	1
+97	HK	Hong Kong	852	97	1
+98	HU	Hungary	36	98	1
+99	IS	Iceland	354	99	1
+100	IN	India	91	100	1
+101	ID	Indonesia	62	101	1
+102	IR	Iran, Islamic Republic Of	98	102	1
+103	IQ	Iraq	964	103	1
+104	IE	Ireland	353	104	1
+105	IL	Israel	972	105	1
+106	IT	Italy	39	106	1
+107	JM	Jamaica	876	107	1
+108	JP	Japan	81	108	1
+109	JO	Jordan	962	109	1
+110	KZ	Kazakhstan	7	110	1
+111	KE	Kenya	254	111	1
+112	KI	Kiribati	686	112	1
+113	KP	Korea, Democratic People's Republic Of	850	113	1
+114	KR	Korea, Republic Of	82	114	1
+115	KW	Kuwait	965	115	1
+116	KG	Kyrgyzstan	996	116	1
+117	LA	Laos	856	117	1
+118	LV	Latvia	371	118	1
+119	LB	Lebanon	961	119	1
+120	LS	Lesotho	266	120	1
+121	LR	Liberia	231	121	1
+122	LY	Libyan Arab Jamahiriya	218	122	1
+123	LI	Liechtenstein	423	123	1
+124	LT	Lithuania	370	124	1
+125	LU	Luxembourg	352	125	1
+126	MO	Macao	853	126	1
+127	MK	Macedonia, The Former Yugoslav Republic Of	389	127	1
+128	MG	Madagascar	261	128	1
+129	MW	Malawi	265	129	1
+130	MY	Malaysia	60	130	1
+131	MV	Maldives	960	131	1
+132	ML	Mali	223	132	1
+133	MT	Malta	356	133	1
+134	MH	Marshall Islands	692	134	1
+135	MQ	Martinique	596	135	1
+136	MR	Mauritania	222	136	1
+137	MU	Mauritius	230	137	1
+138	YT	Mayotte	269	138	1
+139	MX	Mexico	52	139	1
+140	FM	Micronesia, Federated States Of	691	140	1
+141	MD	Moldova, Republic Of	373	141	1
+142	MC	Monaco	33	142	1
+143	MN	Mongolia	976	143	1
+144	MS	Montserrat	473	144	1
+145	MA	Morocco	212	145	1
+146	MZ	Mozambique	258	146	1
+147	MM	Myanmar	95	147	1
+148	NA	Namibia	264	148	1
+149	NR	Nauru	674	149	1
+150	NP	Nepal	977	150	1
+151	NL	Netherlands	31	151	1
+152	AN	Netherlands Antilles	599	152	1
+153	NC	New Caledonia	687	153	1
+154	NZ	New Zealand	64	154	1
+155	NI	Nicaragua	505	155	1
+156	NE	Niger	227	156	1
+157	NG	Nigeria	234	157	1
+158	NU	Niue	683	158	1
+159	NF	Norfolk Island	-1	159	1
+160	MP	Northern Mariana Islands	1670	160	1
+161	NO	Norway	47	161	1
+162	OM	Oman	968	162	1
+163	PK	Pakistan	92	163	1
+164	PW	Palau	680	164	1
+165	PS	Palestinian Territory, Occupied	-1	165	1
+166	PA	Panama	507	166	1
+167	PG	Papua New Guinea	675	167	1
+168	PY	Paraguay	595	168	1
+169	PE	Peru	51	169	1
+170	PH	Philippines	63	170	1
+171	PN	Pitcairn	-1	171	1
+172	PL	Poland	48	172	1
+173	PT	Portugal	351	173	1
+174	PR	Puerto Rico	1787	174	1
+175	QA	Qatar	974	175	1
+176	RE	RÉunion	262	176	1
+177	RO	Romania	40	177	1
+178	RU	Russian Federation	7	178	1
+179	RW	Rwanda	250	179	1
+180	SH	Saint Helena	290	180	1
+181	KN	Saint Kitts And Nevis	869	181	1
+182	LC	Saint Lucia	-1	182	1
+183	PM	Saint Pierre And Miquelon	508	183	1
+184	VC	Saint Vincent And The Grenadines	-1	184	1
+185	WS	Samoa	685	185	1
+186	SM	San Marino	378	186	1
+187	ST	Sao Tome And Principe	239	187	1
+188	SA	Saudi Arabia	966	188	1
+189	SN	Senegal	221	189	1
+190	CS	Serbia And Montenegro	381	190	1
+191	SC	Seychelles	248	191	1
+192	SL	Sierra Leone	232	192	1
+193	SG	Singapore	65	193	1
+194	SK	Slovakia	421	194	1
+195	SI	Slovenia	386	195	1
+196	SB	Solomon Islands	677	196	1
+197	SO	Somalia	252	197	1
+198	ZA	South Africa	27	198	1
+199	GS	South Georgia And The South Sandwich Islands	-1	199	1
+200	ES	Spain	34	200	1
+201	LK	Sri Lanka	94	201	1
+202	SD	Sudan	249	202	1
+203	SR	Suriname	597	203	1
+204	SJ	Svalbard And Jan Mayen	-1	204	1
+205	SZ	Swaziland	268	205	1
+206	SE	Sweden	46	206	1
+207	CH	Switzerland	41	207	1
+208	SY	Syrian Arab Republic	963	208	1
+209	TW	Taiwan, Province Of China	886	209	1
+210	TJ	Tajikistan	7	210	1
+211	TZ	Tanzania, United Republic Of	2555	211	1
+212	TH	Thailand	66	212	1
+213	TL	Timor-Leste	-1	213	1
+214	TG	Togo	228	214	1
+215	TK	Tokelau	690	215	1
+216	TO	Tonga	676	216	1
+217	TT	Trinidad And Tobago	1868	217	1
+218	TN	Tunisia	216	218	1
+219	TR	Turkey	90	219	1
+220	TM	Turkmenistan	993	220	1
+221	TC	Turks And Caicos Islands	-1	221	1
+222	TV	Tuvalu	688	222	1
+223	UG	Uganda	256	223	1
+224	UA	Ukraine	380	224	1
+225	AE	United Arab Emirates	971	225	1
+226	GB	United Kingdom	44	226	1
+227	US	United States	1	0	1
+228	UM	United States Minor Outlying Islands	-1	227	1
+229	UY	Uruguay	598	228	1
+230	UZ	Uzbekistan	7	229	1
+231	VU	Vanuatu	678	230	1
+232	VE	Venezuela	58	231	1
+233	VN	Viet Nam	84	232	1
+234	VG	Virgin Islands, British	284	233	1
+235	VI	Virgin Islands, U.S.	1340	234	1
+236	WF	Wallis And Futuna	681	235	1
+237	EH	Western Sahara	-1	236	1
+238	YE	Yemen	381	237	1
+239	ZM	Zambia	260	238	1
+240	ZW	Zimbabwe	263	239	1

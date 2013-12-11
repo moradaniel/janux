@@ -1,0 +1,58 @@
+<!DOCTYPE html 
+	PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
+	<title>$title</title>
+
+	<!-- to correct the unsightly Flash of Unstyled Content. http://www.bluerobot.com/web/css/fouc.asp -->
+	<script type="text/javascript"></script>
+
+	<link rel="stylesheet" href="../css/basic.css"  type="text/css"/>
+	<link rel="stylesheet" href="../css/layout.css" type="text/css"/>
+	<link rel="stylesheet" href="../css/color.css"  type="text/css"/>
+	<link rel="stylesheet" href="../css/font.css"   type="text/css"/>
+
+	<!-- this is how csszengarden import their stylesheet, for reasons unknown
+	<style type="text/css" media="all">
+		@import "../css/basic.css";
+		@import "../css/layout.css";
+		@import "../css/color.css";
+		@import "../css/font.css";
+	</style>
+	-->
+
+  <script type="text/javascript" src="../js/cooltree.js"></script>
+  <script type="text/javascript" src="../js/leftnav_nodes.js"></script>
+  <script type="text/javascript" src="../js/leftnav_format.js"></script>
+	
+	<script type="text/javascript">
+		var leftnav = new COOLjsTree("leftnav", LEFTNAV_NODES, LEFTNAV_FORMAT);
+	</script>
+
+</head>
+
+
+<body onload="window.defaultStatus='Janux Biz';" id="body_tag">
+
+<div id="container">
+	<div id="masthead">Janux Biz</div>
+
+	<div id="topnav">
+		<form action="find_by_code.jnx" style="position:absolute; right:0px; top:-2px; padding:0px; margin:0px; color:white;">
+			Organization Code: <input name="orgCode" type="text" size="10"/><input type="submit" value="go" style="height:22px; border: 1px solid white; border-top:0px; border-bottom:0px; color:white; background-color:darkgrey"/>
+		</form>
+	</div>
+	<div id="leftnav">
+	</div>
+
+	<div id="body">
+	$tiles.content
+	</div>
+
+</div>
+</body>
+</html>

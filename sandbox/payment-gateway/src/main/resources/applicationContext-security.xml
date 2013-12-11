@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+">
+
+	<sec:http use-expressions="true" access-denied-page="/accessDenied.jsp">
+		<sec:intercept-url pattern="/login.jsp"    filters="none" />
+		<sec:intercept-url pattern="/remoting/**"  filters="none" />
+		<sec:intercept-url pattern="/resources/**" filters="none" />
+		<sec:intercept-url pattern="/**/*.json*"   access="isAuthenticated()" />
+		<sec:intercept-url pattern="/**"           access="isAuthenticated()" />
+		<!-- <sec:form-login login-page="/login.jsp" default-target-url="/welcome.jsp" authentication-failure-url="/login.jsp?state=failure" /> -->
+		<!-- <sec:logout logout-success-url="/login.jsp?state=logout" /> -->
+		<sec:http-basic />
+		<sec:port-mappings>
+			<sec:port-mapping http="9090" https="443"/>
+		</sec:port-mappings>
+	</sec:http>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="januxUserDetailsService"/>
+	</sec:authentication-manager>
+
+	<bean id="januxUserDetailsService" class="org.janux.bus.security.spring.JanuxUserDetailsService">
+		<property name="accountDao" ref="accountDaoGeneric"/>
+	</bean>
+
+	<!--
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="user1" password="password1" authorities="ROLE_USER, ROLE_ADMIN" />
+				<sec:user name="user2" password="password2" authorities="ROLE_USER" />
+			</sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	-->
+
+	<!-- Your application may use the PBEStringEncryptor in several places, like for example at new user sign-up. -->
+	<bean id="jasyptPBEStringEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<!-- <property name="algorithm" value="PBEWithMD5AndTripleDES" /> -->
+		<property name="password" value="test" />
+	</bean>
+
+	<!-- 
+		This Spring Security-friendly PasswordEncoder implementation will wrap the PBEStringEncryptor
+		instance so that it can be used from the security framework. 
+	-->
+	<bean id="passwordEncoder" class="org.jasypt.spring.security3.PBEPasswordEncoder">
+		<property name="pbeStringEncryptor">
+			<ref bean="jasyptPBEStringEncryptor" />
+		</property>
+	</bean>
+	
+</beans>

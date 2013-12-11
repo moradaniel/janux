@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<!-- Sets up a shared VelocityEngine for Velocity views -->
+	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath"><value>WEB-INF/views/</value></property>
+	</bean>
+
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/organization.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- resolves view names to Tile/Velocity views, e.g.: -->
+	<bean class="org.janux.ui.springmvc.web.view.tiles.velocity.TilesVelocityViewResolver">
+		<property name="viewClass"><value>org.janux.ui.springmvc.web.view.tiles.velocity.TilesVelocityView</value></property>
+		<property name="contentType"><value>text/html;charset=utf-8</value></property>
+		<property name="exposeSpringMacroHelpers" value="true"/>
+	</bean>
+
+	<!-- 
+		generally maps urls by mapping the file name to a view by the same name,
+		or maps specific urls to specific Controllers
+	-->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<!-- <property name="defaultHandler"><ref local="url2ViewController"/></property> -->
+		<property name="interceptors">
+			<list>
+				<ref bean="orgActionInterceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/Description">descriptionForm</prop>
+				<prop key="/ContactInfo">contactInfoForm</prop>
+				<prop key="">url2ViewController</prop>
+				<prop key="/**/*">orgController</prop>
+
+				<!-- deprecated -->
+				<!--
+				<prop key="/org_find.jnx">findOrgForm</prop>
+				<prop key="/people">orgController</prop>
+				<prop key="/">orgController</prop>
+				<prop key="/find_by_code.jnx">orgController</prop>
+				<prop key="/*.html">url2ViewController</prop>
+				<prop key="/*.jnx">url2ViewController</prop>
+				-->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="orgActionInterceptor" class="biz.janux.ui.springmvc.people.OrgActionInterceptor">
+		<constructor-arg><ref bean="orgDao"/></constructor-arg>
+		<constructor-arg><ref bean="geoDao"/></constructor-arg>
+	</bean>
+
+	<!-- maps url paths to logical views -->
+	<bean id="url2ViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+
+	<bean id="descriptionForm" class="biz.janux.ui.springmvc.people.OrgDescriptionForm">
+		<property name="organizationDao"><ref bean="orgDao"/></property>
+		<!--
+			Indicates whether the form object should be kept in the session when a
+			user asks for a new form. This makes it possible to retrieve an object
+			from the database, let the user edit it, and then persist it again using
+			the same form.
+			Otherwise, a new command object will be created for each request (even
+			when showing the form again after validation errors).  
+		-->
+		<property name="sessionForm" value="true"/>
+		<!--
+			Indicates whether to bind servlet request parameters when creating a new
+			form. Otherwise, the parameters will only be bound on form submission attempts.  
+			<property name="bindOnNewForm" value="true"/>
+		-->
+		<!-- <property name="commandName"   value="hotel"/> -->
+		<!-- <property name="commandClass"  value="com.innpoints.hotel.Hotel"/> -->
+		<property name="formView"    ref="VIEW_DESCRIPTION"/>
+		<property name="successView" ref="VIEW_DESCRIPTION"/>
+	</bean>
+
+	<bean id="contactInfoForm" class="biz.janux.ui.springmvc.people.OrgContactInfoForm">
+		<property name="organizationDao"><ref bean="orgDao"/></property>
+		<property name="sessionForm" value="true"/>
+		<property name="formView"    ref="VIEW_CONTACT_INFO"/>
+		<property name="successView" ref="VIEW_CONTACT_INFO"/>
+	</bean>
+
+  <!--
+	<bean id="findOrgForm" class="biz.janux.ui.springmvc.people.FindOrgFormController">
+		<property name="commandClass" value="biz.janux.people.OrganizationImpl"/>
+		<property name="formView"     value="org_find"/>
+		<property name="successView"  value="org_summary"/>
+	</bean>
+	-->
+
+	<bean id="orgController" class="biz.janux.ui.springmvc.people.OrganizationController">
+		<property name="organizationDao"><ref bean="orgDao"/></property>
+		<property name="geographyDao"   ><ref bean="geoDao"/></property>
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+				<property name="mappings">
+					<props>
+						<prop key="/organization">redirectHome</prop>
+						<prop key="/SelectOrganization">selectOrganization</prop>
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- public static field constants -->
+	<bean id="VIEW_DESCRIPTION" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+		<property name="staticField">
+			<value>biz.janux.ui.springmvc.people.OrganizationController.VIEW_DESCRIPTION</value>
+		</property>
+	</bean>
+
+	<bean id="VIEW_CONTACT_INFO" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+		<property name="staticField">
+			<value>biz.janux.ui.springmvc.people.OrganizationController.VIEW_CONTACT_INFO</value>
+		</property>
+	</bean>
+
+
+</beans>
+

@@ -1,0 +1,101 @@
+<project
+	xmlns:j     = "jelly:core"
+	xmlns:maven = "jelly:maven"
+>
+	<preGoal name="test:test">
+		<!-- by default, the database is reset to a known state prior to each test run -->
+		<j:if test="${janux.help.test.db.seedTest}">
+			<attainGoal name="db-seedTest"/>
+		</j:if>
+	</preGoal>
+
+	<goal 
+		name="db-recreate" 
+		description="Recreate database schemas and tables"
+	>
+		<j:set var="janux.db.schema.dir"  value="sql/${janux.db.type}"/>
+
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Dropping and recreating tables using ${janux.db.type}</echo>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<exec dir="${janux.db.schema.dir}" executable="psql" >
+				<arg line="-X -f recreate.sql -h ${janux.db.host} -d ${janux.db.name} -U ${janux.db.user}"/>
+			</exec>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<path id="driver.class.path">
+				<pathelement location="${maven.repo.local}/mysql/jars/mysql-connector-java-5.0.5.jar"/>
+			</path>
+			
+			<!-- drop the janux database and drop the janux user -->
+			<echo>Drop the janux database and user</echo>
+			<sql driver="${janux.db.driver}" url="jdbc:mysql://localhost/" userid="${janux.db.admin.user}" password="${janux.db.admin.password}" onerror="continue" classpathref="driver.class.path" autocommit="true">
+                    drop database if exists ${janux.db.name};
+                    revoke all privileges, grant option from '${janux.db.user}'@'%';
+                    revoke all privileges, grant option from '${janux.db.user}'@'localhost';
+                    drop user '${janux.db.user}'@'%';
+			</sql>
+			
+			<!--	create the janux database and user -->
+			<echo>Create the janux database and user</echo>
+			<sql driver="${janux.db.driver}" url="jdbc:mysql://localhost/" userid="${janux.db.admin.user}" password="${janux.db.admin.password}" onerror="abort" classpathref="driver.class.path" autocommit="true">
+                     create database ${janux.db.name};
+                     grant all on ${janux.db.name}.* to '${janux.db.user}'@'%' identified by '${janux.db.password}';
+                     grant all on ${janux.db.name}.* to '${janux.db.user}'@'localhost' identified by '${janux.db.password}';
+			</sql>
+			
+			<exec dir="${janux.db.schema.dir}" executable="mysql" >
+				<arg line="-v -u ${janux.db.user} -p${janux.db.password} ${janux.db.name} -e 'source recreate.sql'"/>
+			</exec>
+		</j:if>
+	</goal>
+	<goal 
+		name="db-seed" 
+		description="Recreate database schemas and tables and populate with seed data"
+		prereqs="db-recreate"
+	>
+		<j:set var="janux.db.schema.dir"  value="sql/${janux.db.type}"/>
+
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Seeding tables using ${janux.db.type}</echo>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<exec dir="${janux.db.schema.dir}" executable="psql" >
+				<arg line="-X -f seed.sql -h ${janux.db.host} -d ${janux.db.name} -U ${janux.db.user}"/>
+			</exec>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<exec dir="${janux.db.schema.dir}" executable="mysql" >
+				<arg line="-v -u ${janux.db.user} -p${janux.db.password} ${janux.db.name} -e 'source seed.sql'"/>
+			</exec>
+		</j:if>
+	</goal>
+
+
+	<goal 
+		name="db-seedTest" 
+		description="Recreate database schemas and tables and populate with seed and test data"
+		prereqs="db-seed"
+	>
+		<j:set var="janux.db.schema.dir"  value="sql/${janux.db.type}"/>
+
+		<echo>Connecting to db '${janux.db.name}' with user '${janux.db.user}@${janux.db.host}'</echo>
+		<echo>Seeding tables using ${janux.db.type}</echo>
+
+		<j:if test="${janux.db.type.equals('postgresql')}">
+			<exec dir="${janux.db.schema.dir}" executable="psql" >
+				<arg line="-X -f seedTest.sql -h ${janux.db.host} -d ${janux.db.name} -U ${janux.db.user}"/>
+			</exec>
+		</j:if>
+
+		<j:if test="${janux.db.type.equals('mysql')}">
+			<exec dir="${janux.db.schema.dir}" executable="mysql" >
+				<arg line="-v -u ${janux.db.user} -p${janux.db.password} ${janux.db.name} -e 'source seedTest.sql'"/>
+			</exec>
+		</j:if>
+	</goal>
+ 
+</project>

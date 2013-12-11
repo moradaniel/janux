@@ -1,0 +1,369 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>war janux-payment-gateway</name>
+	<artifactId>janux-payment-gateway</artifactId>
+	<packaging>war</packaging>
+	
+	<parent>
+		<groupId>janux</groupId>
+		<artifactId>janux-project</artifactId>
+		<version>0.4.01-SNAPSHOT</version>
+	</parent>
+	
+	<properties>
+		<spring-security.version>3.0.2.RELEASE</spring-security.version>
+		<gateway.urlServerContext>payment</gateway.urlServerContext>
+	</properties>
+	
+	<build>
+		<filters>
+			<filter>src/main/filters/filter.properties</filter>
+		</filters>
+		<finalName>${gateway.urlServerContext}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+
+			<resource>
+				<directory>${janux.home}/build/template/persist-hibernate/src/test/resources</directory>
+				<includes>
+					<include>DatabaseContext.xml</include>
+					<include>HibernateContext.xml</include>
+					<include>GenericDaoContext.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>${janux.home}/modules/bus/src/test/resources</directory>
+				<includes>
+					<include>mappings/Account.hbm.xml</include>
+					<include>mappings/PermissionContext.hbm.xml</include>
+					<include>mappings/Role.hbm.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>${janux.home}/modules/biz/src/test/resources</directory>
+				<includes>
+					<include>GeographyContextGeneric.xml</include>
+					<include>mappings/StateProvince.hbm.xml</include>
+					<include>mappings/Country.hbm.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>${janux.home}/sandbox/payment/src/test/resources</directory>
+				<includes>
+					<include>PaymentStorageServiceContext.xml</include>
+					<include>PaymentStorageDaoContext.xml</include>
+					<include>PaymentUtilContext.xml</include>
+					<include>PaymentMockContext.xml</include>
+					<include>mappings/*</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>${janux.home}/sandbox/payment-processor/src/test/resources</directory>
+				<includes>
+					<include>PaymentProcessorServiceContext.xml</include>
+					<include>PaymentProcessorDaoContext.xml</include>
+					<include>PaymentProcessorMockContext.xml</include>
+					<include>mappings/*</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>${janux.home}/payment-util/src/test/resources</directory>
+				<includes>
+					<include>PaymentJsonMappingContext.xml</include>
+				</includes>
+			</resource>
+
+		</resources>
+
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<!-- we must filter the js files -->
+					<webResources>
+						<resource>
+							<directory>src/main/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<filtering>false</filtering>
+						</resource>
+
+						<resource>
+							<directory>src/main/resources-filtered</directory>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>paymentGateway-servlet.xml</include>
+								<include>urlrewrite.xml</include>
+								<include>web.xml</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+
+						<resource>
+							<directory>src/main/resources-filtered</directory>
+							<targetPath>scripts</targetPath>
+							<includes>
+								<include>payConstants.js</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+
+					</webResources>
+
+					<warsourcedirectory>
+						src/main/webapp
+					</warsourcedirectory>
+
+					<webxml>src/main/webapp/WEB-INF/web.xml</webxml>
+
+					<!-- we must exclude the svn folders -->
+					<packagingexcludes>
+						<!--[CDATA[**/.svn,**/.svn/**,**/_svn,**/_svn/**]]-->
+						<archive>
+							<manifest>
+								<addclasspath>true</addclasspath>
+								<classpathprefix>lib/</classpathprefix>
+							</manifest>
+						</archive>
+					</packagingexcludes>	
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		
+		<!-- Spring dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-spring</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring-security.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-js</artifactId>
+			<version>2.0.8.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context-support</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-cas-client</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+
+		<!-- Janux dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-processor</artifactId><!-- mock implementation -->
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-util</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-lib-test</artifactId>
+			<version>${janux.version}</version>
+			<type>pom</type>
+		</dependency>
+				
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-util</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-controllers</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-payment-storage-StrongKey</artifactId><!-- not used in demo/mock deploy -->
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-api</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-bus</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-biz</artifactId>
+			<version>${janux.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-search</artifactId>
+			<version>0.5.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+		<!-- jasypt for encrypt and decrypt -->
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+	</dependencies>
+</project>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+  
+  
+	<!-- 
+		The following beans implement declarative transaction management 
+		via an AOP interceptor (TransactionProxyFactoryBean)
+		This interceptor creates proxy classes that wrap the 'target' DAO and Services
+		and handle hibernate sessions and transactions, 
+		thus freeing the DAO/Service code from having to implement 
+		hibernate session management and programmatic transaction declarations
+	-->
+
+	<!--
+	 ****************************************************************************
+	 Services for org.janux.bus package
+	 ****************************************************************************
+	-->
+	<!-- the Service Facade -->
+	<bean id="accountService" class="org.janux.bus.security.AccountServiceImpl">
+		<constructor-arg><ref local="accountDao"/></constructor-arg>
+		<constructor-arg><ref local="roleDao"/></constructor-arg>
+		<constructor-arg><ref local="permContextDao"/></constructor-arg>
+	</bean>
+
+	<!-- manages Account objects -->
+	<bean id="accountDao" class="org.janux.bus.security.AccountDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+	<!-- manages PermissionContext objects -->
+	<bean id="roleDao" class="org.janux.bus.security.RoleDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+	<!-- manages PermissionContext objects -->
+	<bean id="permContextDao" class="org.janux.bus.security.PermissionContextDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+	<aop:config>
+		<aop:pointcut id="readSecurityServiceOperation" expression="execution(* org.janux.bus.security.*HibImpl.*(..))"/>
+		<aop:advisor advice-ref="txAllPropagationSupport" pointcut-ref="readSecurityServiceOperation"/>
+	</aop:config>
+</beans>
+
+

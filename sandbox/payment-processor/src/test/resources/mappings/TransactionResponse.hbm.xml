@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+
+<class name="biz.janux.payment.TransactionResponseImpl"  table="pay_transaction_response" proxy="biz.janux.payment.TransactionResponse">
+	<meta attribute="class-description">Represents the response of a request for a Transaction</meta>
+	<meta attribute="implements">TransactionResponse</meta>
+	<meta attribute="implement-equals">true</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+	
+	<version name="dateUpdated" column="updated" type="timestamp">
+		<meta attribute="field-description">Date on which this record was last modified; this is used by the optional hibernate &lt;version&gt; element to indicate that the table contains versioned data, and is useful when using long transactions.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</version>
+
+	<property name="dateCreated" column="created" type="timestamp">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<!--
+   ****************************************************************************
+	 Fields
+   ****************************************************************************
+  	-->
+	<property name="date" column="date" type="date" not-null="true">
+		<meta attribute="field-description">Date of the transaction response.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="approved" column="approved" type="boolean" not-null="true">
+		<meta attribute="field-description"></meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<property name="originalBytes" column="originalBytes" type="binary" not-null="false">
+		<meta attribute="field-description">The bytes received from the payment processor.</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+	
+	<!--
+		****************************************************************************
+		AuthorizationResponse, SettlementResponse are sub-classes mapped to separate tables,
+		sharing a common key to the TransactionResponse table
+		****************************************************************************
+	-->
+	<joined-subclass name="biz.janux.payment.AuthorizationResponseImpl" table="pay_authorization_response" proxy="biz.janux.payment.AuthorizationResponse">
+		<meta attribute="class-description"></meta>
+		<meta attribute="implements">AuthorizationResponse</meta>
+
+		<key column="id" foreign-key="fk_AuthorizationResponse__Transaction" />
+
+		<property name="approvalCode" column="approvalCode" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="storeNumber" column="storeNumber" type="string" not-null="false">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="terminalNumber" column="terminalNumber" type="string" not-null="false">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="requestedACI" column="requestedACI" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="returnedACI" column="returnedACI" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="authSourceCode" column="authSourceCode" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="transactionSequenceNumber" column="transactionSequenceNumber" type="string" not-null="false">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="responseCode" column="responseCode" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="avsResultCode" column="avsResultCode" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="authResponseText" column="authResponseText" type="string" not-null="false">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="retrievalReferenceNumber" column="retrievalReferenceNumber" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="transactionIdentifier" column="transactionIdentifier" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="validationCode" column="validationCode" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="localTransDate" column="localTransDate" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="localTransTime" column="localTransTime" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="reversal" column="reversal" type="boolean" not-null="true">
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="offline" column="offline" type="boolean" not-null="true">
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="declined" column="declined" type="boolean" not-null="true">
+			<meta attribute="field-description"></meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+	</joined-subclass>
+	<joined-subclass name="biz.janux.payment.SettlementResponseImpl" table="pay_settlement_response" proxy="biz.janux.payment.SettlementResponse">
+		<meta attribute="class-description"></meta>
+		<meta attribute="implements">SettlementResponse</meta>
+
+		<key column="id" foreign-key="fk_SettlementResponse__Transaction" />
+
+		<property name="recordFormat" column="recordFormat" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="applicationType" column="applicationType" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="routingID" column="routingID" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="recordType" column="recordType" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="batchRecordCount" column="batchRecordCount" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="batchNetDeposit" column="batchNetDeposit" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="batchResponseCode" column="batchResponseCode" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="batchNumber" column="batchNumber" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="batchResponseText" column="batchResponseText" type="string" not-null="true">
+			<meta attribute="field-description">
+			</meta>
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+	</joined-subclass>
+</class>
+
+</hibernate-mapping>

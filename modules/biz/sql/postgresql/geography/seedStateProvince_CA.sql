@@ -1,0 +1,12 @@
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'AB', 'Alberta');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'BC', 'British Columbia');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'MB', 'Manitoba');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'NB', 'New Brunswick');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'NF', 'Newfoundland');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'NT', 'Northwest Territories');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'NS', 'Nova Scotia');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'ON', 'Ontario');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'PE', 'Prince Edward Island');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'QC', 'Quebec');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'SK', 'Saskatchewan');
+INSERT INTO geography.StateProvince VALUES (NEXTVAL('hibernate_sequence'), (SELECT id FROM geography.Country WHERE code = 'CA'), 'YT', 'Yukon');

@@ -1,0 +1,31 @@
+<?xml version='1.0' ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"
+>
+<!-- 
+	This is only used when running the hibernate tools;
+	it is not part of the regular build or the test runs
+-->
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">@JANUX.DB.DIALECT@</property>
+		<property name="hibernate.connection.driver_class">@JANUX.DB.DRIVER@</property>
+		<property name="hibernate.connection.url">@JANUX.DB.URL@</property>
+		<property name="hibernate.connection.username">@JANUX.DB.USER@</property>
+		<property name="hibernate.connection.password">@JANUX.DB.PASSWORD@</property>
+		
+		<mapping resource="/mappings/Country.hbm.xml"/>
+		<mapping resource="/mappings/StateProvince.hbm.xml"/>
+		<mapping resource="/mappings/City.hbm.xml"/>
+		<mapping resource="/mappings/ContactMethod.hbm.xml"/>
+		<mapping resource="/mappings/Party.hbm.xml"/>
+		<mapping resource="/mappings/FormOfPayment.hbm.xml"/>
+		<mapping resource="/mappings/Currency.hbm.xml"/>
+		<mapping resource="/mappings/Language.hbm.xml"/>
+		<mapping resource="/mappings/PaymentMethod.hbm.xml"/>
+		<mapping resource="/mappings/DepositMethod.hbm.xml"/>
+		<mapping resource="/mappings/GuaranteeMethod.hbm.xml"/>
+
+	</session-factory>
+</hibernate-configuration>

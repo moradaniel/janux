@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: City.hbm.xml,v 1.4 2007-01-12 20:10:51 philippe Exp $ -->
+<hibernate-mapping>
+
+<class 
+	name="biz.janux.geography.CityImpl" 
+	table="geography_city"
+>
+	<meta attribute="class-description">Represents a City</meta>
+	<meta attribute="implements">City</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<property name="code" type="string" not-null="false">
+		<meta attribute="field-description">
+An optional business code by which an industry may identify a City
+		</meta>
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="name" type="string" not-null="true">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+
+	<!-- uni-directional many-to-one association to StateProvince -->
+	<many-to-one
+		name="state"
+		class="biz.janux.geography.StateProvinceImpl"
+		column="stateProvinceId"
+		not-null="true"
+		cascade="none"
+		foreign-key="fk_City__StateProvince"
+		lazy="false"
+	>
+		<meta attribute="field-description">
+A City belongs to a Country implicitly by way of a StateProvince; nevertheless,
+it is conceivable that there may be times when we may know the Country in which
+a City is located, but not its StateProvince; rather than having to maintain a
+direct and explicit relationship between City and Country, which must be
+harmonized with the implicit relationship via a StateProvince, we instead
+define a default 'Unknown' StateProvince for each Country, which can be used to
+relate a City to a Country when the StateProvince is not known.
+		</meta>
+	</many-to-one>
+	
+
+</class>
+
+</hibernate-mapping>

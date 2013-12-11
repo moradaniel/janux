@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<extend>${basedir}/../project.xml</extend>
+	<currentVersion>${janux.biz.version}</currentVersion>
+
+	<artifactId>janux-biz</artifactId>
+	<name>Janux Business Entities</name>
+
+	<shortDescription>Generic and commonly used eBusiness Entities</shortDescription>
+
+	<description>
+	This set of packages models generic eBiz entities such as people,
+	organization, products, inventory, etc... that are commonly used across a
+	wide array of eBusiness domains, and which can be made more specific through
+	the Janux Adapt set of packages. 
+	</description>
+
+	<package>biz.janux</package>
+
+	<build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+
+		<unitTest>
+			<resources>
+				<resource>
+					<directory>src/main/resources</directory>
+					<filtering>true</filtering>
+					<excludes>
+						<exclude>hibernate.reveng.xml</exclude>
+					</excludes>
+				</resource>
+
+				<resource>
+					<directory>../bus/src/main/resources</directory>
+					<includes>
+						<include>SecurityContext.xml</include>
+						<include>SecurityContextGeneric.xml</include>
+						<include>mappings/*</include>
+					</includes>
+				</resource>
+
+				<resource>
+					<directory>../../resources</directory>
+					<filtering>false</filtering>
+					<includes>
+						<include>ApplicationContext.xml</include>
+						<include>DatabaseContext.xml</include>
+						<include>HibernateContext.xml</include>
+						<include>HibernateContextGeneric.xml</include>
+					</includes>
+				</resource>
+
+				<resource>
+					<directory>../../resources</directory>
+					<filtering>true</filtering>
+					<includes>
+						<include>ApplicationContext.properties</include>
+						<include>log4j.xml</include>
+					</includes>
+				</resource>
+			</resources>
+		</unitTest>
+
+	</build>
+
+	<dependencies>
+
+		<!-- internal janux dependencies -->
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-bus</artifactId>
+			<version>${janux.bus.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>janux</groupId>
+			<artifactId>janux-adapt</artifactId>
+			<version>${janux.adapt.version}</version>
+		</dependency>
+
+		<!-- provides security infrastructure -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
+	</dependencies>
+</project>

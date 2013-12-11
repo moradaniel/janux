@@ -1,0 +1,76 @@
+/* specific divs */
+
+#container { 
+	padding: 74px 0px 0px 0px;  
+	margin: 0px; 
+}
+
+#masthead {
+	background: url(http://www.innpoints.com/images/graytile.jpg) repeat top left; 
+	height: 50px;
+	width: 100%;
+	position: absolute;
+	font-size: 16pt;
+	font-weight: bold;
+	top:0px;
+	left:0px;
+	right:0px;
+}
+
+#topnav {
+	height: 23px;
+	width: 100%;
+	position: absolute;
+	top:  51px;
+	left:  0px;
+	right: 0px;
+}
+
+#selectOrg {
+	height: 22px;
+	position:absolute;
+	top: 1px;
+	right: 0px;
+	font-size: 8pt;
+}
+
+#selectOrgDropdown {
+	/*
+	position:absolute;
+	top: 1px;
+	right: 0px;
+	*/
+	font-size: 8pt;
+	background-color: silver;
+}
+
+
+#leftnav {
+	width: 180px;
+	height: 100%;
+	/*
+	position: absolute;
+	top:71px;
+	left:0px;
+	*/
+}
+
+#body {
+	border-left: 1px dotted gray;
+	padding: 20px;
+	height: 100%;
+	/* width: 100%; */
+	position: absolute;
+	top:72px;
+	left:180px;
+	right:0px;
+}
+
+#basicInfo {
+	/* width: 400px; */
+}
+
+.descrBox {
+	width: 600px;
+	margin-bottom: 5px;
+}

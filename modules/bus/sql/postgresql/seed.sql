@@ -1,0 +1,1 @@
+-- LOAD DATA LOCAL INFILE '../resources/geography/Country.txt'       INTO TABLE geography_Country;

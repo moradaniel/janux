@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/*
+ * Copyright 2001-2005 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project xmlns="http://maven.apache.org/POM/3.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/3.0.0 http://maven.apache.org/maven-v3_0_0.xsd">
+	
+	<extend>../../project.xml</extend>
+  <!-- the version of maven's project object model -->
+  <pomVersion>3</pomVersion>
+  
+  <!--  The short name of the project group.
+        This value is used to group all jars for a project in one directory. -->
+  <groupId>spreadsheet_report</groupId>
+
+  <!-- a unique name for this project -->
+  <artifactId>spreadsheet_report</artifactId>
+
+  <!-- a short but descriptive name for the project -->
+  <name>spreadsheet_report</name>
+
+  <!-- The version of the project under development, e.g.
+       1.1, 1.2, 2.0-SNAPSHOT -->
+  <currentVersion>1.0</currentVersion>
+
+  <!-- details about the organization that 'owns' the project -->
+  <organization>
+   	<name>Janux</name>
+    <url>http://www.janux.org/</url>
+    <logo>http://www.janux.org/images/janux_logo.gif</logo>
+  </organization>
+
+  <!-- the year the project started -->
+  <inceptionYear>2010</inceptionYear>
+  <package>org.janux.spreadsheetReport</package>
+  <logo></logo>
+  <description></description>
+
+  <!-- a short description of what the project does -->
+  <shortDescription></shortDescription>
+
+  <!-- the project home page -->
+  <url></url>
+
+  <issueTrackingUrl>http://demeter.janux.org/bugzilla/</issueTrackingUrl>
+  <siteAddress></siteAddress>
+  <siteDirectory></siteDirectory>
+  <distributionDirectory></distributionDirectory>
+
+  <!-- the version control repository and http url for online access
+       the connection element has the form:
+       scm:<system>:<system specific connection string> -->
+  <repository>
+  </repository>
+
+  <!-- any mailing lists for the project -->
+  <mailingLists/>
+
+  <!-- who the developers are for the project -->
+  <developers/>
+
+  <!-- jar files the project is dependent on -->
+  <dependencies>
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+  
+		<!-- jxls libraries -->  			
+  		<dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+            <version>0.9.9</version>
+        </dependency>
+  		<dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jexl</groupId>
+            <artifactId>commons-jexl</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.6</version>
+        </dependency>
+	</dependencies>
+  
+
+  <!-- build information for the project -->
+  <build>
+    <defaultGoal>jar</defaultGoal>
+    <nagEmailAddress></nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+	  <resources>
+		  <resource>
+	        <directory>src/test/resources</directory>
+	        <includes>
+	          <include>**/*.*</include>
+	        </includes>
+	      </resource>
+	      <resource>
+        	<directory>src/resources</directory>
+        	<includes>
+          	<include>*.*</include>
+        	</includes>
+      	  </resource>
+      </resources>
+    </unitTest>
+    <resources>
+      <resource>
+        <directory>src/resources</directory>
+        <includes>
+          <include>*.*</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+  
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <!--
+    <report>maven-faq-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-linkcheck-plugin</report>
+    <report>maven-tasklist-plugin</report>
+    -->
+  </reports>
+
+</project>

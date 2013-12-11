@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="hibernateMappings" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>/mappings/Account.hbm.xml</value>
+				<value>/mappings/Role.hbm.xml</value>
+				<value>/mappings/PermissionContext.hbm.xml</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

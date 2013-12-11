@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+	"http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd"
+>
+<tiles-definitions>
+
+	<!-- Default main L-nav template -->
+	<definition name="layout_main" page="layout_main.vm">
+		<put name="leftnav" value="leftnav.vm" type="page"/>
+	</definition>
+
+	<!-- extend other views from the main layout_main -->
+	<definition name="index" extends="layout_main">
+		<put name="content" value="index.vm" type="page"/>
+	</definition>
+
+	<definition name="org_find" extends="layout_main">
+		<put name="content" value="org_find.vm" type="page"/>
+	</definition>
+
+	<definition name="org_display" extends="layout_main">
+		<put name="content" value="org_display.vm" type="page"/>
+	</definition>
+
+	<definition name="message_page" extends="layout_main">
+		<put name="content" value="message_page.vm" type="page"/>
+	</definition>
+
+</tiles-definitions>

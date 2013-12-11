@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<!-- CVS: $Id: StateProvince.hbm.xml,v 1.4 2007-01-12 20:10:51 philippe Exp $ -->
+<hibernate-mapping>
+
+<class 
+	name="biz.janux.geography.StateProvinceImpl" 
+	table="geography_state_province"
+>
+	<meta attribute="class-description" inherit="false">
+Simple bean representing a StateProvince
+	</meta>
+	<meta attribute="implements" inherit="false">StateProvince</meta>
+
+	<id name="id" type="java.lang.Integer" unsaved-value="-1">
+		<meta attribute="use-in-tostring">true</meta>
+		<generator class="native"/>
+	</id>
+
+	<property name="code" type="string" not-null="true">
+		<meta attribute="use-in-tostring">true</meta>
+		<meta attribute="use-in-equals">true</meta>
+	</property>
+
+	<property name="name" type="string">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="sortOrder" type="int">
+		<meta attribute="use-in-tostring">true</meta>
+	</property>
+
+	<property name="visible" type="boolean">
+		<meta attribute="use-in-tostring">true</meta>
+		<column name="visible" not-null="true" default="1"/>
+	</property>
+
+
+	<!-- uni-directional many-to-one association to Country -->
+	<many-to-one
+		name="country"
+		column="countryId"
+		class="biz.janux.geography.CountryImpl"
+		not-null="true"
+		cascade="none"
+		foreign-key="fk_StateProvince__Country"
+		lazy="false"
+	>
+		<meta attribute="use-in-equals">true</meta>
+	</many-to-one>
+	
+
+</class>
+
+</hibernate-mapping>

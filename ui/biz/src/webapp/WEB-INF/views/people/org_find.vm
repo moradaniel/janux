@@ -1,0 +1,8 @@
+<script>
+	var idx = leftnav.nodeByID('OrgSection').index;
+	leftnav.expandNode(idx,true,true);
+</script>
+
+<form method="POST">
+Search for Organization by Code: <input type="text" length="25"/><input type="submit" value="go" heght="16"/>
+</form>

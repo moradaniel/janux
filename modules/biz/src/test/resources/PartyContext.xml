@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+  
+	<!-- 
+		The following beans implement declarative transaction management 
+		via Spring AOP. This is a dynamic proxying strategy used in DAO and Services
+		and handle hibernate sessions and transactions, 
+		thus freeing the DAO/Service code from having to implement 
+		hibernate session management and programmatic transaction declarations
+	-->
+	<!--
+		****************************************************************************
+		Accessors for biz.janux.people package
+		****************************************************************************
+	-->
+	<bean id="partyDao" class="biz.janux.people.PartyDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+
+	<bean id="personDao" class="biz.janux.people.PersonDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+
+	<bean id="orgDao" class="biz.janux.people.OrganizationDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+	
+	<bean id="languageDao" class="biz.janux.people.LanguageDaoHibImpl">
+		<property name="sessionFactory"><ref bean="hibernateSessionFactory"/></property>
+	</bean>
+
+	<!-- txAllPropagationSupport for all party DAOs -->			
+	<aop:config>
+		<aop:pointcut id="partyDaoOperation" expression="execution(* biz.janux.people.*DaoHibImpl.*(..))"/>
+		<aop:advisor advice-ref="txAllPropagationSupport" pointcut-ref="partyDaoOperation"/>
+	</aop:config>
+	
+</beans>

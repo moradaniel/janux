@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!--
+		The Appender section sets:
+		 - the destination of the logging files/streams (depends on Logger subclass)
+		 - how the logging files/streams are to be managed/rolled (depends on Logger subclass)
+		 - how each file is to be formatted (<layout> node)(see log4j docs for help on formatting string)
+
+		The Category section below determines the content of the logging files/streams
+
+	-->
+
+  <!-- default file logger -->
+  <appender name="AppLogger" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="./target/application.log"/>
+    <param name="Append" value="false"/>
+    <param name="DatePattern" value="'.'yyyyMMdd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+    	<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%-5p] %c - %m\n"/>
+    </layout>
+  </appender>
+
+  <!-- Logger for the main model entity classes -->
+  <appender name="ModelLogger" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="./target/model.log"/>
+    <param name="Append" value="false"/>
+    <param name="DatePattern" value="'.'yyyyMMdd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%-5p] %c{1} - %m\n"/>
+    </layout>
+  </appender>
+
+  <!-- stdOut / console logger -->
+  <appender name="StandardOutputConsole" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value=" %m\n"/>
+    </layout>
+  </appender>
+
+
+	<!--
+		The Category section determines the content of the Logging files/streams, by
+		directing logging from specific parts of the application to these Files/Streams 
+
+		Categories are created hierarchically using dot notation naming, and the output of
+		every child category flows to the output of the parent category, 
+		unless <param name="additivity" value="false"/>
+
+		The top-level parent category is specified by the <root> node which *must*
+		be placed after all <category> nodes
+
+		The generally accepted and recommended practice is to include one logger in
+		each class file that you want to log, and call it after the full qualified
+		name of the class
+		
+		This makes it possible to use the package/name structure of the application
+		to direct output to different logging files/streams
+
+		You can direct logging to StdOut by setting the Appender of the Category to
+		be the StandardOutputConsole, as defined above
+
+		Note the crucial meaning of the flag:
+
+			<param name="additivity" value="false">
+
+		Setting this flag will prevent the output of this Category and its children
+		from flowing through the output of its parent Category
+			
+		In other words, if you want to direct all output from all categories to
+		the Console, set the appender of the root category to StandardOutputConsole and 
+		comment all nodes: <param name="additivity" value="false">
+	-->
+
+	<category name="org.janux">
+    <priority value="INFO"/>
+    <appender-ref ref="ModelLogger"/>
+  </category>
+
+	<category name="biz.janux">
+    <priority value="INFO"/>
+    <appender-ref ref="ModelLogger"/>
+  </category>
+
+  <category name="biz.janux.payment">
+    <param name="additivity" value="false"/>
+    <priority value="DEBUG"/>
+    <appender-ref ref="ModelLogger"/>
+  </category>
+
+  <category name="biz.janux.geography.jackson">
+		<param name="additivity" value="false"/>
+    <priority value="DEBUG"/>
+    <appender-ref ref="ModelLogger"/>
+  </category>
+
+  <root>
+    <priority value="WARN"/>
+    <!-- <appender-ref ref="StandardOutputConsole"/> -->
+     <appender-ref ref="AppLogger"/>
+  </root>
+
+</log4j:configuration>

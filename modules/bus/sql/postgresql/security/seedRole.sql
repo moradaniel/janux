@@ -1,0 +1,11 @@
+INSERT INTO sec_role VALUES (1,'GODDESS','Aggregates Roles WORK_SUPERVISOR, MANAGER, SUPER_HUMAN, in effect providing permissions to do everything',0,true);
+INSERT INTO sec_role VALUES (11,'WORK_SUPERVISOR','Aggregates Roles HOLIDAY_MANAGER, WORK_MANAGER, plus permissions to declare holidays and skip work',1,true);
+INSERT INTO sec_role VALUES (5,'MANAGER','Aggregates Roles WORK_MANAGER, HOLIDAY_MANAGER',2,true);
+INSERT INTO sec_role VALUES (2,'SUPER_HUMAN','Aggregates single Role ENGINEER, but is denied all PERMS_HOLIDAY',3,true);
+INSERT INTO sec_role VALUES (4,'ENGINEER','Aggregates Roles ACCOUNT_ADMIN, ROLE_ADMIN, and HOLIDAY_TAKER',4,true); 
+INSERT INTO sec_role VALUES (3,'HUMAN','Aggregates single Role GODDESS, but role is disabled',5,false);
+INSERT INTO sec_role VALUES (7,'WORK_MANAGER','has permissions to create, assign, and do work, but cannot skip work',6,true);
+INSERT INTO sec_role VALUES (6,'HOLIDAY_MANAGER','has permissions to approve and take holidays, but cannot declare them',7,true);
+INSERT INTO sec_role VALUES (8,'HOLIDAY_TAKER','has permission to take holidays, but not approve or declare them',8,true);
+INSERT INTO sec_role VALUES (9,'ACCOUNT_ADMIN','has all PERMS_ACCOUNT',9,true);
+INSERT INTO sec_role VALUES (10,'ROLE_ADMIN','has all PERMS_ROLE',10,true);

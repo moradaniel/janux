@@ -1,0 +1,11 @@
+6	1	227	751 Paula Lane	\N	\N	94952	\N	\N	\N
+7	1	227	751 Paula Lane	\N	\N	94952	\N	\N	\N
+11	2	227	22 Chanticleer	\N	\N	94939	\N	\N	\N
+12	2	227	22 Chanticleer	\N	\N	94939	\N	\N	\N
+15	1	227	751 Paula Lane	World Headquarters	\N	94952	\N	\N	\N
+18	\N	207	Schumacherweg 43	\N	\N	8046	Zurich	ZH	\N
+19	\N	\N	ch. de la Jaque 20	\N	\N	1093	La Conversion	VD	Suisse
+20	\N	\N	2-4 Place des Alpes	\N	\N	1201	Geneva	GE	Suisse
+21	\N	74	13 RUE THALES	\N	\N	33700	Bordeaux	\N	\N
+22	\N	\N	37 avenue de Saint Mande	\N	\N	75012	Paris	Ille de France	Frence
+23	\N	\N	69 avenue Mozart	\N	\N	75016	Paris	Ille de France	Frence

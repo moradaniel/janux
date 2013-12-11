@@ -1,0 +1,6 @@
+1	hera	hera	1	1
+2	heracles	heracles	1	1
+3	ariadne	ariadne	1	1
+4	dilbert	dilbert	1	1
+5	topham	topham	1	1
+6	funky	funky	1	1

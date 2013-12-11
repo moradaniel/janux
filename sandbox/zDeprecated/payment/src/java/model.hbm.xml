@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<!-- Mapping for  CreditCard model-->	
+  <class name="biz.janux.commerce.payment.model.CreditCard" table="credit_card">
+	  <id name="creditCardId" type="long" column="Credit_Card_ID" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="cardNumber">
+		 <column name="CARD_NUMBER" />
+	  </property>
+	  <property name="expirationDate">
+		<column name="EXPIRATION_DATE"/>
+	  </property>
+	  <property name="holdersName">
+	  	<column name="HOLDERS_NAME"/>
+	  </property>
+	  <property name="address1">
+		<column name="ADDRESS1"/>
+	  </property>
+	  <property name="address2">
+		<column name="ADDRESS2"/>
+	  </property>
+	  <property name="city">
+		<column name="CITY"/>
+	  </property>
+	  <property name="state">
+		<column name="STATE"/>
+	  </property>
+	  <property name="zip">
+		<column name="ZIP"/>
+	  </property>
+	  <property name="phoneNumber">
+		<column name="PHONENUMBER"/>
+	  </property>
+	  <property name="track1">
+		<column name="TRACK1"/>
+	  </property>
+	  <property name="track2">
+		<column name="TRACK2"/>
+	  </property>
+	  <property name="loggableInfo">
+		<column name="LOGGABLE_INFO"/>
+	  </property>
+	  <property name="UUID">
+		<column name="UUID"/>
+	  </property>
+	  
+	  <many-to-one name="creditCardType" column="creditCardTypeId" class="biz.janux.commerce.payment.model.CreditCardType" />
+	  <many-to-one name="country" column="countryId" class="biz.janux.commerce.payment.model.Country" />	  
+   </class>
+   
+   <!-- Mapping for  CreditCardType model-->	
+   <class name="biz.janux.commerce.payment.model.CreditCardType" table="CreditCardType" >
+   	<id name="creditCardTypeId" type="long" column="creditCardTypeId" >
+   		<generator class="assigned"/>
+  	</id>
+	  <property name="code">
+		<column name="code"/>
+	  </property>
+	  <property name="title">
+		<column name="title"/>
+	  </property>
+   	</class>
+   <!--  -->
+   
+   <!-- Mapping for  Country model-->
+   
+   <class name="biz.janux.commerce.payment.model.Country" table="Country" >
+   	<id name="countryId" type="long" column="countryId" >
+   		<generator class="increment"/>
+  	</id>
+  	<property name="title">
+		<column name="title"/>
+	  </property>
+	  <property name="iso">
+		<column name="iso"/>
+	  </property>
+	  <property name="iso3letter">
+		<column name="iso3letter"/>
+	  </property>
+	  <property name="iso3numeric">
+		<column name="iso3numeric"/>
+	  </property>
+   	</class>
+   	
+ 	<!-- Mapping for  VitalMerchantAccount model-->
+ 	
+    <class name="biz.janux.commerce.payment.model.VitalMerchantAccount" table="VITAL_MERCHANT_ACCOUNT">
+	  <id name="id" type="long" column="ID" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="acqBankIdentificationNumber">
+		 <column name="ACQ_BANK_IDENTIFICATION_NO" />
+	  </property>
+	  <property name="agentBankNumber">
+		 <column name="AGENT_BANK_NO" />
+	  </property>
+	  <property name="cardholderServiceNumber">
+		<column name="CARD_HOLDER_SERVICE_NO"/>
+	  </property>
+	  <property name="chainNumber">
+		<column name="CHAIN_NUMBER"/>
+	  </property>
+	  <property name="city">
+		<column name="CITY"/>
+		</property>
+	  <property name="cityCode">
+		<column name="CITY_CODE"/>
+	  </property>
+	   <property name="currencyCode">
+		<column name="CURRENCY_CODE"/>
+	  </property>
+	  <property name="localPhoneNumber">
+		<column name="LOCAL_PHONE_NO"/>
+	  </property>
+	  <property name="location">
+		<column name="LOCATION"/>
+	  </property>
+	  <property name="name">
+		<column name="NAME"/>
+	  </property>
+	  <property name="number">
+		<column name="NUMBER"/>
+	  </property>
+	  <property name="storeNumber">
+		<column name="STORE_NUMBER"/>
+	  </property>
+	  <property name="terminalID">
+		<column name="TERMINAL_ID"/>
+	  </property>
+	  <property name="terminalNumber">
+		<column name="TERMINAL_NUMBER"/>
+	  </property>
+	  <property name="timeZoneDifferential">
+		<column name="TIME_ZONE_DIFFERENTIAL"/>
+	  </property>
+	   <property name="merchenttimezone">
+		<column name="TIME_ZONE"/>
+	  </property>
+	  <property name="UUID">
+		<column name="UUID"/>
+	  </property>	
+	  
+	  <many-to-one name="state" column="STATE" class="biz.janux.commerce.payment.model.State" />	  
+	  <many-to-one name="country" column="countryId" class="biz.janux.commerce.payment.model.Country" cascade="save-update,persist"/>
+  </class>
+  
+  <!-- Mapping for  VitalAuthorizationResponseModel model-->
+  
+  <class name="biz.janux.commerce.payment.model.VitalAuthorizationResponseModel" table="vital_authorization_response">
+	  <id name="Id" type="long" column="Id" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="merchantId" type="long">
+		 <column name="merchantId" />
+	  </property>
+	  <property name="InstrumentId" type="long">
+		 <column name="InstrumentId" />
+	  </property>
+	  <property name="requestedACI">
+		 <column name="requestedACI" />
+	  </property>
+	  <property name="returnedACI">
+		 <column name="returnedACI" />
+	  </property>
+	  <property name="AuthorizationAmount" type="big_decimal">
+		 <column name="AuthorizationAmount" />
+	  </property>
+	  <property name="authSourceCode">
+		 <column name="authSourceCode" />
+	  </property>
+	  <property name="transactionSequenceNumber">
+		 <column name="transactionSequenceNumber" />
+	  </property>
+	  <property name="localTransDate">
+		 <column name="localTransDate" />
+	  </property>
+	  <property name="localTransTime">
+		 <column name="localTransTime" />
+	  </property>
+	  <property name="transactionIdentifier">
+		 <column name="transactionIdentifier" />
+	  </property>
+	  <property name="responseCode">
+		 <column name="responseCode" />
+	  </property>
+	  <property name="avsResultCode">
+		 <column name="avsResultCode" />
+	  </property>
+	  <property name="approvalCode">
+		 <column name="approvalCode" />
+	  </property>
+	  <property name="retrievalReferenceNumber">
+		 <column name="retrievalReferenceNumber" />
+	  </property>
+	  <property name="validationCode">
+		 <column name="validationCode" />
+	  </property>	
+	  <property name="disabled" type="int">
+		 <column name="disabled" />
+	  </property>
+	  <property name="batched" type="int">
+		 <column name="batched" />
+	  </property>
+	  <property name="localTransactionDateTime" type="timestamp">
+		 <column name="localTransactionDateTime" />
+	  </property>
+	  <property name="originalAuthorizationAmount" type="big_decimal">
+		 <column name="originalAuthorizationAmount" />
+	  </property>
+	  <property name="storeNumber">
+		 <column name="storeNumber" />
+	  </property>
+	  <property name="terminalNumber">
+		 <column name="terminalNumber" />
+	  </property>
+	  <property name="offline" type="int">
+		 <column name="offline" />
+	  </property>
+	  <property name="reversal" type="int">
+		 <column name="reversal" />
+	  </property>
+	  <property name="arAccountId" type="int">
+		 <column name="arAccountId" />
+	  </property>
+	  <property name="systemDate" type="date">
+		 <column name="systemDate" />
+	  </property>
+  </class>
+  
+  <!-- Mapping for  BatchNumber model-->
+  
+  <class name="biz.janux.commerce.payment.model.BatchNumber" table="Batch_Number">
+	  <id name="batchNumberID" type="int" column="batchNumberID" >
+	   <generator class="assigned"/>
+	  </id>
+	  <property name="number" type="int">
+		 <column name="merchantId" />
+	  </property>
+	  <property name="hotelId" type="int">
+		 <column name="hotelId" />
+	  </property>
+ </class>
+ 
+ <!-- Mapping for  TransectionSeqNum model-->
+ 
+ <class name="biz.janux.commerce.payment.model.TransectionSeqNum" table="Trans_Seq_Number">
+	  <id name="transID" type="int" column="transID" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="transnum" type="int">
+		 <column name="transnum" />
+	  </property>
+	  <property name="merchentId" type="int">
+		 <column name="merchentId" />
+	  </property>
+ </class>
+ 
+ <!-- Mapping for  VitalSettlementResponsemodel model-->
+ 
+ <class name="biz.janux.commerce.payment.model.VitalSettlementResponsemodel" table="vitalsettlementresponse">
+ 	 <id name="Id" type="long" column="Id" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="merchantId" type="long">
+		 <column name="merchantId" />
+	  </property>
+	  <property name="InstrumentId" type="long">
+		 <column name="InstrumentId" />
+	  </property>
+	   <property name="authId" type="long">
+		 <column name="authId" />
+	  </property>
+	  <property name="recordFormat">
+		 <column name="recordFormat" />
+	  </property>
+	  <property name="applicationType">
+		 <column name="applicationType" />
+	  </property>
+	  <property name="routingID">
+		 <column name="routingID" />
+	  </property>
+	  <property name="recordType">
+		 <column name="recordType" />
+	  </property>
+	  <property name="batchRecordCount">
+		 <column name="batchRecordCount" />
+	  </property>
+	  <property name="batchNetDeposit">
+		 <column name="batchNetDeposit" />
+	  </property>
+	  <property name="batchResponseCode">
+		 <column name="batchResponseCode" />
+	  </property>
+	  <property name="batchNumber">
+		 <column name="batchNumber" />
+	  </property>
+	  <property name="batchResponseText">
+		 <column name="batchResponseText" />
+	  </property>
+	  <!-- <property name="batchTransmissionDate">
+		 <column name="batchTransmissionDate" />
+	  </property>-->
+	  <property name="settlementAmount" type="big_decimal">
+		 <column name="settlementAmount" />
+	  </property>
+	  <property name="systemDate" type="date">
+		 <column name="systemDate" />
+	  </property>
+	  <property name="settled" type="int">
+		 <column name="settled" />
+	  </property>
+   </class>
+   
+	<!-- Mapping for  State model-->
+	
+	<class name="biz.janux.commerce.payment.model.State" table="state">
+	  <id name="stateId" type="long" column="stateId" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="code" >
+		 <column name="code" />
+	  </property>
+	  <property name="title" >
+		 <column name="title" />
+	  </property>
+ </class>
+</hibernate-mapping>
+ 	

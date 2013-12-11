@@ -1,0 +1,27 @@
+﻿<!--
+THIS SCRIPT IS INTENDED FOR USE WITH ANTHILL ON A UNIX MACHINE.
+
+The <exec> will not work on a windows machine. To make it work,
+you must change executable to "maven.bat".
+
+I have tried to make this compatible with Windows by using
+the <exec os=""> tag, which seemed to break things.
+
+Again, this script was written to be used to wrap a maven call
+within an ant build script for the Anthill system.
+
+If you are trying to build, try the following commands:
+
+maven java:compile
+maven jar
+maven war
+-->
+  <target name="compile">
+  <javac srcdir="./src" destdir="./bin" debug="on" optimize="off">
+    <classpath>
+      <fileset dir="lib" includes="*.jar"/>
+    </classpath>
+  </javac>
+</target>
+
+

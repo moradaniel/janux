@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+
+  <properties>
+    <title>Spreadsheet Report</title>
+    <!--<author email="user@user.com">AuthorName</author>-->
+  </properties>
+
+  <!-- An optional head, the description is used for the sitemap. -->
+  <!--
+  <head>
+    <meta name="keywords" content="List of keywords"/>
+    <meta name="description" content="The description"/>
+  </head>
+  -->
+
+  <body>
+
+    <section name="Spreadsheet Report">
+		<p>
+        	The project spreadsheet report contains sample usages and classes used to merge data into spreadsheet templates using
+			the <a href="http://jxls.sourceforge.net/">jxls</a> library.
+		</p>
+		<p>
+	        In the project, there exists a interface "<a href="apidocs/org/janux/spreadsheetReport/SpreadSheetReportService.html">SpreadSheetReportService</a>" and a implementation
+			class that facilitate the re-use of this component in other projects.
+		</p>
+		<p>
+			Also includes a Unit Test that can be used to exercise the code, and to facilitate implementation of a specific project. 
+			This Unit Test generates a demo report
+		</p>
+		<subsection name="To run the sample">
+			<p>
+				Run the maven command: clean test
+			</p>
+			<p>
+				This command compiles and executes the test that creates a demo report. This report is created using a template report.xls. The output report is generated in the directory: target/test-classes/reports  
+			</p>	
+      	</subsection>
+      	<subsection name="Configuration">
+			<p>
+				ApplicationContext-test.properties
+				<li>
+					<p>
+						#directory where the reports are saved
+					</p>
+					<p>								
+						spreadSheetReportTestConfiguration.testDestDirectory=//target//test-classes
+					</p>
+				</li>
+				<li>
+					<p>								
+						#directory where the templates are
+					</p>
+					<p>								
+						spreadSheetReportTestConfiguration.testTemplateDirectory=//target//test-classes//templates
+					</p>					
+				</li>
+				<li>
+					<p>								
+						#template name that will be used to generate the report
+					</p>
+					<p>								
+						spreadSheetReportTestConfiguration.nameTemplate=report.xls
+					</p>
+				</li>
+			</p>
+      	</subsection>
+      	<subsection name="Design">
+			<p>
+				Here are diagrams that show the design and relationships between the classes and packages.
+			</p>
+			<p>
+				<a href="diagrams/spreadsheet_report_packageDiagram_1.0.jpg">Package Diagram</a>
+			</p>
+			<p>
+				<a href="diagrams/spreadsheet_report_classDiagram_1.0.jpg">Class Diagram</a>
+			</p>
+			<p>
+				<a href="diagrams/spreadsheet_report_sequenceDiagram_1.0.jpg">Sequence Diagram</a>				  
+			</p>	
+      	</subsection>
+      	<subsection name="Notes">
+			<p>
+				It a preliminary approach. It is very simple. I think that in this moment we
+				can create these classes and use this simple functionality of the jxls library,
+				sure this library provide more functionality that we can do visible adding new
+				methods to the service in the future.
+			</p>
+      	</subsection>
+      <!--
+      <subsection name="A subsection">
+      </subsection>
+      -->
+    </section>
+
+  </body>
+
+</document>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries version="2">
+<library name="Janux_All" systemlibrary="false">
+<archive path="[MAVEN_REPO]/commons-collections/jars/commons-collections-3.1.jar"/>
+<archive path="[MAVEN_REPO]/commons-lang/jars/commons-lang-2.1.jar"/>
+<archive path="[MAVEN_REPO]/commons-logging/jars/commons-logging-1.0.4.jar"/>
+<archive path="[MAVEN_REPO]/log4j/jars/log4j-1.2.9.jar"/>
+<archive path="[MAVEN_REPO]/ostermiller/jars/ostermiller-utils-1.05.jar"/>
+<archive path="[MAVEN_REPO]/junit/jars/junit-3.8.1.jar"/>
+<archive path="[MAVEN_REPO]/aopalliance/jars/aopalliance-1.0.jar"/>
+<archive path="[MAVEN_REPO]/springframework/jars/spring-1.2.jar"/>
+<archive path="[MAVEN_REPO]/springframework/jars/spring-mock-1.2.jar"/>
+<archive path="[MAVEN_REPO]/commons-dbcp/jars/commons-dbcp-1.2.1.jar"/>
+<archive path="[MAVEN_REPO]/commons-pool/jars/commons-pool-1.2.jar"/>
+<archive path="[MAVEN_REPO]/antlr/jars/antlr-2.7.5.jar"/>
+<archive path="[MAVEN_REPO]/asm/jars/asm-1.5.3.jar"/>
+<archive path="[MAVEN_REPO]/asm/jars/asm-attrs-1.5.3.jar"/>
+<archive path="[MAVEN_REPO]/cglib/jars/cglib-2.1.jar"/>
+<archive path="[MAVEN_REPO]/dom4j/jars/dom4j-1.6.jar"/>
+<archive path="[MAVEN_REPO]/ehcache/jars/ehcache-1.1.jar"/>
+<archive path="[MAVEN_REPO]/javax.sql/jars/jdbc-stdext-2.0.jar"/>
+<archive path="[MAVEN_REPO]/javax.transaction/jars/jta-1.0.1.jar"/>
+<archive path="[MAVEN_REPO]/postgresql/jars/postgresql-7.4.1-jdbc3.jar"/>
+<archive path="[MAVEN_REPO]/mysql/jars/mysql-connector-java-3.1.7-bin.jar"/>
+<archive path="[MAVEN_REPO]/hibernate/jars/hibernate-3.1-rc1b.jar"/>
+<archive path="[MAVEN_REPO]/jtidy/jars/jtidy-r8-21122004.jar"/>
+<archive path="[MAVEN_REPO]/hibernate/jars/hibernate-tools-3.1-beta1.jar"/>
+<archive path="[MAVEN_REPO]/velocity/jars/velocity-1.4.jar"/>
+<archive path="[MAVEN_REPO]/velocity-tools/jars/velocity-tools-generic-1.1.jar"/>
+<archive path="[MAVEN_REPO]/struts/jars/struts.jar"/>
+<archive path="[MAVEN_REPO]/freemarker/jars/freemarker-2.3.6.jar"/>
+<archive path="[MAVEN_REPO]/javax.servlet/jars/servlet-api-2.4.jar"/>
+<archive path="[MAVEN_REPO]/acegisecurity/jars/acegi-security-1.0.0.jar"/>
+<archive path="[MAVEN_REPO]/velocity-tools/jars/velocity-tools-view-1.1.jar"/>
+</library>
+</eclipse-userlibraries>
