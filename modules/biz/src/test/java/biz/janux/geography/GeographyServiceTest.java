@@ -1,11 +1,12 @@
 package biz.janux.geography;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Map;
-
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Advisor;
@@ -67,9 +68,10 @@ public class GeographyServiceTest extends TransactionalBizTestAbstract
 		super();
 	}
 
+	/*
 	public GeographyServiceTest(String name)  {
 		super(name);
-	}
+	}*/
 
 	public void testFindCountryByCode() 
 	{
@@ -425,7 +427,7 @@ public class GeographyServiceTest extends TransactionalBizTestAbstract
 	public static void main(String[] args)
 	{
 		// create the suite of tests
-		final TestSuite tSuite = new TestSuite();
+		/*final TestSuite tSuite = new TestSuite();
 		try
 		{
 			tSuite.addTest(new GeographyServiceTest("testTransactionSetCityStateCountry"));
@@ -434,7 +436,7 @@ public class GeographyServiceTest extends TransactionalBizTestAbstract
 		{
 			e.printStackTrace();
 		}
-		TestRunner.run(tSuite);
+		TestRunner.run(tSuite);*/
 	}
 	
 	/**

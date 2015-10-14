@@ -1,6 +1,10 @@
 package biz.janux.test;
 
-import org.janux.bus.persistence.TransactionalTestAbstract;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * This class can be used for all transactional tests in the biz.janux module; it merely extends
@@ -11,13 +15,20 @@ import org.janux.bus.persistence.TransactionalTestAbstract;
  *
  * @version  $Revision: 1.4 $ - $Date: 2007-03-06 16:03:33 $
  */
-public abstract class TransactionalBizTestAbstract extends TransactionalTestAbstract
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:ApplicationContext.xml"})
+public abstract class TransactionalBizTestAbstract// extends TransactionalTestAbstract
 {
+    @Autowired
+    protected ApplicationContext applicationContext;
+    
+    /*
 	protected String[] getConfigLocations(){
 		return new String[] {
 			"classpath:ApplicationContext.xml",
 		};
-	}
+	}*/
 	/*
 			"classpath:DatabaseContext.xml",
 			"classpath:HibernateContext.xml",
@@ -34,8 +45,8 @@ public abstract class TransactionalBizTestAbstract extends TransactionalTestAbst
 	}
 
 	/** used to provide the standard Test String constructor */
-	public TransactionalBizTestAbstract(String name) {
+	/*public TransactionalBizTestAbstract(String name) {
 		super(name);
-	}
+	}*/
 
 }

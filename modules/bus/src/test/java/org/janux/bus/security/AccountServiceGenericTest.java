@@ -1,15 +1,17 @@
 package org.janux.bus.security;
 
-import java.util.Set;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.janux.bus.persistence.TransactionalTestAbstract;
+//import org.janux.bus.persistence.TransactionalTestAbstract;
 import org.janux.bus.test.TransactionalBusTestAbstractGeneric;
+import org.junit.Test;
 
 
 /**
@@ -40,10 +42,11 @@ public class AccountServiceGenericTest extends TransactionalBusTestAbstractGener
 		super();
 	}
 
-	public AccountServiceGenericTest(String name) {
+	/*public AccountServiceGenericTest(String name) {
 		super(name);
-	}
+	}*/
 
+	@Test
 	public void testFindByName() 
 	{
 		Account account = accountServiceGeneric.findAccountByName(ACCOUNT_HERA);
@@ -67,6 +70,7 @@ public class AccountServiceGenericTest extends TransactionalBusTestAbstractGener
 		if (log.isDebugEnabled()) log.debug(account);
 	}
 
+	@Test
 	public void testAccountSettings()
 	{
 		final String settingTag1 = "setting1";
@@ -108,6 +112,7 @@ public class AccountServiceGenericTest extends TransactionalBusTestAbstractGener
 	 * List<Role> is retrieved, and consequently on the next 'save' operation the sortOrder sequence
 	 * should be set properly.
 	 */
+	@Test
 	public void testAccountWithNullRoles()
 	{
 		Account account = accountServiceGeneric.findAccountByName(ACCOUNT_WITH_NULL_ROLES);
@@ -122,8 +127,8 @@ public class AccountServiceGenericTest extends TransactionalBusTestAbstractGener
 	public static void main(String[] args)
 	{
 			// create the suite of tests
-			final TestSuite tSuite = new TestSuite();
+			/*final TestSuite tSuite = new TestSuite();
 			tSuite.addTest(new AccountServiceGenericTest("testFindByName"));
-			TestRunner.run(tSuite);
+			TestRunner.run(tSuite);*/
 	}
 } // end class AccountServiceTest

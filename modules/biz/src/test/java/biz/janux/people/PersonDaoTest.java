@@ -1,12 +1,13 @@
 package biz.janux.people;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
-
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import biz.janux.commerce.CommerceDao;
 import biz.janux.commerce.CreditCardFop;
 import biz.janux.commerce.FormOfPayment;
@@ -40,9 +41,10 @@ public class PersonDaoTest extends TransactionalBizTestAbstract
 		super();
 	}
 
+	/*
 	public PersonDaoTest(String name) {
 		super(name);
-	}
+	}*/
 
 	public void testLoadPerson() 
 	{
@@ -329,9 +331,9 @@ public class PersonDaoTest extends TransactionalBizTestAbstract
     public static void main(String[] args)
     {
         // create the suite of tests
-        final TestSuite tSuite = new TestSuite();
+        /*final TestSuite tSuite = new TestSuite();
         tSuite.addTest(new PersonDaoTest("testSavePerson"));
-        TestRunner.run(tSuite);
+        TestRunner.run(tSuite);*/
     }
 	
 } // end class PersonDaoTest

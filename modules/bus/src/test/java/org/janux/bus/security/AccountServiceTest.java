@@ -1,15 +1,16 @@
 package org.janux.bus.security;
 
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.janux.bus.test.TransactionalBusTestAbstract;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.janux.bus.test.TransactionalBusTestAbstract;
+import org.junit.Test;
 
 
 /**
@@ -39,10 +40,11 @@ public class AccountServiceTest extends TransactionalBusTestAbstract
 		super();
 	}
 
+	/*
 	public AccountServiceTest(String name) {
 		super(name);
-	}
-
+	}*/
+    @Test
 	public void testFindByName() 
 	{
 		Account account = accountService.findAccountByName(ACCOUNT_HERA);
@@ -65,7 +67,8 @@ public class AccountServiceTest extends TransactionalBusTestAbstract
 		assertNotNull(account);
 		if (log.isDebugEnabled()) log.debug(account);
 	}
-
+    
+    @Test
 	public void testAccountSettings()
 	{
 		final String settingTag1 = "setting1";
@@ -107,6 +110,7 @@ public class AccountServiceTest extends TransactionalBusTestAbstract
 	 * List<Role> is retrieved, and consequently on the next 'save' operation the sortOrder sequence
 	 * should be set properly.
 	 */
+    @Test
 	public void testAccountWithNullRoles()
 	{
 		Account account = accountService.findAccountByName(ACCOUNT_WITH_NULL_ROLES);

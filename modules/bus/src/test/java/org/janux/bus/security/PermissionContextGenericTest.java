@@ -1,12 +1,14 @@
 package org.janux.bus.security;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.extensions.TestSetup;
+//import junit.framework.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
 /**
  ***************************************************************************************************
@@ -18,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
  * @see
  ***************************************************************************************************
  */
-public class PermissionContextGenericTest extends TestCase
+public class PermissionContextGenericTest/* extends TestCase*/
 {
 	Log log = LogFactory.getLog(this.getClass());
 
@@ -32,6 +34,7 @@ public class PermissionContextGenericTest extends TestCase
 	}
 
 
+	@Test
 	public void testPermissionContext()
 	{
 		String[] perms = MockObjectFactory.STANDARD_PERMS;

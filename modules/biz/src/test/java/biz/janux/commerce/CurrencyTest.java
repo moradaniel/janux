@@ -1,12 +1,11 @@
 package biz.janux.commerce;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.hibernate.SessionFactory;
+import org.junit.Test;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import biz.janux.people.Language;
@@ -15,15 +14,16 @@ import biz.janux.test.TransactionalBizTestAbstract;
 
 public class CurrencyTest extends TransactionalBizTestAbstract
 {
+    /*
 	public CurrencyTest(String aTestName)
 	{
 		super(aTestName);
-	}
+	}*/
 
 
 	
 	/** define the tests to be run in this class */
-	public static Test suite() throws Exception
+	/*public static Test suite() throws Exception
 	{
 		final TestSuite suite = new TestSuite();
 
@@ -39,7 +39,7 @@ public class CurrencyTest extends TransactionalBizTestAbstract
 	// 	suite.addTest(new CurrencyTest("testCurrencyDefaultDigits"));
 
 		return suite;
-	}
+	}*/
 
 
 
@@ -48,11 +48,12 @@ public class CurrencyTest extends TransactionalBizTestAbstract
 	 */
 	public static void main(String[] args) throws Exception
 	{
-        TestRunner.run(suite());
+        //TestRunner.run(suite());
 	}
 
 
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testFindCurrency()
 	{
 		final SessionFactory sessFactory = (SessionFactory ) applicationContext.getBean("hibernateSessionFactory");
@@ -70,7 +71,7 @@ public class CurrencyTest extends TransactionalBizTestAbstract
         template.delete(newCurrency);
 	}
 
-
+	@Test
 	public void testCurrencyDefaultDigits()
 	{
 		final Currency newCurrency = new CurrencyImpl();
@@ -94,6 +95,7 @@ public class CurrencyTest extends TransactionalBizTestAbstract
 	
 
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testFindPaymentMethod()
 	{
 		final SessionFactory sessFactory = (SessionFactory ) applicationContext.getBean("hibernateSessionFactory");
@@ -113,6 +115,7 @@ public class CurrencyTest extends TransactionalBizTestAbstract
 
 
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testFindDepositMethod()
 	{
 		final SessionFactory sessFactory = (SessionFactory ) applicationContext.getBean("hibernateSessionFactory");
@@ -132,6 +135,7 @@ public class CurrencyTest extends TransactionalBizTestAbstract
 
 
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testFindGuaranteeMethod()
 	{
 		final SessionFactory sessFactory = (SessionFactory ) applicationContext.getBean("hibernateSessionFactory");
@@ -151,6 +155,7 @@ public class CurrencyTest extends TransactionalBizTestAbstract
 
 
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testFindLanguage()
 	{
 		final SessionFactory sessFactory = (SessionFactory ) applicationContext.getBean("hibernateSessionFactory");

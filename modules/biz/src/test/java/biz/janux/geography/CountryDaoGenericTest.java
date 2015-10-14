@@ -1,10 +1,12 @@
 package biz.janux.geography;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Iterator;
 import java.util.Map;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import biz.janux.test.TransactionalBizTestAbstractGeneric;
 
 /**
@@ -40,9 +42,10 @@ public class CountryDaoGenericTest extends TransactionalBizTestAbstractGeneric
 		super();
 	}
 
+	/*
 	public CountryDaoGenericTest(String name)  {
 		super(name);
-	}
+	}*/
 
 	public void testLoad() 
 	{
@@ -99,9 +102,9 @@ public class CountryDaoGenericTest extends TransactionalBizTestAbstractGeneric
     public static void main(String[] args)
     {
         // create the suite of tests
-        final TestSuite tSuite = new TestSuite();
+        /*final TestSuite tSuite = new TestSuite();
         tSuite.addTest(new CountryDaoGenericTest("testLoad"));
-        TestRunner.run(tSuite);
+        TestRunner.run(tSuite);*/
     }
 
 }

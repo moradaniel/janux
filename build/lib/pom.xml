@@ -15,7 +15,8 @@
 		<groupId>janux</groupId>
 		<artifactId>janux-project</artifactId>
 		<version>0.4.01-SNAPSHOT</version>
-	</parent>
+		<relativePath>../pom.xml</relativePath>
+  </parent>
 
   <modules>
 		<module>util</module>

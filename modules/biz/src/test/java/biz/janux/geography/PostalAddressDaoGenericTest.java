@@ -1,5 +1,9 @@
 package biz.janux.geography;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.List;
 
 import junit.framework.TestSuite;
@@ -20,9 +24,10 @@ public class PostalAddressDaoGenericTest extends TransactionalBizTestAbstractGen
 		super();
 	}
 
+	/*
 	public PostalAddressDaoGenericTest(String name)  {
 		super(name);
-	}
+	}*/
 
 	/** 
 	 * Address which references a City as an entity (with a foreign-key) and

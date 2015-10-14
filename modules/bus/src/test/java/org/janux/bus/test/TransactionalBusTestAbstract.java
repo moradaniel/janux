@@ -1,6 +1,8 @@
 package org.janux.bus.test;
 
-import org.janux.bus.persistence.TransactionalTestAbstract;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * This class can be used for all transactional tests in the org.janux.bus module; it merely extends
@@ -11,14 +13,17 @@ import org.janux.bus.persistence.TransactionalTestAbstract;
  *
  * @version  $Revision: 1.2 $ - $Date: 2006-08-23 22:21:59 $
  */
-public abstract class TransactionalBusTestAbstract extends TransactionalTestAbstract
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:ApplicationContext.xml", "classpath:SecurityContext.xml"})
+public abstract class TransactionalBusTestAbstract /*extends TransactionalTestAbstract*/
 {
+    /*
 	protected String[] getConfigLocations(){
 		return new String[] {
 			"classpath:ApplicationContext.xml",
 			"classpath:SecurityContext.xml"
 		};
-	}
+	}*/
 	/*
 			"classpath:DatabaseContext.xml",
 			"classpath:HibernateContext.xml",
@@ -30,7 +35,7 @@ public abstract class TransactionalBusTestAbstract extends TransactionalTestAbst
 	}
 
 	/** used to provide the standard Test String constructor */
-	public TransactionalBusTestAbstract(String name) {
+	/*public TransactionalBusTestAbstract(String name) {
 		super(name);
-	}
+	}*/
 }

@@ -1,8 +1,11 @@
 package biz.janux.geography;
 
-import java.util.Map;
-import java.util.Iterator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+import java.util.Map;
 
 import biz.janux.test.TransactionalBizTestAbstract;
 
@@ -39,9 +42,10 @@ public class CountryDaoTest extends TransactionalBizTestAbstract
 		super();
 	}
 
+	/*
 	public CountryDaoTest(String name)  {
 		super(name);
-	}
+	}*/
 
 	public void testLoad() 
 	{

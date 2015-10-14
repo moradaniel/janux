@@ -1,8 +1,11 @@
 package biz.janux.commerce;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import biz.janux.test.TransactionalBizTestAbstract;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  ***************************************************************************************************
@@ -17,12 +20,13 @@ public class CreditCardFopServiceTest extends TransactionalBizTestAbstract
 	private CreditCardFopService creditCardFopService;
 	
 	/** define the tests to be run in this class */
-	public static Test suite() throws Exception
+	/*public static Test suite() throws Exception
 	{
 		final TestSuite suite = new TestSuite(CreditCardFopServiceTest.class);
 		return suite;
-	}
+	}*/
 	
+	@Test
 	public void testEncryptCreditCard()
 	{
 		/**

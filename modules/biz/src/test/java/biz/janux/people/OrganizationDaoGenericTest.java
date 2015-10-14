@@ -1,5 +1,10 @@
 package biz.janux.people;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+
 import java.util.Map;
 
 import biz.janux.geography.PostalAddress;
@@ -19,9 +24,10 @@ public class OrganizationDaoGenericTest extends TransactionalBizTestAbstractGene
 		super();
 	}
 
+	/*
 	public OrganizationDaoGenericTest(String name) {
 		super(name);
-	}
+	}*/
 
 	public void testFindByCode() 
 	{

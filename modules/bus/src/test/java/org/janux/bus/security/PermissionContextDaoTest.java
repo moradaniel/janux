@@ -1,14 +1,19 @@
 package org.janux.bus.security;
 
-import java.util.SortedSet;
-import java.util.List;
-import java.util.Iterator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
-import org.janux.bus.persistence.EntityNotFoundException;
-import org.janux.bus.test.TransactionalBusTestAbstract;
+import java.util.Iterator;
+import java.util.List;
+import java.util.SortedSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.janux.bus.persistence.EntityNotFoundException;
+import org.janux.bus.test.TransactionalBusTestAbstract;
+import org.junit.Test;
 
 
 /**
@@ -38,10 +43,12 @@ public class PermissionContextDaoTest extends TransactionalBusTestAbstract
 		super();
 	}
 
+	/*
 	public PermissionContextDaoTest(String name) {
 		super(name);
-	}
+	}*/
 
+	@Test
 	public void testLoadAll() 
 	{
 		SortedSet<PermissionContext> set = permContextDao.loadAll();
@@ -65,6 +72,7 @@ public class PermissionContextDaoTest extends TransactionalBusTestAbstract
 	}
 
 
+	@Test
 	public void testLoadByName() 
 	{
 		PermissionContext permContext = permContextDao.loadByName(HOLIDAY);
@@ -80,6 +88,7 @@ public class PermissionContextDaoTest extends TransactionalBusTestAbstract
 		}
 	}
 
+	@Test
 	public void testFindByName() 
 	{
 		PermissionContext permContext = permContextDao.findByName(HOLIDAY);
@@ -88,6 +97,7 @@ public class PermissionContextDaoTest extends TransactionalBusTestAbstract
 		assertNull(permContextDao.findByName("BOGUS"));
 	}
 
+	
 	private void assertContext(PermissionContext permContext)
 	{
 		assertNotNull(permContext);

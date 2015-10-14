@@ -27,7 +27,7 @@
 	<!-- default file logger -->
 	<appender name="AppLogger" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="${janux.log.dir}/application.log"/>
-		<param name="Append" value="false"/>
+		<param name="Append" value="true"/>
 		<param name="DatePattern" value="'.'yyyyMMdd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%-5p] %c - %m\n"/>
@@ -37,7 +37,7 @@
 	<!-- Logger for the main model entity classes -->
 	<appender name="ModelLogger" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="${janux.log.dir}/model.log"/>
-		<param name="Append" value="false"/>
+		<param name="Append" value="true"/>
 		<param name="DatePattern" value="'.'yyyyMMdd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%-5p] %c{1} - %m\n"/>
@@ -47,7 +47,7 @@
 	<!-- logger to track hibernate activity and SQL queries -->
 	<appender name="SqlLogger" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="${janux.log.dir}/sql.log"/>
-		<param name="Append" value="false"/>
+		<param name="Append" value="true"/>
 		<param name="DatePattern" value="'.'yyyyMMdd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%-5p] %c{1} - %m\n"/>

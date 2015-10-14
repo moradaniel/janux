@@ -1,14 +1,13 @@
 package biz.janux.people;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.Map;
 
-
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
-import biz.janux.test.TransactionalBizTestAbstract;
-
 import biz.janux.geography.PostalAddress;
+import biz.janux.test.TransactionalBizTestAbstract;
 
 /**
  * @author   <a href="mailto:philippe.paravicini@janux.org">Philippe Paravicini</a>
@@ -22,9 +21,10 @@ public class PartyDaoTest extends TransactionalBizTestAbstract
 		super();
 	}
 
+	/*
 	public PartyDaoTest(String name) {
 		super(name);
-	}
+	}*/
 
 	public void testLoadPerson() 
 	{
@@ -116,11 +116,11 @@ public class PartyDaoTest extends TransactionalBizTestAbstract
      * @param args command line args
      */
     public static void main(String[] args)
-    {
+    {/*
         // create the suite of tests
         final TestSuite tSuite = new TestSuite();
         tSuite.addTest(new PartyDaoTest("testSavePerson"));
-        TestRunner.run(tSuite);
+        TestRunner.run(tSuite);*/
     }
 
 } // end class PartyDaoTest

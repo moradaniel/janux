@@ -1,11 +1,13 @@
 package biz.janux.people;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import biz.janux.geography.PostalAddressImpl;
 import biz.janux.people.service.PersonService;
 import biz.janux.test.TransactionalBizTestAbstractGeneric;
@@ -27,9 +29,10 @@ public class PersonServiceGenericTest extends TransactionalBizTestAbstractGeneri
 		super();
 	}
 
+	/*
 	public PersonServiceGenericTest(String name) {
 		super(name);
-	}
+	}*/
 	
 	public void setPersonService(PersonService<Person, ISearch> personService) {
 		this.personService = personService;
@@ -93,10 +96,10 @@ public class PersonServiceGenericTest extends TransactionalBizTestAbstractGeneri
     public static void main(String[] args)
     {
         // create the suite of tests
-        final TestSuite tSuite = new TestSuite();
+        /*final TestSuite tSuite = new TestSuite();
         tSuite.addTest(new PersonServiceGenericTest("testFindPersons"));
         //tSuite.addTest(new PersonServiceTest("testLoadPersonByFacets"));
-        TestRunner.run(tSuite);
+        TestRunner.run(tSuite);*/
     }
 	
 } 

@@ -1,17 +1,21 @@
 package org.janux.bus.security;
 
-import java.util.SortedSet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 import java.util.List;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.janux.bus.persistence.EntityNotFoundException;
-import org.janux.bus.test.TransactionalBusTestAbstract;
+import java.util.SortedSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.janux.bus.persistence.EntityNotFoundException;
+import org.janux.bus.test.TransactionalBusTestAbstract;
+import org.junit.Test;
 
 
 /**
@@ -53,9 +57,10 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 		super();
 	}
 
+	/*
 	public RoleDaoTest(String name) {
 		super(name);
-	}
+	}*/
 
 	/*
 	public static Test suite()
@@ -66,6 +71,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 	}
 	*/
 
+	@Test
 	public void testLoadAll() 
 	{
 		SortedSet<Role> set = roleDao.loadAll();
@@ -88,7 +94,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 		assertEquals(SUPER_HUMAN, role.getName());
 	}
 
-
+	@Test
 	public void testLoadByName() 
 	{
 		Role role = roleDao.loadByName(HOL_MAN);
@@ -109,7 +115,8 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 			// expected behavior
 		}
 	}
-
+	
+    @Test
 	public void testFindByName() 
 	{
 		Role role = roleDao.findByName(HOL_MAN);
@@ -131,6 +138,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 	 * TODO: This should really be within a unit test rather than a DAO test, but for
 	 * the time being we are putting it here for expediency
 	 */
+    @Test    
 	public void testRoleWithAggrRoles()
 	{
 		Role role = roleDao.findByName(MANAGER);
@@ -144,6 +152,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 	 * Tests a Role that has permissions inherited via aggregated roles, as well as
 	 * additional permissions assigned directly
 	 */
+    @Test    
 	public void testRoleWithAggrRolesAndPerms()
 	{
 		PermissionsCapable role = roleDao.findByName(SUPERVISOR);
@@ -171,6 +180,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 	 * Tests a Role that has permissions inherited via multiple levels of aggregated roles, as well as
 	 * additional permissions assigned directly
 	 */
+    @Test
 	public void testRoleWithMultiLevelAggrRoles()
 	{
 		PermissionsCapable role = roleDao.findByName(GODDESS);
@@ -197,6 +207,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 	 * Tests a Role that has permissions inherited from a parent role, 
 	 * but explicitly denies one of the Permissions inherited
 	 */
+    @Test    
 	public void testRoleWithDeny()
 	{
 		Role role = roleDao.findByName(SUPER_HUMAN);
@@ -222,6 +233,7 @@ public class RoleDaoTest extends TransactionalBusTestAbstract
 	 * List<Role> is retrieved, and consequently on the next 'save' operation the sortOrder sequence
 	 * should be set properly.
 	 */
+    @Test    
 	public void testRoleWithNullAggrRoles()
 	{
 		Role role = roleDao.findByName(ROLE_WITH_NULLS);

@@ -1,9 +1,11 @@
 package biz.janux.people;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.Map;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import biz.janux.geography.PostalAddress;
 import biz.janux.test.TransactionalBizTestAbstractGeneric;
 
@@ -19,9 +21,10 @@ public class PartyDaoGenericTest extends TransactionalBizTestAbstractGeneric
 		super();
 	}
 
+	/*
 	public PartyDaoGenericTest(String name) {
 		super(name);
-	}
+	}*/
 
 	public void testLoadPerson() 
 	{
@@ -115,10 +118,10 @@ public class PartyDaoGenericTest extends TransactionalBizTestAbstractGeneric
     public static void main(String[] args)
     {
         // create the suite of tests
-    	final TestSuite tSuite = new TestSuite();
+    	/*final TestSuite tSuite = new TestSuite();
         tSuite.addTest(new PartyDaoGenericTest("testSavePerson"));
         tSuite.addTest(new PartyDaoGenericTest("testLoadPerson"));
-        TestRunner.run(tSuite);
+        TestRunner.run(tSuite);*/
     }
 
 } // end class PartyDaoTest

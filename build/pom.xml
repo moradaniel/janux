@@ -25,7 +25,7 @@
 		<janux.home>.</janux.home>
 
 		<!-- versions of grouped dependency poms in lib folder -->
-		<spring.version>3.2.5.RELEASE</spring.version>
+		<spring.version>4.2.1.RELEASE</spring.version>
 		<spring.security.version>3.1.4.RELEASE</spring.security.version>
 
 		<!-- 
@@ -225,7 +225,7 @@
 				<version>0.5.1</version>
 			</dependency>
 			<!-- end trg search facade -->
-
+        
 		</dependencies>
 
 	</dependencyManagement>
@@ -253,8 +253,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.5</source>
-						<target>1.5</target>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 
@@ -274,7 +274,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-eclipse-plugin</artifactId>
-					<version>2.6</version>
+					<!-- version>2.6</version -->
 				</plugin>
 			</plugins>
 

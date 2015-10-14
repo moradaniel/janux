@@ -1,5 +1,12 @@
 package org.janux.bus.security;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -7,8 +14,8 @@ import java.util.SortedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.janux.bus.persistence.EntityNotFoundException;
-import org.janux.bus.persistence.TransactionalTestAbstract;
 import org.janux.bus.test.TransactionalBusTestAbstractGeneric;
+import org.junit.Test;
 
 
 /**
@@ -51,10 +58,12 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 		super();
 	}
 
+	/*
 	public RoleDaoGenericTest(String name) {
 		super(name);
-	}
+	}*/
 
+	@Test
 	public void testLoadAll() 
 	{
 		SortedSet<Role> set = roleDaoGeneric.loadAll();
@@ -77,7 +86,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 		assertEquals(SUPER_HUMAN, role.getName());
 	}
 
-
+    @Test
 	public void testLoadByName() 
 	{
 		Role role = roleDaoGeneric.loadByName(HOL_MAN);
@@ -98,7 +107,8 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 			// expected behavior
 		}
 	}
-
+    
+    @Test
 	public void testFindByName() 
 	{
 		Role role = roleDaoGeneric.findByName(HOL_MAN);
@@ -120,6 +130,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 	 * TODO: This should really be within a unit test rather than a DAO test, but for
 	 * the time being we are putting it here for expediency
 	 */
+    @Test
 	public void testRoleWithAggrRoles()
 	{
 		Role role = roleDaoGeneric.findByName(MANAGER);
@@ -133,6 +144,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 	 * Tests a Role that has permissions inherited via aggregated roles, as well as
 	 * additional permissions assigned directly
 	 */
+    @Test
 	public void testRoleWithAggrRolesAndPerms()
 	{
 		PermissionsCapable role = roleDaoGeneric.findByName(SUPERVISOR);
@@ -160,6 +172,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 	 * Tests a Role that has permissions inherited via multiple levels of aggregated roles, as well as
 	 * additional permissions assigned directly
 	 */
+    @Test
 	public void testRoleWithMultiLevelAggrRoles()
 	{
 		PermissionsCapable role = roleDaoGeneric.findByName(GODDESS);
@@ -186,6 +199,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 	 * Tests a Role that has permissions inherited from a parent role, 
 	 * but explicitly denies one of the Permissions inherited
 	 */
+    @Test
 	public void testRoleWithDeny()
 	{
 		Role role = roleDaoGeneric.findByName(SUPER_HUMAN);
@@ -211,6 +225,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 	 * List<Role> is retrieved, and consequently on the next 'save' operation the sortOrder sequence
 	 * should be set properly.
 	 */
+    @Test
 	public void testRoleWithNullAggrRoles()
 	{
 		Role role = roleDaoGeneric.findByName(ROLE_WITH_NULLS);
@@ -235,6 +250,7 @@ public class RoleDaoGenericTest extends TransactionalBusTestAbstractGeneric
 		assertEquals("holiday permissions", HOL_PERM_TAKE + HOL_PERM_APPROVE, role.getPermissionsValue(CTX_HOL));
 	}
 
+    
 	private void assertWorkManager(PermissionsCapable role)
 	{
 		assertNotNull(role);

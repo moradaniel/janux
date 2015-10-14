@@ -1,10 +1,13 @@
 package biz.janux.people;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.Map;
 
-import biz.janux.test.TransactionalBizTestAbstract;
-
 import biz.janux.geography.PostalAddress;
+import biz.janux.test.TransactionalBizTestAbstract;
 
 /**
  * @author   <a href="mailto:philippe.paravicini@janux.org">Philippe Paravicini</a>
@@ -20,9 +23,10 @@ public class OrganizationDaoTest extends TransactionalBizTestAbstract
 		super();
 	}
 
+	/*
 	public OrganizationDaoTest(String name) {
 		super(name);
-	}
+	}*/
 
 	public void testFindByCode() 
 	{

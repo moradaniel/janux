@@ -16,7 +16,7 @@ public class CommerceDaoHibImpl extends DataAccessHibImplAbstract implements Com
 	@SuppressWarnings("unchecked")
 	public Currency findCurrencyByCode(final String code)
 	{
-		final List<Currency> list = getHibernateTemplate().find("from CurrencyImpl where code=?", code);
+		final List<Currency> list = (List<Currency>) getHibernateTemplate().find("from CurrencyImpl where code=?", code);
 
 		if (list.size() == 0)
 		{
@@ -35,7 +35,7 @@ public class CommerceDaoHibImpl extends DataAccessHibImplAbstract implements Com
 	@SuppressWarnings("unchecked")
 	public PaymentMethod findPaymentMethodByCode(final String code)
 	{
-		final List<PaymentMethod> list = getHibernateTemplate().find("from PaymentMethodImpl where code=?", code);
+		final List<PaymentMethod> list = (List<PaymentMethod>)getHibernateTemplate().find("from PaymentMethodImpl where code=?", code);
 
 		if (list.size() == 0)
 		{
@@ -54,7 +54,7 @@ public class CommerceDaoHibImpl extends DataAccessHibImplAbstract implements Com
 	@SuppressWarnings("unchecked")
 	public GuaranteeMethod findGuaranteeMethodByCode(final String code)
 	{
-		final List<GuaranteeMethod> list = getHibernateTemplate().find("from GuaranteeMethodImpl where code=?", code);
+		final List<GuaranteeMethod> list = (List<GuaranteeMethod>)getHibernateTemplate().find("from GuaranteeMethodImpl where code=?", code);
 
 		if (list.size() == 0)
 		{
@@ -73,7 +73,7 @@ public class CommerceDaoHibImpl extends DataAccessHibImplAbstract implements Com
 	@SuppressWarnings("unchecked")
 	public DepositMethod findDepositMethodByCode(final String code)
 	{
-		final List<DepositMethod> list = getHibernateTemplate().find("from DepositMethodImpl where code=?", code);
+		final List<DepositMethod> list = (List<DepositMethod>)getHibernateTemplate().find("from DepositMethodImpl where code=?", code);
 
 		if (list.size() == 0)
 		{
@@ -92,28 +92,28 @@ public class CommerceDaoHibImpl extends DataAccessHibImplAbstract implements Com
 	@SuppressWarnings("unchecked")
 	public List<Currency> getCurrencies()
 	{
-		final List<Currency> list = getHibernateTemplate().find("from CurrencyImpl");
+		final List<Currency> list = (List<Currency>)getHibernateTemplate().find("from CurrencyImpl");
 		return (list);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<PaymentMethod> getPaymentMethods()
 	{
-		final List<PaymentMethod> list = getHibernateTemplate().find("from PaymentMethodImpl");
+		final List<PaymentMethod> list = (List<PaymentMethod>)getHibernateTemplate().find("from PaymentMethodImpl");
 		return (list);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<GuaranteeMethod> getGuaranteeMethods()
 	{
-		final List<GuaranteeMethod> list = getHibernateTemplate().find("from GuaranteeMethodImpl");
+		final List<GuaranteeMethod> list = (List<GuaranteeMethod>)getHibernateTemplate().find("from GuaranteeMethodImpl");
 		return (list);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<DepositMethod> getDepositMethods()
 	{
-		final List<DepositMethod> list = getHibernateTemplate().find("from DepositMethodImpl");
+		final List<DepositMethod> list = (List<DepositMethod>)getHibernateTemplate().find("from DepositMethodImpl");
 		return (list);
 	}
 	
